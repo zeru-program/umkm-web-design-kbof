@@ -1,0 +1,122 @@
+{
+    "users": {
+        "u1": {
+            "id": "U8sfjcs",
+            "img": "",
+            "username": "Budi",
+            "password": "BudiGantengEp1@9!",
+            "email": "budi@gmail.com",
+            "phone": 082222222,
+            "gender": true,
+            "total_orders": 9
+        }
+    },
+    "users_admin": {
+        "u1": {
+            "id": "U8sfjcs",
+            "img": "",
+            "username": "Justine",
+            "password": "devGH@9!",
+            "email": "justine@gmail.com",
+            "phone": 082222222,
+            "gender": true,
+            "role": "developer",
+            "token": "ihfdsj2392u9r"
+        },
+        "u2": {
+            "id": "U8sfjcs",
+            "img": "",
+            "username": "Farhan",
+            "password": "devGH@9!",
+            "email": "farhan@gmail.com",
+            "phone": 082222222,
+            "gender": true,
+            "role": "developer",
+            "token": "safhckesn"
+        }
+    },
+    "products": {
+        "p1": {
+            "id": "Phfdjc23",
+            "name": "",
+            "type": "",
+            "description": "",
+            "img": "",
+            "location": "tajur",
+            "is_popular": true,
+            "is_discount": false,
+            "price": 12000,
+            "spesification": {
+                "tinggi": "21cm",
+                "berat": "3kg",
+                "kondisi": "sehat",
+                "is_fresh": true
+            },
+            "rating": {
+                "1": true,
+                "2": true,
+                "3": true,
+                "4": true,
+                "5": false
+            }
+        }
+    },
+    "orders": {
+        "o1": {
+            "token": "23jsni14jdsfjoj2o3rosinfoaivnoeqr",
+            "id_order": "f62hsscz",
+            "id_user": "12341",
+            "id_product": "Phfdjc23",
+            "qty": 2,
+            "total": 24000,
+            "payment_method": "cod",
+            "location_client": "ciapus", // ini jika method adalah cod
+            "phone_tf": null, // ini jika method adalah tf qris atau semacamnya
+            "norek_tf": null, // ini jika method adalah tf menggunakan bank digital
+            "status": "",
+            "created_at": "now date"
+        }
+    },
+    "product_promo": {
+        "p1": {
+            "id_product": "Phfdjc23",
+            "percentage_promo": "20%",
+            "periode_start": "2024-12-25",
+            "periode_end": "2024-12-28",
+            "status": "draft",
+            "create_at": "now date",
+            "create_by": "now date"
+        }
+    },
+    "product_popular": {
+        "p1": {
+            "id_product": "Phfdjc23",
+            "range_highlight": "20%",
+            "periode_start": "2024-12-25",
+            "periode_end": "2024-12-28",
+            "status": "draft",
+            "create_at": "now date",
+            "create_by": "now date"
+        }
+    },
+    "education": {
+        "e1": {
+            "id": "ijew99c",
+            "title": "Cara Menanam dengan Baik 2024 No Root Bgus banget",
+            "img": "",
+            "short_desc": "ambalabu lorem1",
+            "category": "",
+            "content": ""
+        }
+    },
+    "education_category": {
+        "c1": {
+            "id": "ijwbd12",
+            "name": "",
+            "description": "",
+            "created_at": "now date",
+            "created_by": "admin",
+            "status": true
+        }
+    }
+}
