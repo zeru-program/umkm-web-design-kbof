@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import Base from "../layouts/Base";
 
@@ -213,3 +214,15 @@ const Home = () => {
 };
 
 export default Home;
+=======
+
+const Home = () => {
+    return (
+     <>
+     home
+     </>
+    )
+}
+
+export default Home
+>>>>>>> 4d48508860846a90ff6a33fc7f47a3ff3c2f7c96

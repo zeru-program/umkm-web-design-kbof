@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   box-sizing: border-box;
 }
@@ -280,6 +281,17 @@ button {
     gap: 113px;
     flex-direction: column;
   }
+=======
+
+/* #496653
+   #62896F
+   #F39C12
+   #34495E font
+   #F4F9F4 bg
+*/
+
+body {
+>>>>>>> 4d48508860846a90ff6a33fc7f47a3ff3c2f7c96
 }
 /* size desktop */
 @media screen and (min-width: 700px) {
