@@ -6,33 +6,29 @@
             "username": "Budi",
             "password": "BudiGantengEp1@9!",
             "email": "budi@gmail.com",
-            "phone": 082222222,
+            "phone": 12023,
             "gender": true,
-            "total_orders": 9
-        }
-    },
-    "users_admin": {
-        "u1": {
+            "role": "pembeli"
+        },
+        "u2": {
             "id": "U8sfjcs",
             "img": "",
             "username": "Justine",
             "password": "devGH@9!",
             "email": "justine@gmail.com",
-            "phone": 082222222,
+            "phone": 12023,
             "gender": true,
-            "role": "developer",
-            "token": "ihfdsj2392u9r"
+            "role": "developer"
         },
-        "u2": {
+        "u3": {
             "id": "U8sfjcs",
             "img": "",
             "username": "Farhan",
             "password": "devGH@9!",
             "email": "farhan@gmail.com",
-            "phone": 082222222,
+            "phone": 12023,
             "gender": true,
-            "role": "developer",
-            "token": "safhckesn"
+            "role": "developer"
         }
     },
     "products": {
@@ -70,9 +66,9 @@
             "qty": 2,
             "total": 24000,
             "payment_method": "cod",
-            "location_client": "ciapus", // ini jika method adalah cod
-            "phone_tf": null, // ini jika method adalah tf qris atau semacamnya
-            "norek_tf": null, // ini jika method adalah tf menggunakan bank digital
+            "location_client": "ciapus", 
+            "phone_tf": null, 
+            "norek_tf": null, 
             "status": "",
             "created_at": "now date"
         }

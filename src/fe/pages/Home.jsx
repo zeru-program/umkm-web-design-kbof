@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import Base from "../layouts/Base";
 
@@ -142,7 +141,7 @@ const CtaSection3 = () => {
 const PlantsQuote = () => {
   return (
     <section className="section text-center section-plants-quote d-flex justify-content-center align-items-center flex-column">
-      <div className="d-flex justify-content-beetwen">
+      <div className="d-flex justify-content-beetwen container-main">
         <div>
           <h2>Handpicked Aesthetic Plants Handpicked Aesthetic</h2>
           <p>
@@ -154,7 +153,7 @@ const PlantsQuote = () => {
           <i className="bi bi-quote"></i>
         </div>
       </div>
-      <div className="d-flex mt-5 gap-4 justify-content-center flex-wrap">
+      <div className="d-flex mt-5 gap-4 justify-content-center align-items-center flex-wrap">
         <div className="box-quote text-center px-5 d-flex justify-content-center align-items-center flex-column">
           <div>
             <p>
@@ -214,15 +213,3 @@ const Home = () => {
 };
 
 export default Home;
-=======
-
-const Home = () => {
-    return (
-     <>
-     home
-     </>
-    )
-}
-
-export default Home
->>>>>>> 4d48508860846a90ff6a33fc7f47a3ff3c2f7c96

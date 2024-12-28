@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import BtnToTop from "../components/BtnToTop";
 
 const Base = ({ mainContent }) => {
 
@@ -10,6 +11,7 @@ const Base = ({ mainContent }) => {
         <Navbar />
         <main>{mainContent}</main>
         <Footer />
+        <BtnToTop />
       </section>
     </>
   );
