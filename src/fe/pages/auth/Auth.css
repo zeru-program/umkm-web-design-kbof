@@ -1,0 +1,53 @@
+.contain-auth {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.auth-side-input {
+    background: url('/images/bekron.png') center center;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+}
+.auth-side-background {
+    width: 50%;
+    height: 100%;
+    background: url('/images/plants1-bg.jpg') center center;
+}
+.img-side-background {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.input-auth {
+    background: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+}
+.input-auth:focus {
+    background: transparent;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 0;
+}
+.input-auth::placeholder {
+    opacity: .8;
+}
+.line {
+    width: 50%;
+    height: 1px;
+    background: var(--primary);
+}
+
+@media screen and (max-width: 800px) {
+    .auth-side-input {
+        width: 100%;
+    }
+    .auth-side-background {
+        display: none;
+    }
+    .con-auth {
+        width: 100%;
+        margin-inline: auto;
+        padding-inline: 50px;
+    }
+}
