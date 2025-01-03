@@ -1,0 +1,128 @@
+body {
+    font-family: var(--satoshi) !important;
+}
+
+/* sidebar style custom */
+.contain-sidebar {
+    background: rgba(0, 0, 0, .3);
+}
+.sidebar {
+    width: 20%;
+    height: 100vh;
+    color: #496653;
+    background-color: white;
+    font-family: var(--satoshi);
+    border: 0 !important;
+    z-index: 999999;
+    overflow-x: hidden;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+}
+.logo-sidebar {
+    width: 200px;
+}
+.nav-link-dash {
+    transition: all .4s ease;
+    cursor: pointer;
+    width: 100%;
+}
+.nav-link-dash:hover {
+    background: rgba(0, 0, 0, .1);
+}
+.nav-link-dash .content-link {
+    width: 100%;
+    padding-block: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 45px;
+    gap: 12px;
+    color: gray;
+}
+.nav-link-dash.active .content-link {
+    color: var(--primary);
+    border-left: 4px solid #496653; 
+    padding-left: 41px;
+}
+.btn-close:focus {
+    box-shadow: 0 0 0;
+}
+/* sidebar style custom */
+
+/* navbar style */
+.header-navbar {
+    
+}
+/* navbar style */
+
+/* content style */
+.wrapper-main {
+    padding-top: 80px !important;
+    /* padding-inline: 20px; */
+}
+.breadcrumb {
+    background-color: rgba(0, 0, 0, .03);
+    padding-inline: 20px;
+    border-radius: 2px;
+    padding-block: 8px;
+}
+.breadcrumb-item {
+    color: var(--primary);
+}
+.breadcrumb-item a {
+    color: #19459D;
+    font-style: none;
+    text-decoration: none;
+}
+.box-dash {
+    width: 96%;
+    border-radius: 5px;
+    padding-block: 30px;
+    padding-inline: 25px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .06);
+}
+.box-dash .contain-option {
+    flex-direction: row;   
+}
+.img-tbody {
+    width: 70px;
+    height: 70px;
+    /* border-radius: 50%; */
+    margin-block: 10px;
+}
+.img-detail {
+    width: 200px;
+    height: 200px;
+    /* border-radius: 50%; */
+    margin-block: 10px;
+}
+/* content style */
+
+
+/* responsive styles */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 70px !important;
+    }
+    .logo-sidebar {
+        /* margin-left: 8px; */
+        margin-bottom: 0 !important;
+        padding-bottom: 20px !important;
+    }
+    .nav-link-dash .content-link {
+        padding-left: 28px;
+    }
+    .nav-link-dash.active .content-link {
+        padding-left: 24px;
+    }
+    .nav-link-dash .content-link span {
+        display: none;
+    }
+    .box-dash .contain-option {
+        flex-direction: column;   
+        gap: 10px;
+    }
+}
+@media screen and (min-width: 700px) {
+
+}
