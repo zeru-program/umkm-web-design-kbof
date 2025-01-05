@@ -154,7 +154,7 @@ header {
   font-size: 16px;
   position: fixed;
   width: 100%;
-  z-index: 10000;
+  z-index: 1000;
 }
 header .promo-bar {
   padding-block: 16px;
@@ -220,6 +220,8 @@ footer {
 /* main content style */
 main {
   width: 100%;
+  height: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   font-family: var(--playfair);
 }
@@ -428,13 +430,22 @@ button {
   width: 80%;
 }
 /** About us **/
+/** Checkout **/
+.w50-res {
+  width: 48%;
+}
+/** Checkout **/
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
 /* main content style */
 
 
 /* responsive */
 /* size mobile */
 @media screen and (max-width: 700px) {
-  h1 {
+  /* h1 {
     font-size: 32px;
   }
   h2 {
@@ -442,9 +453,12 @@ button {
   }
   h3 {
     font-size: 16px;
-  }
+  } */
   p {
     font-size: 14px;
+  }
+  .w50-res {
+    width: 100%;
   }
   .container-main {
     padding-inline: 30px;
@@ -566,12 +580,20 @@ button {
   .discount-text {
     padding-inline: 8px !important;
   }
+  .img-spec {
+    display: none;
+  }
+  .contain-spec {
+    margin-top: 20px !important;
+    align-items: start !important;
+  }
 }
 
 /* size desktop */
 @media screen and (min-width: 700px) {
   p {
-    font-size: 15px;
+    font-family: var(--satoshi) !important;
+    font-size: 18px;
   }
   .w-hero-title-home {
     width: 500px;

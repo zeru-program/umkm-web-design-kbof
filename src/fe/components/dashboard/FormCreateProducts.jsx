@@ -8,6 +8,12 @@ import ProductsPost from '../../../be/post/ProductsPost';
 import TrueFalse from '../../../be/options/TrueFalse';
 import StatusOption from '../../../be/options/StatusOption';
 import Rating from '../../../be/options/Rating';
+const now = new Date();
+const formattedDate = now.getFullYear() + "-" +
+  String(now.getMonth() + 1).padStart(2, '0') + "-" +
+  String(now.getDate()).padStart(2, '0') + "T" +
+  String(now.getHours()).padStart(2, '0') + ":" +
+  String(now.getMinutes()).padStart(2, '0');
 
 const FormCreateProducts = () => {
   const { productOpt } = ProductsOption();
@@ -25,6 +31,7 @@ const FormCreateProducts = () => {
     is_popular: false,
     price: '',
     type: '',
+    stock: '',
     rating: 1,
     spesification: {
         weight: '',
@@ -32,7 +39,7 @@ const FormCreateProducts = () => {
         height: '',
     },
     status: 'draft',
-    created_at: new Date().toISOString().slice(0, 16),
+    created_at: formattedDate,
   });
 
   const handleInputChange = (e) => {
@@ -117,7 +124,7 @@ const FormCreateProducts = () => {
                      }} 
                       className='position-absolute top-0 opacity-0 start-0 z-3 w-100 h-100' style={{cursor: "pointer"}} />
                 </div>
-                <span className='text-decoration-underline' style={{cursor: "pointer"}} onClick={() => setDtFormCreate({...dtFormCreate, img: "https://speptdrwxksyzfydiuzf.supabase.co/storage/v1/object/public/products/plants3.jpg"})}>Or use default product img</span>
+                <span className='text-decoration-underline' style={{cursor: "pointer"}} onClick={() => setDtFormCreate({...dtFormCreate, img: "https://speptdrwxksyzfydiuzf.supabase.co/storage/v1/object/public/products/default-plant2.jpg"})}>Or use default product img</span>
             </div>
         </div>
       </div>
@@ -139,6 +146,12 @@ const FormCreateProducts = () => {
         <div className="col-6 mb-3">
           <label>Product Price</label>
           <input type="number" name='price' value={dtFormCreate.price} onInput={handleInputChange} placeholder='Input Product Price Per Unit..' className="form-control" required />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 mb-3">
+          <label>Product Stock</label>
+          <input type="number" name='stock' min={1} max={500} value={dtFormCreate.stock} onInput={handleInputChange} placeholder='Input Stock Product..' className="form-control" required />
         </div>
       </div>
       <div className="row">
@@ -173,6 +186,7 @@ const FormCreateProducts = () => {
           <label>Product Is Promo</label>
           <Select
             options={trueFalse}
+            isDisabled
             onChange={(item) => {
                 setDtFormCreate((prevState) => ({
                   ...prevState,

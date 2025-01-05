@@ -1,11 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import ProductsOption from "../../be/options/ProductsOption";
+import Select from "react-select";
+import ProductsGet from "../../be/get/ProductsGet";
+const searchStyles = {
+  control: (base) => ({
+      ...base,
+      fontWeight: "500",
+      width: "180px",
+      marginRight: "15px",
+      textWrap: "nowrap"
+    }),
+}
+const isLoggedIn = sessionStorage.getItem('isLogin');
+const role = sessionStorage.getItem('role');
+const username = sessionStorage.getItem('username');
+const isAdminOrDev = role === 'admin' || role === 'developer';
+
+
 
 const Navbar = () => {
   const location = useLocation()
   const { idP } = useParams()
   const { idE } = useParams()
+  const { productOptClean } = ProductsOption()
+  const { dataProducts } = ProductsGet()
   const [isScroll, setIsScroll] = useState(false)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +46,13 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [])
+
+  useEffect(() => {
+    const find = dataProducts.find((item) => item.id_product === search)
+    if (find) {
+      window.location.href = "/plants/" + find.name
+    }
+  }, [search])
 
   return (
     <header>
@@ -80,22 +108,59 @@ const Navbar = () => {
 
             {/* Search and icons */}
             <form className="d-flex align-items-center">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search a Product"
-                aria-label="Search"
+              <Select
+              styles={searchStyles}
+                options={productOptClean}
+                placeholder='Search A Product'
+                onChange={(item) => {
+                  setSearch(item.value)
+                }}
+                value={productOptClean.find((opt) => opt.value === search)}
+                required
               />
               <div className="gap-3 d-flex">
-                <a href="/">
+                {/* <a href="/">
                   <span className="iconify text-primary icon-complementary" data-icon="mdi:bell"></span>
-                </a>
-                <a href="/">
-                  <span className="iconify text-primary icon-complementary" data-icon="mdi:person"></span>
-                </a>
-                <a href="/">
+                </a> */}
+                <div className="d-flex align-items-center gap-2">
+                    {/* <span className="iconify text-primary icon-complementary" data-icon="mdi:person"></span> */}
+                    {isLoggedIn && isAdminOrDev ? (
+                      <>
+                          <a href="/dashboard" className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
+                            <i className="text-primary icon-complementary bi bi-clipboard-data-fill"></i>
+                            <span className="text-nowrap">Go Dashboard</span>
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                        <a href={!isLoggedIn ? "/auth/sign-in" : "#"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
+                          <i
+                            className={`text-primary icon-complementary bi bi-${
+                              isLoggedIn ? 'person-fill' : 'box-arrow-in-right'
+                            }`}
+                          ></i>
+                          {
+                            isLoggedIn ?  (
+                            <div className="dropdown">
+                            <div className='d-flex gap-1' data-bs-toggle="dropdown" aria-expanded="false" style={{cursor: "pointer"}}>
+                              <span className='fw-bold'>Hi, {sessionStorage.getItem('username')}</span>
+                              <i className='bi-caret-down-fill'></i>
+                            </div>
+                            <ul className="dropdown-menu">
+                              <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => document.getElementById('iClick').click()}>Profile</a></li>
+                              {/* <li><a className="dropdown-item" href="#">Another action</a></li> */}
+                              <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
+                            </ul>
+                          </div>
+                            ) : (<span className="text-nowrap">Sign</span>) 
+                          }
+                          </a>
+                        </>
+                      )}
+                </div>
+                {/* <a href="/">
                   <span className="iconify text-primary icon-complementary" data-icon="fa6-solid:bucket"></span>
-                </a>
+                </a> */}
               </div>
             </form>
           </div>

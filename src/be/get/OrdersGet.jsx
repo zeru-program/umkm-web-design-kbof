@@ -4,7 +4,7 @@ import Users from "./Users";
 import dayjs from "dayjs";
 
 const OrdersGet = () => {
-  const { dataProducts } = ProductsGet();
+  const { dataProducts, loadProducts } = ProductsGet();
   const { dataUsers } = Users();
   const [dataOrders, setDataOrders] = useState([]);
   const [dataTableOrders, setDataTableOrders] = useState([]);
@@ -36,13 +36,17 @@ const OrdersGet = () => {
 
   // set data untuk data table react memakai use memo dan dipanggil dengan dataTableOrders: transformedOrders di return
   const transformedOrders = useMemo(() => {
-    setLoadOrders(true);
+    if (loadProducts || !Array.isArray(dataOrders) || dataOrders.length === 0) {
+      setLoadOrders(true)
+      return []; // Jangan lakukan apa-apa jika products sedang loading
+    }
     if (
       Array.isArray(dataOrders) &&
       dataOrders.length > 0 &&
       Array.isArray(dataProducts) &&
       Array.isArray(dataUsers)
     ) {
+      setLoadOrders(true);
       const productMap = new Map(
         dataProducts.map((product) => [product.id_product, product.name])
       );
@@ -75,7 +79,7 @@ const OrdersGet = () => {
       setDataFilterOrders(transformedData);
       setLoadOrders(false);
     }
-  }, [dataOrders, dataProducts]);
+  }, [dataOrders, dataProducts, loadProducts]);
 
   // kondisikan data yang terfilter setiap perubahan filter data
   useEffect(() => {

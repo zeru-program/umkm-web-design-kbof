@@ -7,32 +7,33 @@ import Modal from "../../components/dashboard/Modal";
 import Toast from "../../components/Toast";
 import Select from "react-select";
 import StatusOption from "../../../be/options/StatusOption";
-import TheadProducts from "../../../be/datatables/TheadProducts";
-import ProductsGet from "../../../be/get/ProductsGet";
-import FormCreateProducts from "../../components/dashboard/FormCreateProducts";
-import FormEditProducts from "../../components/dashboard/FormEditProducts";
-import ProductsDelete from "../../../be/delete/ProductsDelete";
-import FormDetailProducts from "../../components/dashboard/FormDetailProducts";
+import TheadBlogs from "../../../be/datatables/TheadBlogs";
+import BlogsGet from "../../../be/get/BlogsGet";
+import FormCreateBlogs from "../../components/dashboard/FormCreateBlogs";
+import FormEditBlogs from "../../components/dashboard/FormEditBlogs";
+import BlogsDelete from "../../../be/delete/BlogsDelete";
+import FormDetailBlogs from "../../components/dashboard/FormDetailBlogs";
+import TextEditor from '../../components/dashboard/TextEditor';
 
 const BlogData = () => {
-  const { ProductsTh } = TheadProducts();
+  const { BlogsTh } = TheadBlogs();
   const [selectedRow, setSelectedRow] = useState([]);
   const [valSelect, setValSelect] = useState(null)
   const formRef = useRef(null);
   const [isDisabledButton, setIsDisabledButton] = useState(false)
-  const { handleDeleteRow } = ProductsDelete();
-  const { statusOptProducts } = StatusOption();
+  const { handleDeleteRow } = BlogsDelete();
+  const { statusOptBlogs } = StatusOption();
   const {
-    dataProducts,
-    dataTableProducts,
-    loadProducts,
-    dataFilterProducts,
-    setSearchProducts,
-    searchProducts,
-    setFilterProducts,
-    filterProducts,
-    FetchDataProducts
-  } = ProductsGet();
+    dataBlogs,
+    dataTableBlogs,
+    loadBlogs,
+    dataFilterBlogs,
+    setSearchBlogs,
+    searchBlogs,
+    setFilterBlogs,
+    filterBlogs,
+    FetchDataBlogs
+  } = BlogsGet();
 
   const customStylesSelect = {
     container: (provided) => ({
@@ -42,10 +43,10 @@ const BlogData = () => {
   };
 
   useEffect(() => {
-    setValSelect(statusOptProducts.find(
-      (opt) => opt.value === filterProducts.status
+    setValSelect(statusOptBlogs.find(
+      (opt) => opt.value === filterBlogs.status
     ))
-  }, [filterProducts])
+  }, [filterBlogs])
   return (
     <BoxDash
       title={"Data Blogs"}
@@ -56,17 +57,17 @@ const BlogData = () => {
               <input
                 type="text"
                 className="form-control w-auto"
-                onInput={(e) => setSearchProducts(e.target.value)}
-                value={searchProducts}
-                placeholder="Search products.."
+                onInput={(e) => setSearchBlogs(e.target.value)}
+                value={searchBlogs}
+                placeholder="Search Blogs.."
               />
               <Select
-                options={statusOptProducts}
+                options={statusOptBlogs}
                 className="text-nowrap w-auto"
                 styles={customStylesSelect}
                 placeholder="Sort By Status.."
                 onChange={(item) => {
-                  setFilterProducts({ ...filterProducts, status: item.value });
+                  setFilterBlogs({ ...filterBlogs, status: item.value });
                 }}
                 value={valSelect || null}
                 required
@@ -75,10 +76,10 @@ const BlogData = () => {
             <button
               className="btn text-light bg-primary"
               onClick={() => {
-                FetchDataProducts()
-                setFilterProducts({...filterProducts, status: ""})
+                FetchDataBlogs()
+                setFilterBlogs({...filterBlogs, status: ""})
                 setValSelect(null)
-                setSearchProducts('')
+                setSearchBlogs('')
               }}
             >
               <i className="bi-arrow-clockwise"></i>
@@ -166,12 +167,12 @@ const BlogData = () => {
         <>
           <div className="pt-3 mt-3 ">
             <DataTable
-              columns={ProductsTh}
-              data={dataFilterProducts}
+              columns={BlogsTh}
+              data={dataFilterBlogs}
               pagination
               paginationPerPage={20}
               highlightOnHover
-              progressPending={loadProducts}
+              progressPending={loadBlogs}
               progressComponent={
                 <div className="py-2 mt-4 px-4">
                   <div className="spinner-grow" role="status">
@@ -196,7 +197,7 @@ const BlogData = () => {
             confirmButton={false}
             modalContent={
               <>
-                <FormDetailProducts dataDetail={selectedRow} />
+                <FormDetailBlogs dataDetail={selectedRow} />
               </>
             }
           />
@@ -207,7 +208,7 @@ const BlogData = () => {
             isDisabled={isDisabledButton}
             modalContent={
               <>
-                <FormCreateProducts />
+                <FormCreateBlogs />
               </>
             }
             modalConfirmText={"Create"}
@@ -234,7 +235,7 @@ const BlogData = () => {
             isDisabled={isDisabledButton}
             modalContent={
               <>
-                <FormEditProducts ref={formRef} dataEdit={selectedRow} />
+                <FormEditBlogs ref={formRef} dataEdit={selectedRow} />
               </>
             }
             modalConfirmText={"Save changes"}
@@ -259,10 +260,14 @@ const BlogData = () => {
           <Modal
             modalName={"delete"}
             modalLable={"deleteModal"}
+            isDisabled={isDisabledButton}
             modalTitle={"Delete"}
             modalContent={<>Are you sure to delete?</>}
             modalConfirmText={"Yes"}
-            modalConfirmClicked={() => handleDeleteRow(selectedRow)}
+            modalConfirmClicked={() => {
+              setIsDisabledButton(true)
+              handleDeleteRow(selectedRow)
+            }}
           />
         </>
       }
@@ -275,6 +280,9 @@ const DBlogs = () => {
     <Dashboard content={<>
       <div className='mt-3'>
          <Header title={'Blog/Educations'} pageName={'Blogs'} />
+         <BoxDash content={<>
+          <TextEditor />
+          </>} />
          <BlogData />
       </div>
     </>} />

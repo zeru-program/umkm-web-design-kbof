@@ -1,101 +1,182 @@
-import React from 'react'
-import Base from '../layouts/Base'
+import React, { useEffect, useState } from "react";
+import Base from "../layouts/Base";
+import { useParams } from "react-router-dom";
+import N404 from "./N404";
+import BlogsGet from "../../be/get/BlogsGet";
+import Users from "../../be/get/Users";
+import DOMPurify from "dompurify";
+import dayjs from "dayjs";
 
-const Detail = () => {
-    return (
-        <section className='section section-detail-education d-flex flex-column align-items-center'>
-            <div className='w-100'>
-                <img src="/images/plants2-bg.jpg" alt="" className='w-100' />
-            </div>
-            <div className='box-content-education py-5 d-flex flex-column py-4 container-main'>
-                <h3>Kata Dokter Paru soal Tanaman Hias untuk Bersihkan Polusi Udara di Rumah</h3>
-                <div className='creator-education-detail mt-2 d-flex gap-2 align-items-center'>
-                    <img src="/images/man1.jpg" alt="" />
-                    <span>Abdul zaki</span>
-                </div>
-                <div className='mt-4'>
-                    <div>
-                    Masyarakat Jabodetabek kini dikepung polusi udara ugal-ugalan. Imbasnya, tak sedikit warga mengeluh engap terutama ketika beraktivitas di luar rumah. Lantas untuk mencegah risiko gangguan pernapasan, apa sih yang bisa diupayakan warga? Akankah menanam tanaman hias efektif mencegah penyakit akibat polusi?Dokter spesialis paru dr Erlina Burhan, SpP(K) menjelaskan, menanam pohon di area luar rumah atau memperbanyak tanaman di dalam rumah (indoor) bisa dilakukan di tengah situasi buruknya kualitas udara saat ini. Ia menyarankan, perbanyak tanaman hijau di area sekitar rumah.Namun begitu, langkah tersebut belum tentu cukup mengatasi efek polusi udara. Terutama, berkenaan dengan risiko gangguan pernapasan pada mereka yang sering terpapar polusi udara."Masih ada kontribusinya tapi tidak cukup, terutama bila sumber polusi tidak diintervensi," ujar dr Erlina saat dihubungi detikcom, Senin (21/8/2023)."(Penggunaan tanaman hijau di area tempat tinggal) sedikit membuat udara lebih bersih. Sedikit banget dibanding polusi yang sudah pada level mengkhawatirkan," ujarnya lebih lanjut.Di samping langkah tersebut, dr Erlina mengimbau masyarakat untuk meningkatkan imunitas di tengah buruknya udara Jabodetabek saat ini."Konsumsi nutrisi yang seimbang. Cukup minum agar hidrasi tubuh terjaga, konsumsi vitamin, cukup tidur, olahraga teratur. Berhenti merokok, jangan pindah ke vape. Bila ada dana, pakai air purifier di dalam rumah," pungkas dr Erlina.
-                    </div>
-                </div>
-            </div>
-        </section>  
-    )
-}
 
-const Recomendation = () => {
-    return (
-        <section className='section section-recomend mt-5 py-5'>
-            <h2>Rekomendasi</h2>
-            <div className='d-flex mt-4 flex-wrap gap-4'>
-            <div className='box-education'>
+const Detail = ({find, findAuthor}) => {
+    const sanitizedContent = DOMPurify.sanitize(find.content);
+
+  return (
+    <section className="section section-detail-education d-flex flex-column align-items-center">
+      <div className="w-100">
+        <img src={find.img ? find.img : "/images/plants2-bg.jpg"} alt="" className="w-100" style={{height: "350px", objectFit: "cover"}} />
+      </div>
+      <div className="box-content-education py-5 d-flex flex-column py-4 container-main">
+        <h3>
+          {find.title}
+        </h3>
+        <div className="creator-education-detail mt-2 d-flex gap-2 align-items-center">
+          <img src={findAuthor.img ? findAuthor.img : "/images/man1.jpg"} alt="" />
+          <span>{findAuthor.username}</span>
+        </div>
+        <div className="mt-4">
+           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}>
+            </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Recomendation = ({dataBlogs, find, loadBlogs}) => {
+    const [searchBlogs, setSearchBlogs] = useState('')
+    const [filter, setFilter] = useState({
+      type: "",
+      rating: 0,
+    })
+  
+
+      // paginasi
+      const [currentPage, setCurrentPage] = useState(1);
+      const itemsPerPage = 10;
+      const indexOfLastItem = currentPage * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const [currentItems, setCurrentItems] = useState([])
+      const [totalDatas, setTotalDatas] = useState(0);
+      const [totalPages, setTotalPages] = useState(0);
+    
+      const handleNextPage = () => {
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+      };
+    
+      const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+      };
+    
+      useEffect(() => {
+        let filteredBlogs = dataBlogs.filter((item) => item.status === "active" && item.id !== find.id);
+      
+        if (filter.type === "popular") {
+          filteredBlogs = filteredBlogs.filter((item) => item.is_popular);
+        } else if (filter.type === "newest") {
+          filteredBlogs = filteredBlogs.sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at)
+          );
+        } else if (filter.rating !== 0) {
+            // if (filter.rating ) {
+                filteredBlogs = filteredBlogs.filter((item) => item.rating == filter.rating);
+            // }
+        }
+      
+        // Search filter
+        if (searchBlogs) {
+          filteredBlogs = filteredBlogs.filter((item) =>
+            item.title.toLowerCase().includes(searchBlogs.toLowerCase())
+          );
+        }
+      
+        // Pagination
+        const indexOfLastItem = currentPage * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        setCurrentItems(filteredBlogs.slice(indexOfFirstItem, indexOfLastItem));
+        setTotalDatas(filteredBlogs.length);
+        setTotalPages(Math.ceil(totalDatas /itemsPerPage))
+      }, [dataBlogs, searchBlogs, filter, currentPage, totalDatas]);
+  return (
+    <section className="section section-recomend mt-5 py-5">
+      <h2>Recomendation</h2>
+      <div className="d-flex mt-4 flex-wrap gap-4">
+        {!loadBlogs ? (
+            currentItems.map((item, index) => {
+            return (
+                <div className='box-education' key={index + 1}>
                 <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
+                    <p>{dayjs(item.created_at).locale("id").format("D MMMM YYYY")}</p>
+                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "26px"}}>
+                        <p className='m-0'>{item.category}</p>
                     </div>
                 </div>
                 <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
+                    <img src={item.img ? item.img : ""} alt={item.title} />
                 </div>
                 <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
+                    <h5>{item.title}</h5>
+                    <p className='text-satoshi'>{item.short_desc}</p>
                 </div>
                 <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
+                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>
                 </div>
             </div>
-            <div className='box-education'>
-                <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
-                    </div>
-                </div>
-                <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
-                </div>
-                <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
-                </div>
-                <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
+            );
+            })
+        ) : (
+            <>
+            <div className="py-2 mt-4 px-4">
+                <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div className='box-education'>
-                <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
-                    </div>
-                </div>
-                <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
-                </div>
-                <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
-                </div>
-                <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
-                </div>
-            </div>
-            </div>
-        </section>
-    )
-}
+            </>
+        )}
+      </div>
+    </section>
+  );
+};
 
 const EducationDetail = () => {
-  return (
-    <Base mainContent={<>
-    <section className='section-all-detail-product container-main'>
-        <Detail />
-        <Recomendation />
-    </section>
-    </>} />
-  )
-}
+  const { idE } = useParams();
+  const { dataBlogs, loadBlogs } = BlogsGet();
+  const { dataUsers, loadUsers } = Users();
+  const [find, setFind] = useState(null);
+  const [findAuthor, setFindAuthor] = useState(null);
+  useEffect(() => {
+    if (dataBlogs && dataUsers && dataBlogs.length > 0) {
+      const foundBlogs = dataBlogs.find((item) => item.title === idE);
+      if (foundBlogs) {
+        const findAuthors = dataUsers.find((item) => item.id === foundBlogs.created_by)
+        // console.log(dataUsers)
+        console.log(findAuthors)
+        if (findAuthors) {
+            setFindAuthor(findAuthors || null)
+        }
+        setFind(foundBlogs || null);
+      } else {
+        setFind(null);
+      }
+    }
+  }, [dataBlogs, idE]);
+  // Tampilkan spinner saat data sedang dimuat
+  if (loadBlogs) {
+    return (
+      <div className="py-2 w-100 vh-100 d-flex justify-content-center align-items-center mt-4 px-4">
+        <div className="spinner-grow" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
-export default EducationDetail
+  // Tampilkan halaman 404 jika produk tidak ditemukan
+  if (!find) {
+    return <N404 />;
+  }
+  return (
+    <Base
+      mainContent={
+        <>
+          <section className="section-all-detail-product container-main">
+            <Detail find={find} findAuthor={findAuthor} />
+            <Recomendation dataBlogs={dataBlogs} find={find} loadBlogs={loadBlogs} />
+          </section>
+        </>
+      }
+    />
+  );
+};
+
+export default EducationDetail;

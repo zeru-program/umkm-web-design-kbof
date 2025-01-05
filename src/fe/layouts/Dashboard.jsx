@@ -33,7 +33,7 @@ const Dashboard = ({content}) => {
     }, [])
   return (
     <div className=''>
-        <NavbarDashboard handleClickNav={handleSide} />
+        <NavbarDashboard handleClickNav={handleSide} sideStatus={sideStatus} />
         <Sidebar sideActive={sideStatus} handleSideClick={handleSide} />
         <main className='wrapper-main'>
           {content}
