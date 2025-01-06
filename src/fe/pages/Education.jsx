@@ -1,95 +1,256 @@
-import React from 'react'
-import Base from '../layouts/Base'
-
-const SectionWelcoming = () => {
-    return (
-        <section className='w-100 d-flex flex-column align-content-center container-main section-education'>
-            <div className='d-flex flex-column align-items-center'>
-                <h2 className='text-font-color'>Education</h2>
-                <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
-                <div className='w-100 position-relative'>
-                    <input type="text" placeholder='Cari artikel yang di inginkan' className='text-satoshi form-control py-2 input-search-product ' />
-                    <div className='bg-primary text-light d-flex justify-content-center align-items-center icon-search-product'>
-                        <i className='bi-search'></i>
-                    </div>
-                </div>
-            </div>
-            <div className='d-flex mt-4 justify-content-between'>
-                <button className='btn btn-filter fw-bold d-flex align-items-center gap-2'>Popular <i className='iconify text-primary' data-icon="bitcoin-icons:caret-down-filled"></i></button>
-                <button className='btn btn-filter fw-bold d-flex align-items-center gap-2'><i className='iconify text-primary' data-icon="cuida:filter-outline"></i> Filter</button>
-            </div>
-        </section>
-    )
+import React, { useEffect, useState } from "react";
+import Base from "../layouts/Base";
+import BlogsGet from "../../be/get/BlogsGet";
+import PromoGet from "../../be/get/PromoGet";
+import Select from "react-select";
+import Filter1Product from "../../be/options/Filter1Product";
+import dayjs from "dayjs";
+import "dayjs/locale/id"; // Import locale bahasa Indonesia
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+const now = new Date();
+const formattedDate =
+  now.getFullYear() +
+  "-" +
+  String(now.getMonth() + 1).padStart(2, "0") +
+  "-" +
+  String(now.getDate()).padStart(2, "0") +
+  "T" +
+  String(now.getHours()).padStart(2, "0") +
+  ":" +
+  String(now.getMinutes()).padStart(2, "0");
+const filterStyles = {
+    control: (base, state) => ({
+        ...base,
+        fontWeight: "500",
+        width: "140px",
+        fontFamily: "var(--satoshi)",
+        background: "transparent",
+        // match with the menu
+        borderRadius: 7,
+        // Overwrittes the different states of border
+        borderColor: "#496653",
+        // Removes weird border around container
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+          // Overwrittes the different states of border
+          borderColor: "#496653"
+        }
+      }),    
+    menu: base => ({
+        ...base,
+        zIndex: 100,
+        // background: "red"
+    })
 }
+
+const SectionWelcoming = ({searchBlogs, setSearchBlogs, filter, setFilter}) => {
+    const { filter1, filter2 } = Filter1Product()
+  return (
+    <section className="w-100 d-flex flex-column align-content-center container-main section-product">
+      <div className="d-flex flex-column align-items-center">
+        <h2 className="text-font-color" data-aos="zoom-in">Educations</h2>
+        <p className="text-satoshi" data-aos="zoom-in" data-aos-delay="300">
+          Discover our curated selection of aesthetic houseplants to transform
+          your home into a vibrant.
+        </p>
+        <div className="w-100 position-relative">
+          <input
+            type="text"
+            data-aos="zoom-in" data-aos-delay="500"
+            placeholder="Search Education Here.."
+            value={searchBlogs}
+            onInput={(e) => setSearchBlogs(e.target.value)}
+            className="text-satoshi form-control py-2 input-search-product "
+          />
+          <div className="bg-primary text-light d-flex justify-content-center align-items-center icon-search-product" data-aos="zoom-in" data-aos-delay="500">
+            <i className="bi-search"></i>
+          </div>
+        </div>
+      </div>
+      {/* <div className="d-flex mt-4 justify-content-between">
+        <Select
+            placeholder="Sort By"
+            styles={filterStyles}
+            options={filter1}
+            onChange={(item) => {
+                setFilter((prevState) => ({
+                  ...prevState,
+                  type: item.value
+                }));
+            }}
+            value={filter1.find((opt) => opt.value === filter.type)}
+            required
+          />
+        <Select
+            placeholder="Filter By"
+            styles={filterStyles}
+            options={filter2}
+            onChange={(item) => {
+                setFilter((prevState) => ({
+                  ...prevState,
+                  rating: item.value
+                }));
+            }}
+            value={filter2.find((opt) => opt.value === filter.rating)}
+            required
+          />
+        </div> */}
+    </section>
+  );
+};
 
 const DisplayEducation = () => {
-    return (
-        <section className='w-100 mb-5 section section-display-education container-main d-flex flex-wrap gap-4 justify-content-center'>
-            <div className='box-education'>
+  const { dataBlogs, loadBlogs } = BlogsGet();
+  const { dataPromo } = PromoGet();
+  const [searchBlogs, setSearchBlogs] = useState('')
+  const [filter, setFilter] = useState({
+    type: "",
+    rating: 0,
+  })
+
+  // paginasi
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const [currentItems, setCurrentItems] = useState([])
+  const [totalDatas, setTotalDatas] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  useEffect(() => {
+    let filteredBlogs = dataBlogs.filter((item) => item.status === "active");
+  
+    if (filter.type === "popular") {
+      filteredBlogs = filteredBlogs.filter((item) => item.is_popular);
+    } else if (filter.type === "newest") {
+      filteredBlogs = filteredBlogs.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    } else if (filter.rating !== 0) {
+        // if (filter.rating ) {
+            filteredBlogs = filteredBlogs.filter((item) => item.rating == filter.rating);
+        // }
+    }
+  
+    // Search filter
+    if (searchBlogs) {
+      filteredBlogs = filteredBlogs.filter((item) =>
+        item.title.toLowerCase().includes(searchBlogs.toLowerCase())
+      );
+    }
+  
+    // Pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setCurrentItems(filteredBlogs.slice(indexOfFirstItem, indexOfLastItem));
+    setTotalDatas(filteredBlogs.length);
+    setTotalPages(Math.ceil(totalDatas /itemsPerPage))
+  }, [dataBlogs, searchBlogs, filter, currentPage, totalDatas]);
+  
+
+  // console.log(dataBlogs)
+  return (
+    <>
+    <SectionWelcoming searchBlogs={searchBlogs} setSearchBlogs={setSearchBlogs} filter={filter} setFilter={setFilter} />
+      <section className="w-100 mb-3 section section-display-product container-main d-flex flex-wrap gap-4 justify-content-center" style={{marginTop: "-230px"}}>
+        {!loadBlogs ? (
+          currentItems.map((item, index) => {
+            return (
+                <div className='box-education' key={index + 1} data-aos="zoom-in" data-aos-delay="300">
                 <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
+                    <p>{dayjs(item.created_at).locale("id").format("D MMMM YYYY")}</p>
+                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "26px"}}>
+                        <p className='m-0'>{item.category}</p>
                     </div>
                 </div>
                 <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
+                    <img src={item.img ? item.img : ""} alt={item.title} />
                 </div>
                 <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
+                    <h5>{item.title}</h5>
+                    <p className='text-satoshi'>{item.short_desc}</p>
                 </div>
                 <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
+                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>
                 </div>
             </div>
-            <div className='box-education'>
-                <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
-                    </div>
-                </div>
-                <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
-                </div>
-                <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
-                </div>
-                <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
-                </div>
+            );
+          })
+        ) : (
+          <>
+            <div className="py-2 mt-4 px-4">
+              <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
             </div>
-            <div className='box-education'>
-                <div className='date-type-education text-satoshi d-flex justify-content-between'>
-                    <p>17 Agustus 2024</p>
-                    <div className='bg-primary rounded-3 px-2 text-light' style={{height: "30px"}}>
-                        <p className='m-0'>Farm</p>
-                    </div>
-                </div>
-                <div className='img-education'>
-                    <img src="/images/plants2-bg.jpg" alt="" />
-                </div>
-                <div className='mt-4'>
-                    <h5>Cara Menanam dengan Baik 2024 No Root Bgus banget</h5>
-                    <p className='text-satoshi'>Discover our curated selection of aesthetic houseplants to transform your home into a vibrant.</p>
-                </div>
-                <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/232'}>Explore Now</button>
-                </div>
-            </div>
-        </section>
-    )
-}
+          </>
+        )}
+      </section>
+      <nav aria-label="Page navigation example">
+        <p className="text-center">
+          Showing {totalPages} page of {totalDatas} Datas.
+        </p>
+
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <button className="page-link" onClick={handlePrevPage}>
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <li
+              key={i}
+              className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))}
+          <li
+            className={`page-item ${
+              currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            <button className="page-link" onClick={handleNextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </>
+  );
+};
 
 const Education = () => {
+  useEffect(() => {
+    AOS.init({
+        duration: 1000,
+        once: true,
+    })
+}, [])
   return (
-    <Base mainContent={<>
-    <SectionWelcoming />
-    <DisplayEducation />
-    </>} />
-  )
-}
+    <Base
+      mainContent={
+        <>
+          {/* <SectionWelcoming /> */}
+          <DisplayEducation />
+        </>
+      }
+    />
+  );
+};
 
-export default Education
+export default Education;

@@ -13,6 +13,7 @@ const FormEditOrders = ({dataEdit}) => {
   const { usersOpt } = UsersOption();
   const { dataProducts } = ProductsGet();
   const { handleEdit } = OrdersEdit();
+  const [statusDisabled, setStatusDisabled] = useState(false)
   const [dtFormEdit, setDtFormEdit] = useState({
     id_product: '',
     id_order: "",
@@ -25,29 +26,11 @@ const FormEditOrders = ({dataEdit}) => {
     status: 'pending',
     token: '',
     total: '',
-    // edited_at: new Date().toISOString().slice(0, 16),
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDtFormEdit((prevState) => {
-      //   if (name === 'qty') {
-      //       if (value <= 1) {
-      //           return {
-      //               ...prevState,
-      //               [name]: ""
-      //           }
-      //       }
-      // }
-      //   if (name === 'total') {
-      //       if (value <= 1) {
-      //           return {
-      //               ...prevState,
-      //               [name]: ""
-      //           }
-      //       }
-      // }
-  
       return {
         ...prevState,
         [name]: value,
@@ -72,6 +55,7 @@ const FormEditOrders = ({dataEdit}) => {
             token: dataEdit[0].token,
             total: dataEdit[0].total,
         })
+        setStatusDisabled(dataEdit[0].status === "success" ? true : false)
     }
   }, [dataEdit])
   
@@ -105,6 +89,7 @@ const FormEditOrders = ({dataEdit}) => {
             <label>Status</label>
             <Select
             options={statusOptOrders}
+            isDisabled={statusDisabled}
             onChange={(item) => {
                 setDtFormEdit({...dtFormEdit, status: item.value})
             }}
@@ -118,11 +103,6 @@ const FormEditOrders = ({dataEdit}) => {
           <label>Products</label>
           <Select
             options={productOpt}
-            // onChange={(item) => {
-            //     setDtFormEdit({ ...dtFormEdit, id_product: item.value })
-            //     setDtFormEdit({...dtFormEdit, total: dataProducts.find((data) => data.id_product === item.value).price})
-            //     setDtFormEdit({...dtFormEdit, qty: 1})
-            // }}
             onChange={(item) => {
                 const selectedProduct = dataProducts.find((data) => data.id_product === item.value);
             
@@ -228,7 +208,6 @@ const FormEditOrders = ({dataEdit}) => {
           ></textarea>
         </div>
       </div>
-      {/* <button type='submit'>submit</button> */}
     </form>
   );
 };

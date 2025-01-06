@@ -12,6 +12,7 @@ import OrdersDelete from "../../../be/delete/OrdersDelete";
 import FormEditOrders from "../../components/dashboard/FormEditOrders";
 import Select from "react-select";
 import StatusOption from "../../../be/options/StatusOption";
+import FormDetailOrders from "../../components/dashboard/FormDetailOrders";
 
 const RecentOrders = () => {
   const { Orders } = Thead();
@@ -82,6 +83,31 @@ const RecentOrders = () => {
               }}
             >
               <i className="bi-arrow-clockwise"></i>
+            </button>
+            <button
+              className="btn text-light bg-secondary"
+              onClick={(e) => {
+                if (!selectedRow || selectedRow.length === 0) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select the data!",
+                  });
+                  return;
+                } else if (selectedRow && selectedRow.length > 1) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select only 1 data!",
+                  });
+                  return;
+                }
+              }}
+              {...(selectedRow && selectedRow.length == 1
+                ? { "data-bs-toggle": "modal", "data-bs-target": "#detail" }
+                : {})}
+            >
+              <i className="bi-eye-fill"></i>
             </button>
             <button
               className="btn text-light"
@@ -168,9 +194,11 @@ const RecentOrders = () => {
             modalName={"detail"}
             modalLable={"detailModal"}
             modalTitle={"Detail"}
+            cancelButton={false}
+            confirmButton={false}
             modalContent={
               <>
-                {/* <FormCreateOrders /> */}
+              <FormDetailOrders dataDetail={selectedRow} />
               </>
             }
           />

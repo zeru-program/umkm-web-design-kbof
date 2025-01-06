@@ -80,11 +80,6 @@ const FormCreateOrders = () => {
           <label>Products</label>
           <Select
             options={productOpt}
-            // onChange={(item) => {
-            //     setDtFormCreate({ ...dtFormCreate, id_product: item.value })
-            //     setDtFormCreate({...dtFormCreate, total: dataProducts.find((data) => data.id_product === item.value).price})
-            //     setDtFormCreate({...dtFormCreate, qty: 1})
-            // }}
             onChange={(item) => {
                 const selectedProduct = dataProducts.find((data) => data.id_product === item.value);
             

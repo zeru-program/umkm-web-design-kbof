@@ -37,6 +37,11 @@ const TheadProducts = () => {
       sortable: true,
     },
     {
+      name: "Stock",
+      selector: (row) => row.stock,
+      sortable: true,
+    },
+    {
       name: "Pouplar",
       selector: (row) => row.popular,
       cell: (row) => {
@@ -58,6 +63,11 @@ const TheadProducts = () => {
           return <div className="badge bg-danger text-light">No</div>;
         }
       },
+      sortable: true,
+    },
+    {
+      name: "Created At",
+      selector: (row) => row.created_at,
       sortable: true,
     },
     {

@@ -21,7 +21,7 @@ const Sidebar = ({handleSideClick, sideActive}) => {
             <div className="offcanvas-header pt-4 d-flex flex-column">
             <div className='w-100 d-flex align-items-start justify-content-beetwen'>
                 <div className={`align-items-${imageNav ? "start" : "center"} d-flex flex-column w-100`}>
-                    <img src={imageNav ? "/images/logo-navbar.png" : "/images/logo.png"} style={{width: imageNav ? "180px" : "25px"}} className='logo-sidebar mb-4 pb-4' alt="" />
+                    <img src={imageNav ? "/images/logo-navbar.png" : "/images/logo.png"} style={{cursor: "pointer",width: imageNav ? "180px" : "25px"}} className='logo-sidebar mb-4 pb-4' onClick={() => window.location.href = '/'} />
                     <h6 className="offcanvas-title d-none d-sm-block" id="offcanvas">Menu</h6>
                     <button type="button" className="btn-close mt-1 text-reset" style={{marginInline: 0, display: !imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>

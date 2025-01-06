@@ -12,7 +12,23 @@ const StatusOption = () => {
     { value: "active", label: "Active" },
     { value: "draft", label: "Draft" },
   ]);
-  return { statusOptOrders, statusOptProducts };
+  const [statusOptBlogs, setStatusOptBlogs] = useState([
+    { value: "active", label: "Active" },
+    { value: "draft", label: "Draft" },
+  ]);
+  const [statusOptUsers, setStatusOptUsers] = useState([
+    { value: "active", label: "Active" },
+    { value: "draft", label: "Draft" },
+  ]);
+  const [statusOptPromo, setStatusOptPromo] = useState([
+    { value: "active", label: "Active" },
+    { value: "draft", label: "Draft" },
+  ]);
+  const [statusOptCode, setStatusOptCode] = useState([
+    { value: "active", label: "Active" },
+    { value: "draft", label: "Draft" },
+  ]);
+  return { statusOptOrders, statusOptProducts, statusOptBlogs, statusOptUsers, statusOptPromo, statusOptCode };
 };
 
 export default StatusOption;

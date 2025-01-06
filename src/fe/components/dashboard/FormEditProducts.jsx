@@ -17,7 +17,7 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
   const { handleEdit } = ProductsEdit();
   const [fileEdit, setFileEdit] = useState(null)
   const [dtFormEdit, setDtFormEdit] = useState({
-    id_product: GenerateString(8),
+    id_product: "",
     name: '',
     description: '',
     img: '',
@@ -25,6 +25,7 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
     is_popular: false,
     price: '',
     type: '',
+    stock: '',
     rating: 1,
     spesification: {
         weight: '',
@@ -66,6 +67,7 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
           is_popular: dataEdit[0].popular || false,
           price: dataEdit[0].price || '',
           type: dataEdit[0].type || '',
+          stock: dataEdit[0].stock || '',
           rating: dataEdit[0].rating || 1,
           spesification: {
             weight: dataEdit[0].spesification?.weight || '',
@@ -160,7 +162,7 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
             <div className='w-100 flex-column d-flex align-items-center gap-2'>
                 <img src={dtFormEdit.img || "https://via.placeholder.com/150"} className='img-thumbnail img-detail' alt="" />
                 <div className='position-relative'>
-                    <button className='btn bg-primary text-light'>Upload Image Product</button>
+                    <button className='btn bg-primary text-light'>Upload New Image Product</button>
                     <input type="file" accept='image/*' onChange={(e) => {
                         const file = e.target.files[0];
                         if (file) {
@@ -197,6 +199,12 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
       </div>
       <div className="row">
         <div className="col-12 mb-3">
+          <label>Product Stock</label>
+          <input type="number" name='stock' min={1} max={500} value={dtFormEdit.stock} onInput={handleInputChange} placeholder='Input Stock Product..' className="form-control" required />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 mb-3">
           <label>Description</label>
           <textarea
             name="description"
@@ -227,6 +235,7 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
           <label>Product Is Promo</label>
           <Select
             options={trueFalse}
+            isDisabled
             onChange={(item) => {
                 setDtFormEdit((prevState) => ({
                   ...prevState,

@@ -12,12 +12,14 @@ import OrdersDelete from "../../../be/delete/OrdersDelete";
 import FormEditOrders from "../../components/dashboard/FormEditOrders";
 import Select from "react-select";
 import StatusOption from "../../../be/options/StatusOption";
+import FormDetailOrders from "../../components/dashboard/FormDetailOrders";
 
 
 const Orders = () => {
   const { Orders } = Thead();
   const [selectedRow, setSelectedRow] = useState([]);
   const [valSelect, setValSelect] = useState(null)
+  const [isDisabledButton, setIsDisabledButton] = useState(false)
   const { handleDeleteRow } = OrdersDelete();
   const { statusOptOrders } = StatusOption();
   const {
@@ -83,6 +85,31 @@ const Orders = () => {
               <i className="bi-arrow-clockwise"></i>
             </button>
             <button
+              className="btn text-light bg-secondary"
+              onClick={(e) => {
+                if (!selectedRow || selectedRow.length === 0) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select the data!",
+                  });
+                  return;
+                } else if (selectedRow && selectedRow.length > 1) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select only 1 data!",
+                  });
+                  return;
+                }
+              }}
+              {...(selectedRow && selectedRow.length == 1
+                ? { "data-bs-toggle": "modal", "data-bs-target": "#detail" }
+                : {})}
+            >
+              <i className="bi-eye-fill"></i>
+            </button>
+            <button
               className="btn text-light"
               style={{ background: "#19459D" }}
               data-bs-toggle="modal"
@@ -108,7 +135,6 @@ const Orders = () => {
                   });
                   return;
                 }
-                // console.log(selectedRow)
               }}
               {...(selectedRow && selectedRow.length == 1
                 ? { "data-bs-toggle": "modal", "data-bs-target": "#edit" }
@@ -168,9 +194,11 @@ const Orders = () => {
             modalName={"detail"}
             modalLable={"detailModal"}
             modalTitle={"Detail"}
+            confirmButton={false}
+            cancelButton={false}
             modalContent={
               <>
-                {/* <FormCreateOrders /> */}
+              <FormDetailOrders dataDetail={selectedRow} />
               </>
             }
           />
@@ -178,6 +206,7 @@ const Orders = () => {
             modalName={"create"}
             modalLable={"createModal"}
             modalTitle={"Create"}
+            isDisabled={isDisabledButton}
             modalContent={
               <>
                 <FormCreateOrders />
@@ -189,6 +218,7 @@ const Orders = () => {
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form
+                  setIsDisabledButton(true)
                   form.dispatchEvent(
                     new Event("submit", { cancelable: true, bubbles: true })
                   );
@@ -203,6 +233,7 @@ const Orders = () => {
             modalName={"edit"}
             modalLable={"editModal"}
             modalTitle={"Edit"}
+            isDisabled={isDisabledButton}
             modalContent={
               <>
                 <FormEditOrders dataEdit={selectedRow} />
@@ -214,6 +245,7 @@ const Orders = () => {
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form
+                  setIsDisabledButton(true)
                   form.dispatchEvent(
                     new Event("submit", { cancelable: true, bubbles: true })
                   );
@@ -228,9 +260,13 @@ const Orders = () => {
             modalName={"delete"}
             modalLable={"deleteModal"}
             modalTitle={"Delete"}
+            isDisabled={isDisabledButton}
             modalContent={<>Are you sure to delete?</>}
             modalConfirmText={"Yes"}
-            modalConfirmClicked={() => handleDeleteRow(selectedRow)}
+            modalConfirmClicked={() => {
+              setIsDisabledButton(true)
+              handleDeleteRow(selectedRow)
+            }}
           />
         </>
       }
