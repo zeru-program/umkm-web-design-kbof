@@ -50,7 +50,7 @@ const SectionWelcoming = ({searchBlogs, setSearchBlogs, filter, setFilter}) => {
     <section className="w-100 d-flex flex-column align-content-center container-main section-product">
       <div className="d-flex flex-column align-items-center">
         <h2 className="text-font-color" data-aos="zoom-in">Educations</h2>
-        <p className="text-satoshi" data-aos="zoom-in" data-aos-delay="300">
+        <p className="text-satoshi text-center" data-aos="zoom-in" data-aos-delay="300">
           Discover our curated selection of aesthetic houseplants to transform
           your home into a vibrant.
         </p>
@@ -175,11 +175,11 @@ const DisplayEducation = () => {
                 <div className='img-education'>
                     <img src={item.img ? item.img : ""} alt={item.title} />
                 </div>
-                <div className='mt-4'>
-                    <h5>{item.title}</h5>
-                    <p className='text-satoshi'>{item.short_desc}</p>
+                <div className='mt-4 overflow-hidden' style={{ height: "140px"}}>
+                    <h5 className="title-elipsis">{item.title}</h5>
+                    <p className='text-satoshi p-elipsis'>{item.short_desc}</p>
                 </div>
-                <div>
+                <div className="position-absolute" style={{bottom: "20px"}}>
                     <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>
                 </div>
             </div>
@@ -195,7 +195,7 @@ const DisplayEducation = () => {
           </>
         )}
       </section>
-      <nav aria-label="Page navigation example">
+      <nav className="pb-5" aria-label="Page navigation example">
         <p className="text-center">
           Showing {totalPages} page of {totalDatas} Datas.
         </p>

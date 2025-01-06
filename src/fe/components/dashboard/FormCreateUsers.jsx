@@ -6,6 +6,8 @@ import OrdersPost from '../../../be/post/OrdersPost';
 import GenerateString from '../../../be/GenerateString';
 import Users from '../../../be/get/Users';
 import UsersOption from '../../../be/options/UsersOption';
+import RoleOption from '../../../be/options/RoleOption';
+import UsersPost from '../../../be/post/Users';
 const now = new Date();
 const formattedDate = now.getFullYear() + "-" +
   String(now.getMonth() + 1).padStart(2, '0') + "-" +
@@ -18,42 +20,25 @@ const FormCreateUsers = () => {
   const { usersOpt } = UsersOption();
   const { dataProducts } = ProductsGet();
   const { dataUsers } = Users();
-  const { handlePost } = OrdersPost();
+  const { handlePost } = UsersPost();
+  const { roleOpt } = RoleOption()
 //   console.log(GenerateString(9))
 
   const [dtFormCreate, setDtFormCreate] = useState({
-    id_product: '',
-    id_order: GenerateString(9),
-    id_user: '',
-    location_client: '',
-    recipient_name: '',
-    payment_method: 'cod',
-    order_note: '',
-    qty: '',
-    status: 'pending',
-    token: GenerateString(15),
-    total: '',
-    created_at: formattedDate,
+    id: '',
+    email: '',
+    phone: '',
+    role: '',
+    username: '',
+    password: '',
+    img: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+    status: 'active',
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
   
     setDtFormCreate((prevState) => {
-      //   if (name === 'qty') {
-      //       if (value <= 1) {
-      //           return {
-      //               ...prevState,
-      //               [name]: 1
-      //           }
-      //       }
-      //       const result = value * (prevState.total / (prevState.qty || 1));
-      //       return {
-      //           ...prevState,
-      //           [name]: value,
-      //           total: result || 0,
-      //       };
-      // }
   
       return {
         ...prevState,
@@ -64,12 +49,11 @@ const FormCreateUsers = () => {
   
 
   return (
-    <form action="" id='formCreateOrder' onSubmit={async (e) => {
+    <form action="" id='formCreateUser' onSubmit={async (e) => {
         e.preventDefault()
-        // console.log(dtFormCreate)
         const res = await handlePost(dtFormCreate)
         if (res) {
-            sessionStorage.setItem("success", "Success Create Orders")
+            sessionStorage.setItem("success", "Success Create User")
             location.reload()
         } else {
             alert('opss, any problem')
@@ -77,120 +61,80 @@ const FormCreateUsers = () => {
     }}>
       <div className="row">
         <div className="col-12 mb-3">
-          <label>Products</label>
-          <Select
-            options={productOpt}
-            // onChange={(item) => {
-            //     setDtFormCreate({ ...dtFormCreate, id_product: item.value })
-            //     setDtFormCreate({...dtFormCreate, total: dataProducts.find((data) => data.id_product === item.value).price})
-            //     setDtFormCreate({...dtFormCreate, qty: 1})
-            // }}
-            onChange={(item) => {
-                const selectedProduct = dataProducts.find((data) => data.id_product === item.value);
-            
-                setDtFormCreate((prevState) => ({
-                  ...prevState,
-                  id_product: item.value,
-                  total: selectedProduct ? selectedProduct.price : 0,
-                  qty: 1
-                }));
-            }}
-            value={productOpt.find((opt) => opt.value === dtFormCreate.id_product)}
+          <label>Img</label>
+          <input
+            type="text"
+            name="img"
+            placeholder="The image is not cahnged"
+            className="form-control"
+            value={dtFormCreate.img}
+            disabled
+            onInput={handleInputChange}
             required
           />
         </div>
         <div className="col-12 mb-3">
-          <label>Orderer</label>
-          <Select
-            options={usersOpt}
-            onChange={(item) => {
-                setDtFormCreate((prevState) => ({
-                  ...prevState,
-                  id_user: item.value
-                }));
-            }}
-            value={usersOpt.find((opt) => opt.value === dtFormCreate.id_user)}
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Input user name"
+            className="form-control"
+            value={dtFormCreate.username}
+            onInput={handleInputChange}
             required
           />
         </div>
-      </div>
-      <div className="row">
-        <div className="col-6 mb-3">
-          <label>Qty</label>
+        <div className="col-12 mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            autoComplete='true'
+            placeholder="Input Password Account"
+            className="form-control"
+            value={dtFormCreate.password}
+            onInput={handleInputChange}
+            required
+          />
+        </div>
+        <div className="col-12 mb-3">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Input Email Account"
+            className="form-control"
+            value={dtFormCreate.email}
+            onInput={handleInputChange}
+            required
+          />
+        </div>
+        <div className="col-12 mb-3">
+          <label>Phone</label>
           <input
             type="number"
-            name="qty"
-            placeholder="Input qty product"
+            name="phone"
+            placeholder="Input Phone Account"
             className="form-control"
-            value={dtFormCreate.qty}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
-        <div className="col-6 mb-3">
-          <label>Price Totals</label>
-          <input
-            type="number"
-            name="total"
-            disabled
-            placeholder="0"
-            className="form-control"
-            value={dtFormCreate.total}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Recipient Name</label>
-          <input
-            type="text"
-            name="recipient_name"
-            placeholder="Input recipient name"
-            className="form-control"
-            value={dtFormCreate.recipient_name}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Location Client</label>
-          <input
-            type="text"
-            name="location_client"
-            placeholder="Input location client"
-            className="form-control"
-            value={dtFormCreate.location_client}
+            value={dtFormCreate.phone}
             onInput={handleInputChange}
             required
           />
         </div>
         <div className="col-12 mb-3">
-          <label>Payment Method</label>
-          <input
-            type="text"
-            name="payment_method"
-            value={dtFormCreate.payment_method}
-            disabled
-            placeholder="Input payment method"
-            className="form-control"
+          <label>Role</label>
+          <Select
+            options={roleOpt}
+            onChange={(item) => {
+                setDtFormCreate((prevState) => ({
+                  ...prevState,
+                  status: item.value
+                }));
+            }}
+            value={roleOpt.find((opt) => opt.value === dtFormCreate.role)}
             required
           />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Order Note</label>
-          <textarea
-            name="order_note"
-            placeholder="Input order note"
-            className="form-control"
-            value={dtFormCreate.order_note}
-            onInput={handleInputChange}
-          ></textarea>
         </div>
       </div>
       {/* <button type='submit'>submit</button> */}

@@ -193,7 +193,7 @@ const UsersData = () => {
           </div>
 
           {/* modal  */}
-          <Modal
+          {/* <Modal
             modalName={"detail"}
             modalLable={"detailModal"}
             modalTitle={"Detail"}
@@ -204,7 +204,7 @@ const UsersData = () => {
               <FormDetailUsers dataDetail={selectedRow} />
               </>
             }
-          />
+          /> */}
           <Modal
             modalName={"create"}
             modalLable={"createModal"}
@@ -217,7 +217,7 @@ const UsersData = () => {
             }
             modalConfirmText={"Create"}
             modalConfirmClicked={() => {
-              const form = document.getElementById("formCreateOrder");
+              const form = document.getElementById("formCreateUser");
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form
@@ -244,7 +244,7 @@ const UsersData = () => {
             }
             modalConfirmText={"Save changes"}
             modalConfirmClicked={() => {
-              const form = document.getElementById("formEditOrder");
+              const form = document.getElementById("formEditUser");
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form

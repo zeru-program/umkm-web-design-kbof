@@ -63,7 +63,7 @@ const OrdersChart = () => {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return <Bar data={data} responsive="true" options={options} />;
 };
 
 export default OrdersChart;

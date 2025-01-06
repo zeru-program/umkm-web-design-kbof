@@ -48,6 +48,7 @@ const SideInput = () => {
     return (
         <section className='d-flex text-primary justify-content-center align-items-center auth-side-input'>
             <div className='con-auth'>
+                <img src="/images/logo.png" className='img-back-auth' onClick={() => window.location.href = '/'} style={{cursor :"pointer"}} alt="" />
                 <h2 className='text-font-color' style={{paddingRight: "100px"}}>Welcome Back!</h2>
                 <p>Start Your Journey with Aesthetic Plants.</p>
                 <form className='w-100' onSubmit={(e) => {
@@ -81,7 +82,7 @@ const SideInput = () => {
 const SideBackground = () => {
     return (
         <section className='auth-side-background text-light position-relative'>
-            <div className='px-4 position-absolute bottom-0'>
+            <div className='px-4 position-absolute' style={{bottom: "40px", left: "40px"}}>
                 <h2 className='fw-bold'>Handpicked Aesthetic PlantsHandpicked Aesthetic Plants</h2>
                 <div className='d-flex align-items-center gap-3 mb-4'>
                     <img src="/images/man1.jpg" className='img-side-background' alt="" />

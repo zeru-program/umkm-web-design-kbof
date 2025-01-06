@@ -12,7 +12,7 @@ const SectionWelcoming = () => {
             <div className='contain-about-top my-5 pb-5'>
                 <div className='d-flex flex-column'>
                     <div className="d-flex flex-column text-primary">
-                    <h2 className="text-font-color" data-aos="fade-right" data-aos-delay="100">Handpicked Aesthetic Plants</h2>
+                    <h1 className="text-font-color" data-aos="fade-right" data-aos-delay="100">Handpicked Aesthetic Plants</h1>
                     <p className="text-font-color" data-aos="fade-right" data-aos-delay="300">
                         Carefully selected indoor plants to add elegance and freshness to
                         your living space.

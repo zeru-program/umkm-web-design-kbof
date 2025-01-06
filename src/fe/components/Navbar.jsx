@@ -107,7 +107,7 @@ const Navbar = () => {
             </ul>
 
             {/* Search and icons */}
-            <form className="d-flex align-items-center">
+            <form className="d-flex flex-wrap gap-2 align-items-center">
               <Select
               styles={searchStyles}
                 options={productOptClean}

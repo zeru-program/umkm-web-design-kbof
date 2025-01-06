@@ -134,8 +134,8 @@ const Recomendation = ({ find }) => {
 
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h2>Recomendation</h2>
-      <div className="d-flex mt-4 flex-wrap gap-4">
+      <h1>Recomendation</h1>
+      <div className="d-flex mt-4 flex-wrap w-100 justify-content-center gap-4">
         {!loadProducts ? (
           currentItems.map((item, index) => {
             let find;

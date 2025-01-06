@@ -35,7 +35,7 @@ const SectionExcess = () => {
           <div className="bg-primary frame-img-excess"></div>
         </div>
         <div className="d-flex flex-column">
-          <h2 className="text-font-color" data-aos="fade-left">Handpicked Aesthetic Plants</h2>
+          <h1 className="text-font-color" data-aos="fade-left">Handpicked Aesthetic Plants</h1>
           <p className="text-font-color" data-aos="fade-left" data-aos-delay="300">
             Carefully selected indoor plants to add elegance and freshness to
             your living space.
@@ -79,7 +79,7 @@ const CtaSection1 = () => {
     <section className="section section-cta1 position-relative">
       <div className="d-flex flex-column wrapper-text-cta1 text-light container-main bg-primary">
         <div>
-          <h2 data-aos="fade-right" >Handpicked Aesthetic Plants Handpicked Aesthetic</h2>
+          <h1 data-aos="fade-right" >Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
           <p data-aos="fade-right" data-aos-delay="300">
             Carefully selected indoor plants to add elegance and freshness to
             your living space.Carefully selected indoor plants to add elegance
@@ -106,7 +106,7 @@ const CtaSection2 = () => {
         <img src="/images/woman1.jpg" alt="" data-aos="zoom-in" data-aos-delay="500" />
       </div>
       <div className="text-center w-100 d-flex flex-column mt-5 align-items-center">
-        <h2 data-aos="fade-up">Handpicked Aesthetic Plants Handpicked Aesthetic</h2>
+        <h1 data-aos="fade-up">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
         <p data-aos="fade-up" data-aos-delay="300">
           Carefully selected indoor plants to add elegance and freshness to your
           living space.
@@ -127,7 +127,7 @@ const CtaSection3 = () => {
       </div>
       <div className="d-flex flex-column justify-content-center wrapper-text-cta3 text-light">
         <div>
-          <h2 data-aos="fade-left">Handpicked Aesthetic Plants Handpicked Aesthetic</h2>
+          <h1 data-aos="fade-left">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
           <p data-aos="fade-left" data-aos-delay="100">
             Carefully selected indoor plants to add elegance and freshness to
             your living space.Carefully selected indoor plants to add elegance
@@ -144,17 +144,17 @@ const CtaSection3 = () => {
 
 const PlantsQuote = () => {
   return (
-    <section className="section text-center section-plants-quote d-flex justify-content-center align-items-center flex-column">
+    <section className="section  section-plants-quote d-flex justify-content-center align-items-center flex-column">
       <div className="d-flex justify-content-beetwen container-main">
         <div>
-          <h2 data-aos="fade-down">Handpicked Aesthetic Plants Handpicked Aesthetic</h2>
+          <h1 data-aos="fade-down" className="text-left">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
           <p data-aos="fade-down" data-aos-delay="100">
             Carefully selected indoor plants to add elegance and freshness to
             your living space.
           </p>
         </div>
         <div>
-          <i className="bi bi-quote" data-aos="fade-down" data-aos-delay="100"></i>
+          <i className="bi bi-quote qute" data-aos="fade-down" data-aos-delay="100"></i>
         </div>
       </div>
       <div className="d-flex mt-5 gap-4 justify-content-center align-items-center flex-wrap">

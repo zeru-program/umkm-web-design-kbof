@@ -158,6 +158,7 @@ header {
 }
 header .promo-bar {
   padding-block: 16px;
+  font-size: 18px;
 }
 header .navbar {
   padding-block: 18px;
@@ -292,7 +293,7 @@ button {
   flex-direction: column;
 }
 .wrapper-img-cta3 img {
-  width: 350px;
+  width: 950px;
 }
 .box-quote {
   width: 365px;
@@ -384,7 +385,7 @@ button {
 /** Education **/
 .box-education {
   width: 311px;
-  height: 481px;
+  height: 520px;
   padding-inline: 27px;
   padding-block: 32px;
   background-color: #E8EFEA;
@@ -442,12 +443,33 @@ input[type="password"]::-ms-clear {
 /* main content style */
 
 
+/* additional content */
+.img-back-auth {
+  width: 30px;
+  margin-bottom: 16px;
+}
+.title-elipsis {
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.p-elipsis {
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* additional content */
+
 /* responsive */
 /* size mobile */
 @media screen and (max-width: 700px) {
-  /* h1 {
+   h1 {
     font-size: 32px;
-  }
+  }/*
   h2 {
     font-size: 28px;
   }
@@ -456,6 +478,9 @@ input[type="password"]::-ms-clear {
   } */
   p {
     font-size: 14px;
+  }
+  .promo-bar {
+    font-size: 14px !important;
   }
   .w50-res {
     width: 100%;
@@ -558,24 +583,26 @@ input[type="password"]::-ms-clear {
   }
   /* product styles */
   .box-product {
-    width: 120px;
+    width: 290px;
     height: 220px;
+    margin-bottom: 200px;
   }
   .img-product {
-    height: 140px;
+    height: 300px;
+    /* background-color: red; */
   }
   .title-product, .price-product, .discount-text {
-    /* margin-bottom: 0; */
-    font-size: 12px;
+    margin-bottom: 10px;
+    font-size: 24px;
   }
   .title-product {
-    margin-bottom: -5px;
+    margin-bottom: 3px !important;
   }
   .contain-star-product {
     flex-direction: column;
   }
   .star-product {
-    font-size: 10px;
+    font-size: 14px;
   }
   .discount-text {
     padding-inline: 8px !important;
@@ -586,6 +613,9 @@ input[type="password"]::-ms-clear {
   .contain-spec {
     margin-top: 20px !important;
     align-items: start !important;
+  }
+  .qute {
+    display: none;
   }
 }
 
@@ -640,5 +670,8 @@ input[type="password"]::-ms-clear {
   .contain-detail {
     flex-direction: row;
     gap: 0;
+  }
+  .img-back-auth {
+    margin-bottom: 85px;
   }
 }

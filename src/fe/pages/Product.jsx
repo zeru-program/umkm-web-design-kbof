@@ -43,7 +43,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
     <section className="w-100 d-flex flex-column align-content-center container-main section-product">
       <div className="d-flex flex-column align-items-center">
         <h2 className="text-font-color" data-aos="zoom-in">Plants</h2>
-        <p className="text-satoshi" data-aos="zoom-in" data-aos-delay="300">
+        <p className="text-satoshi text-center" data-aos="zoom-in" data-aos-delay="300">
           Discover our curated selection of aesthetic houseplants to transform
           your home into a vibrant.
         </p>
@@ -236,7 +236,7 @@ const DisplayProduct = () => {
           </>
         )}
       </section>
-      <nav aria-label="Page navigation example">
+      <nav className="pb-5" aria-label="Page navigation example">
         <p className="text-center">
           Showing {totalPages} page of {totalDatas} Datas.
         </p>

@@ -6,46 +6,30 @@ import GenerateString from '../../../be/GenerateString';
 import OrdersEdit from '../../../be/edit/OrdersEdit';
 import StatusOption from '../../../be/options/StatusOption';
 import UsersOption from '../../../be/options/UsersOption';
+import RoleOption from '../../../be/options/RoleOption';
+import UsersEdit from '../../../be/edit/UsersEdit';
 
 const FormEditUsers = ({dataEdit}) => {
   const { productOpt } = ProductsOption();
   const { statusOptOrders } = StatusOption();
   const { usersOpt } = UsersOption();
   const { dataProducts } = ProductsGet();
-  const { handleEdit } = OrdersEdit();
+  const { handleEdit } = UsersEdit();
+  const { roleOpt } = RoleOption()
   const [dtFormEdit, setDtFormEdit] = useState({
-    id_product: '',
-    id_order: "",
-    id_user: '',
-    location_client: '',
-    recipient_name: '',
-    payment_method: '',
-    order_note: '',
-    qty: '',
-    status: 'pending',
-    token: '',
-    total: '',
+    id: '',
+    email: '',
+    phone: '',
+    role: '',
+    username: '',
+    password: '',
+    img: '',
+    status: 'active',
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDtFormEdit((prevState) => {
-      //   if (name === 'qty') {
-      //       if (value <= 1) {
-      //           return {
-      //               ...prevState,
-      //               [name]: ""
-      //           }
-      //       }
-      // }
-      //   if (name === 'total') {
-      //       if (value <= 1) {
-      //           return {
-      //               ...prevState,
-      //               [name]: ""
-      //           }
-      //       }
-      // }
   
       return {
         ...prevState,
@@ -56,172 +40,110 @@ const FormEditUsers = ({dataEdit}) => {
 
   useEffect(() => {
     if (Array.isArray(dataEdit) && dataEdit.length == 1) {
-      // console.log(dataEdit)
+      console.log(dataEdit)
         setDtFormEdit({
             ...dtFormEdit,
-            id_product: dataEdit[0].productID,
-            id_order: dataEdit[0].orderID,
-            id_user: dataEdit[0].id_user,
-            location_client: dataEdit[0].location_client,
-            recipient_name: dataEdit[0].recipient_name,
-            payment_method: dataEdit[0].payment_method,
-            order_note: dataEdit[0].order_note,
-            qty: dataEdit[0].qty,
+            id: dataEdit[0].id_user,
+            email: dataEdit[0].email,
+            phone: dataEdit[0].phone,
+            role: dataEdit[0].role,
+            img: dataEdit[0].img,
+            username: dataEdit[0].username,
+            password: dataEdit[0].password,
             status: dataEdit[0].status,
-            token: dataEdit[0].token,
-            total: dataEdit[0].total,
         })
     }
   }, [dataEdit])
   
 
   return (
-    <form action="" id='formEditOrder' onSubmit={async (e) => {
+    <form action="" id='formEditUser' onSubmit={async (e) => {
         e.preventDefault()
         const res = await handleEdit(dtFormEdit, dataEdit[0].key)
         if (res) {
-            sessionStorage.setItem("success", "Success Edit Orders")
+            sessionStorage.setItem("success", "Success Edit User")
             location.reload()
         } else {
             alert('opss, any problem')
         }
     }}>
-      <div className="row">
-        <div className="col-12 mb-3">
-            <label>Order ID</label>
-            <input
-                type="text"
-                name="id_order"
-                disabled
-                placeholder="Input orderer id"
-                className="form-control"
-                value={dtFormEdit.id_order}
-                onInput={handleInputChange}
-                required
-            />
-            </div>
-        <div className="col-12 mb-3">
-            <label>Status</label>
-            <Select
-            options={statusOptOrders}
-            onChange={(item) => {
-                setDtFormEdit({...dtFormEdit, status: item.value})
-            }}
-            value={statusOptOrders.find((opt) => opt.value === dtFormEdit.status)}
-            required
-            />
-            </div>
-        </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Products</label>
-          <Select
-            options={productOpt}
-            onChange={(item) => {
-                const selectedProduct = dataProducts.find((data) => data.id_product === item.value);
-            
-                setDtFormEdit((prevState) => ({
-                  ...prevState,
-                  id_product: item.value,
-                  total: selectedProduct ? selectedProduct.price : 0,
-                  qty: 1
-                }));
-            }}
-            value={productOpt.find((opt) => opt.value === dtFormEdit.id_product)}
-            required
-          />
-        </div>
-        <div className="col-12 mb-3">
-          <label>Orderer</label>
-            <Select
-            options={usersOpt}
-            onChange={(item) => {
-                setDtFormEdit({...dtFormEdit, id_user: item.value})
-            }}
-            value={usersOpt.find((opt) => opt.value === dtFormEdit.id_user)}
-            required
-            />
-        </div>
+    <div className="row">
+      <div className="col-12 mb-3">
+        <label>Img</label>
+        <input
+          type="text"
+          name="img"
+          placeholder="The image is not cahnged"
+          className="form-control"
+          value={dtFormEdit.img}
+          disabled
+          onInput={handleInputChange}
+          required
+        />
       </div>
-      <div className="row">
-        <div className="col-6 mb-3">
-          <label>Qty</label>
-          <input
-            type="number"
-            name="qty"
-            placeholder="Input qty product"
-            className="form-control"
-            value={dtFormEdit.qty}
-            onInput={handleInputChange}
-            required
-          />
-          <span className='text-danger text-nowrap'>Please input the appropriate quantity and price</span>
-        </div>
-        <div className="col-6 mb-3">
-          <label>Price Totals</label>
-          <input
-            type="number"
-            name="total"
-            placeholder="0"
-            className="form-control"
-            value={dtFormEdit.total}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
+      <div className="col-12 mb-3">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          placeholder="Input user name"
+          className="form-control"
+          value={dtFormEdit.username}
+          onInput={handleInputChange}
+          required
+        />
       </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Recipient Name</label>
-          <input
-            type="text"
-            name="recipient_name"
-            placeholder="Input recipient name"
-            className="form-control"
-            value={dtFormEdit.recipient_name}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
+      <div className="col-12 mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          autoComplete='true'
+          disabled
+          className="form-control"
+          value={dtFormEdit.password}
+          onInput={handleInputChange}
+          required
+        />
       </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Location Client</label>
-          <input
-            type="text"
-            name="location_client"
-            placeholder="Input location client"
-            className="form-control"
-            value={dtFormEdit.location_client}
-            onInput={handleInputChange}
-            required
-          />
-        </div>
-        <div className="col-12 mb-3">
-          <label>Payment Method</label>
-          <input
-            type="text"
-            name="payment_method"
-            value={dtFormEdit.payment_method}
-            disabled
-            placeholder="Input payment method"
-            className="form-control"
-            required
-          />
-        </div>
+      <div className="col-12 mb-3">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Input Email Account"
+          className="form-control"
+          value={dtFormEdit.email}
+          onInput={handleInputChange}
+          required
+        />
       </div>
-      <div className="row">
-        <div className="col-12 mb-3">
-          <label>Order Note</label>
-          <textarea
-            name="order_note"
-            placeholder="Input order note"
-            className="form-control"
-            value={dtFormEdit.order_note}
-            onInput={handleInputChange}
-          ></textarea>
-        </div>
+      <div className="col-12 mb-3">
+        <label>Phone</label>
+        <input
+          type="number"
+          name="phone"
+          placeholder="Input Phone Account"
+          className="form-control"
+          value={dtFormEdit.phone}
+          onInput={handleInputChange}
+          required
+        />
       </div>
+      <div className="col-12 mb-3">
+        <label>Role</label>
+        <Select
+          options={roleOpt}
+          onChange={(item) => {
+              setDtFormEdit((prevState) => ({
+                ...prevState,
+                role: item.value
+              }));
+          }}
+          value={roleOpt.find((opt) => opt.value === dtFormEdit.role)}
+          required
+        />
+      </div>
+    </div>
     </form>
   );
 };

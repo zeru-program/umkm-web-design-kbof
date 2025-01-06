@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const UsersDelete = () => {
   const handleDelete = async (data) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_DB}orders/${data}.json`, {
+      const res = await fetch(`${import.meta.env.VITE_DB}users/${data}.json`, {
         method: "delete",
         headers: {
           "Content-Type": "application/json",
@@ -17,7 +17,7 @@ const UsersDelete = () => {
       const result = await res.json();
       return result;
     } catch (error) {
-      console.log("error while created acount", error);
+      console.log("error while deleted", error);
       throw error;
     }
   };

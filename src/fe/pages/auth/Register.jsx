@@ -52,6 +52,7 @@ const SideInput = () => {
     return (
         <section className='d-flex text-primary justify-content-center align-items-center auth-side-input'>
             <div className='con-auth'>
+                <img src="/images/logo.png" className='img-back-auth' onClick={() => window.location.href = '/'} style={{cursor :"pointer"}} alt="" />
                 <h2 className='text-font-color'>Create Your Account</h2>
                 <p>Access Your Personalized Plant Recommendations.</p>
                 <form className='w-100' onSubmit={(e) => {

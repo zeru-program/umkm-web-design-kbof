@@ -89,7 +89,7 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
       }, [dataBlogs, searchBlogs, filter, currentPage, totalDatas]);
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h2>Recomendation</h2>
+      <h1>Recomendation</h1>
       <div className="d-flex mt-4 flex-wrap gap-4">
         {!loadBlogs ? (
             currentItems.map((item, index) => {
