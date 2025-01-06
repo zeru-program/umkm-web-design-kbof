@@ -40,8 +40,8 @@ const filterStyles = {
 const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}) => {
     const { filter1, filter2 } = Filter1Product()
   return (
-    <section className="w-100 d-flex flex-column align-content-center container-main section-product">
-      <div className="d-flex flex-column align-items-center">
+    <section className="w-100 d-flex flex-column align-items-center container-main section-product">
+      <div className="d-flex w-title-products flex-column align-items-center">
         <h2 className="text-font-color" data-aos="zoom-in">Plants</h2>
         <p className="text-satoshi text-center" data-aos="zoom-in" data-aos-delay="300">
           Discover our curated selection of aesthetic houseplants to transform
@@ -61,7 +61,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
           </div>
         </div>
       </div>
-      <div className="d-flex mt-4 justify-content-between">
+      <div className="d-flex mt-4 justify-content-between" style={{width: "90%"}}>
         <Select
             placeholder="Sort By"
             styles={filterStyles}
@@ -168,7 +168,7 @@ const DisplayProduct = () => {
               );
               if (
                 findTemporary &&
-                findTemporary.periode_start === formattedDate.slice(0, 10) &&
+                findTemporary.periode_start <= formattedDate.slice(0, 10) &&
                 findTemporary.periode_end >= formattedDate.slice(0, 10)
               ) {
                 find = findTemporary;

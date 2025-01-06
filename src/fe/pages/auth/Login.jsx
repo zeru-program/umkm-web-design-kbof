@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/AuthLayout'
 import './Auth.css'
 import Users from '../../../be/get/Users'
 import Swal from 'sweetalert2'
+import Toast from '../../components/Toast'
 
 const SideInput = () => {
     const { dataUsers } = Users()
@@ -97,6 +98,15 @@ const SideBackground = () => {
 }
 
 const Login = () => {
+    useEffect(() => {
+        if (sessionStorage.getItem('error')) {
+            Toast.fire({
+              icon: "error",
+              title: sessionStorage.getItem('error'),
+            });
+            sessionStorage.removeItem("error");
+        }
+    }, [])
   return (
     <AuthLayout mainContent={<>
     <div className='contain-auth' style={{width: "100%", height: "100vh"}}>

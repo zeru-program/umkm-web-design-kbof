@@ -12,7 +12,7 @@ const Sidebar = ({handleSideClick, sideActive}) => {
         } else if (window.innerWidth > 700) {
             setImageNav(true);
         }
-    }, [])
+    })
 
   return (
     <>

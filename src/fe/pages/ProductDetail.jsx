@@ -40,6 +40,13 @@ const ImgProduct = ({ find, findPromo }) => {
 };
 
 const ReadyCheckout = ({ find, findPromo }) => {
+  const handleBuy = () => {
+    if (!sessionStorage.getItem('isLogin')) {
+        sessionStorage.setItem('error', 'You must log in to order products!')
+        window.location.href = '/auth/sign-in/'
+      }
+    window.location.href = '/checkout/' + find.name
+  }
   return (
     <div className="ready-checkout">
       <div className="img-spec mb-3">
@@ -75,7 +82,7 @@ const ReadyCheckout = ({ find, findPromo }) => {
           </>}
       </div>
       <div className="d-flex mt-3 gap-3">
-        <button className="btn bg-primary px-5 text-light" onClick={() => window.location.href = '/checkout/' + find.name}>Buy Now</button>
+        <button className="btn bg-primary px-5 text-light" onClick={() => handleBuy()}>Buy Now</button>
         {/* <button
           className="btn bg-transparent text-primary"
           style={{ border: "1.5px solid #496653" }}
@@ -264,9 +271,10 @@ const ProductDetail = () => {
     if (dataProducts && dataProducts.length > 0) {
       const foundProduct = dataProducts.find((item) => item.name === idP);
       if (foundProduct) {
-          const foundProductPromo = dataPromo.find((item) => item.id_product === foundProduct.id_product);
+          const foundProductPromo = dataPromo.find((item) => item.id_product === foundProduct.id_product && (item.status === "active" && item.periode_start <= formattedDate.slice(0, 10) && item.periode_end >= formattedDate.slice(0, 10)));
           if (foundProductPromo) {
             // console.log('product is promo')
+            console.log(formattedDate.slice(0, 10))
             setFindPromo(foundProductPromo || null)
           }
           setFind(foundProduct || null); // Jika tidak ditemukan, set ke null

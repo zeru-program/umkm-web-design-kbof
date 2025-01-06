@@ -190,8 +190,10 @@ const CardCheckout = ({ find, findPromo }) => {
       <div className="w50-res">
         <div className="w-100 d-flex flex-column">
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
+            <div className="d-flex gap-3 align-items-center">
             <img src={find.img} className="img-thumbnail img-tbody" alt="" />
             <span>x{dataCheckout.qty}</span>
+            </div>
             <span>Rp{parseFloat(find.is_discount ? findPromo.result_price * dataCheckout.qty : find.price * dataCheckout.qty).toLocaleString("id-ID")}</span>
           </div>
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
@@ -222,7 +224,7 @@ const CardCheckout = ({ find, findPromo }) => {
           </div>
         </div>
       </div>
-      <button className="mt-3 btn w-100 bg-primary text-satoshi text-light" disabled={disabledButton ? true : false} onClick={() => handleCheckout()}>Checkout</button>
+      <button className="mt-3 py-3 btn w-100 bg-primary text-satoshi text-light" disabled={disabledButton ? true : false} onClick={() => handleCheckout()}>Checkout</button>
     </div>
   );
 };
