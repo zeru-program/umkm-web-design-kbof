@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ProductsOption from "../../be/options/ProductsOption";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import ProductsGet from "../../be/get/ProductsGet";
 const searchStyles = {
   control: (base) => ({
       ...base,
       fontWeight: "500",
-      width: "180px",
+      width: "200px",
+      border: "0",
+      borderRadius: "10px",
+      color: "red",
+      background: "#EEEAE7",
       marginRight: "15px",
+      paddingInline: "10px",
       textWrap: "nowrap"
     }),
 }
@@ -17,9 +22,33 @@ const role = sessionStorage.getItem('role');
 const username = sessionStorage.getItem('username');
 const isAdminOrDev = role === 'admin' || role === 'developer';
 
+const DropdownIndicator = (props) => {
+  return (
+    components.DropdownIndicator && (
+      <components.DropdownIndicator {...props}>
+        <SearchIcon />
+      </components.DropdownIndicator>
+    )
+  );
+};
 
+const SearchIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 100 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="38" cy="40" r="20.5" stroke="currentColor" strokeWidth="7" />
+    <path
+      d="M76.0872 84.4699C78.056 86.4061 81.2217 86.3797 83.158 84.4109C85.0943 82.442 85.0679 79.2763 83.099 77.34L76.0872 84.4699ZM50.4199 59.2273L76.0872 84.4699L83.099 77.34L57.4317 52.0974L50.4199 59.2273Z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
-const Navbar = () => {
+const Navbar = ({ isHide }) => {
   const location = useLocation()
   const { idP } = useParams()
   const { idE } = useParams()
@@ -55,9 +84,9 @@ const Navbar = () => {
   }, [search])
 
   return (
-    <header>
+    <header className={!isHide ? "d-block" : "d-none"}>
       {/* Promo bar */}
-      <div className="bg-primary text-white text-center promo-bar">
+      <div className="bg-primary px-1 text-white text-center promo-bar">
         🌱 Limited Time Offer! Get 15% Off All Indoor Plants — Use Code{" "}
         <strong>GREEN15</strong> At Checkout! 🌱
       </div>
@@ -109,8 +138,14 @@ const Navbar = () => {
             {/* Search and icons */}
             <form className="d-flex flex-wrap gap-2 align-items-center">
               <Select
-              styles={searchStyles}
+                styles={searchStyles}
                 options={productOptClean}
+                isSearchable={true}
+                isClearable={true}
+                components={{
+                  IndicatorSeparator: () => null,
+                  DropdownIndicator,
+                }}
                 placeholder='Search A Product'
                 onChange={(item) => {
                   setSearch(item.value)
@@ -133,12 +168,13 @@ const Navbar = () => {
                         </>
                       ) : (
                         <>
-                        <a href={!isLoggedIn ? "/auth/sign-in" : "#"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
+                        <a href={!isLoggedIn ? "/auth/sign-in" : "/profile"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
                           <i
                             className={`text-primary icon-complementary bi bi-${
                               isLoggedIn ? 'person-fill' : 'box-arrow-in-right'
                             }`}
                           ></i>
+                          </a>
                           {
                             isLoggedIn ?  (
                             <div className="dropdown">
@@ -147,14 +183,13 @@ const Navbar = () => {
                               <i className='bi-caret-down-fill'></i>
                             </div>
                             <ul className="dropdown-menu">
-                              <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => document.getElementById('iClick').click()}>Profile</a></li>
+                              <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => window.location.href = '/profile'}>Profile</a></li>
                               {/* <li><a className="dropdown-item" href="#">Another action</a></li> */}
                               <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
                             </ul>
                           </div>
                             ) : (<span className="text-nowrap">Sign</span>) 
                           }
-                          </a>
                         </>
                       )}
                 </div>

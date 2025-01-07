@@ -26,6 +26,7 @@ const TheadUsers = () => {
           </div>
         );
       },
+      width: "200px",
       sortable: true,
     },
     {
@@ -36,6 +37,20 @@ const TheadUsers = () => {
     {
       name: "Email",
       selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.gender,
+      cell: (row) => {
+        if (row.gender == true) {
+          return <div className="badge bg-primary p-1 text-light">Male</div>;
+        } else if (row.gender == false) {
+          return <div className="badge bg-danger text-light">Female</div>;
+        } else {
+          return <div className="badge bg-dark text-light">Unknown</div>;
+        }
+      },
       sortable: true,
     },
     {

@@ -8,6 +8,7 @@ import Users from '../../../be/get/Users';
 import UsersOption from '../../../be/options/UsersOption';
 import RoleOption from '../../../be/options/RoleOption';
 import UsersPost from '../../../be/post/Users';
+import TrueFalse from '../../../be/options/TrueFalse';
 const now = new Date();
 const formattedDate = now.getFullYear() + "-" +
   String(now.getMonth() + 1).padStart(2, '0') + "-" +
@@ -22,6 +23,7 @@ const FormCreateUsers = () => {
   const { dataUsers } = Users();
   const { handlePost } = UsersPost();
   const { roleOpt } = RoleOption()
+  const { maleFemale } = TrueFalse()
 //   console.log(GenerateString(9))
 
   const [dtFormCreate, setDtFormCreate] = useState({
@@ -31,6 +33,7 @@ const FormCreateUsers = () => {
     role: '',
     username: '',
     password: '',
+    gender: '',
     img: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
     status: 'active',
   });
@@ -119,6 +122,20 @@ const FormCreateUsers = () => {
             className="form-control"
             value={dtFormCreate.phone}
             onInput={handleInputChange}
+            required
+          />
+        </div>
+        <div className="col-12 mb-3">
+          <label>Gender</label>
+          <Select
+            options={maleFemale}
+            onChange={(item) => {
+                setDtFormCreate((prevState) => ({
+                  ...prevState,
+                  gender: item.value
+                }));
+            }}
+            value={maleFemale.find((opt) => opt.value === dtFormCreate.gender)}
             required
           />
         </div>

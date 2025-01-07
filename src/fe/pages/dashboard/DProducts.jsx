@@ -22,6 +22,7 @@ import FormCreateCode from "../../components/dashboard/FormCreateCode";
 import CodeDelete from "../../../be/delete/CodeDelete";
 import TheadCode from "../../../be/datatables/TheadCode";
 import CodeGet from "../../../be/get/CodeGet";
+import FormEditCode from "../../components/dashboard/FormEditCode";
 
 const ManagePromoCta = () => {
   return (
@@ -613,6 +614,31 @@ const CodeManagement = () => {
               <i className="bi-plus-lg"></i>
             </button>
             <button
+              className="btn text-light bg-accent"
+              onClick={(e) => {
+                if (!selectedRow || selectedRow.length === 0) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select the data!",
+                  });
+                  return;
+                } else if (selectedRow && selectedRow.length > 1) {
+                  e.preventDefault();
+                  Toast.fire({
+                    icon: "error",
+                    title: "Please select only 1 data!",
+                  });
+                  return;
+                }
+              }}
+              {...(selectedRow && selectedRow.length == 1
+                ? { "data-bs-toggle": "modal", "data-bs-target": "#editCode" }
+                : {})}
+            >
+              <i className="bi-pencil-fill"></i>
+            </button>
+            <button
               className="btn text-light bg-danger"
               onClick={(e) => {
                 if (!selectedRow || selectedRow.length === 0) {
@@ -687,6 +713,35 @@ const CodeManagement = () => {
             }}
           />
           <Modal
+            modalName={"editCode"}
+            modalLable={"editModal"}
+            modalTitle={"Edit"}
+            isDisabled={isDisabledButton}
+            modalContent={
+              <>
+                <FormEditCode ref={formRef} dataEdit={selectedRow} />
+              </>
+            }
+            modalConfirmText={"Save changes"}
+            modalConfirmClicked={() => {
+              const form = document.getElementById("formEditCode");
+              if (form) {
+                if (form.checkValidity()) {
+                  // Jika validasi berhasil, kirim form
+                  setIsDisabledButton(true)
+                  if (formRef.current) {
+                    formRef.current.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); 
+                  }
+                } else {
+                  // Jika validasi gagal, tampilkan pesan error
+                  form.reportValidity();
+                }
+              } else {
+                console.error("Form element not found!");
+              }
+            }}
+          />
+          <Modal
             modalName={"deleteCode"}
             modalLable={"deleteModal"}
             modalTitle={"Delete"}
@@ -709,8 +764,8 @@ const DProducts = () => {
     <Dashboard content={<>
       <div className='mt-3'>
          <Header title={'Products'} pageName={'Products'} />
-         <ManagePromoCta />
-         <ManageCodePromo />
+         {/* <ManagePromoCta />
+         <ManageCodePromo /> */}
          <ProductsData />
          <PromoManagement />
          <CodeManagement />

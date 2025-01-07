@@ -32,6 +32,8 @@ const SideInput = () => {
             sessionStorage.setItem('id', matchedUser.id)
             sessionStorage.setItem('key', matchedUser.key)
             sessionStorage.setItem('role', matchedUser.role)
+            sessionStorage.setItem('gender', matchedUser.gender)
+            console.log(matchedUser.gender)
             Swal.fire('Success', 'Logged in successfully', 'success').then((result) => {
                 if (result.isConfirmed) {
                     if (matchedUser.role === 'admin' || matchedUser.role === 'developer') {

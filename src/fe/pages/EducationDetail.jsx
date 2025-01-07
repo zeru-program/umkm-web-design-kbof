@@ -105,8 +105,8 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
                     <img src={item.img ? item.img : ""} alt={item.title} />
                 </div>
                 <div className='mt-4'>
-                    <h5>{item.title}</h5>
-                    <p className='text-satoshi'>{item.short_desc}</p>
+                    <h5 className="p-elipsis">{item.title}</h5>
+                    <p className='text-satoshi p-elipsis'>{item.short_desc}</p>
                 </div>
                 <div>
                     <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>

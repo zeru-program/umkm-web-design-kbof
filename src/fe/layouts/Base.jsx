@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 import BtnToTop from "../components/BtnToTop";
 import GreenAi from "../components/GreenAi";
 
-const Base = ({ mainContent }) => {
+const Base = ({ mainContent, isHide = false }) => {
 
   return (
     <>
       <section id="content">
         <GreenAi />
-        <Navbar />
+        <Navbar isHide={isHide} />
         <main>{mainContent}</main>
         <Footer />
         <BtnToTop />

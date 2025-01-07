@@ -9,6 +9,7 @@ const SideInput = () => {
     const [dataForm, setDataForm] = useState({
         username: '',
         password: '',
+        gender: '',
         email: ''
     })
     const handleSubmit = async () => {

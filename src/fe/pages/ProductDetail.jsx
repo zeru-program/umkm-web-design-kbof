@@ -53,6 +53,9 @@ const ReadyCheckout = ({ find, findPromo }) => {
         <img src={find.img ? find.img : "/images/plants1-full2.png"} alt="" />
       </div>
       <div className="gap-2 d-flex align-items-end contain-spec flex-column">
+        <div>
+          <h1 className="d-mobile">{find.name}</h1>
+        </div>
         <div className="d-flex gap-2">
           <span>{find.spesification.height}cm Height</span>
         </div>

@@ -8,6 +8,7 @@ import StatusOption from '../../../be/options/StatusOption';
 import UsersOption from '../../../be/options/UsersOption';
 import RoleOption from '../../../be/options/RoleOption';
 import UsersEdit from '../../../be/edit/UsersEdit';
+import TrueFalse from '../../../be/options/TrueFalse';
 
 const FormEditUsers = ({dataEdit}) => {
   const { productOpt } = ProductsOption();
@@ -16,11 +17,13 @@ const FormEditUsers = ({dataEdit}) => {
   const { dataProducts } = ProductsGet();
   const { handleEdit } = UsersEdit();
   const { roleOpt } = RoleOption()
+  const { maleFemale } = TrueFalse()
   const [dtFormEdit, setDtFormEdit] = useState({
     id: '',
     email: '',
     phone: '',
     role: '',
+    gender: '',
     username: '',
     password: '',
     img: '',
@@ -47,6 +50,7 @@ const FormEditUsers = ({dataEdit}) => {
             email: dataEdit[0].email,
             phone: dataEdit[0].phone,
             role: dataEdit[0].role,
+            gender: dataEdit[0].gender,
             img: dataEdit[0].img,
             username: dataEdit[0].username,
             password: dataEdit[0].password,
@@ -129,6 +133,20 @@ const FormEditUsers = ({dataEdit}) => {
           required
         />
       </div>
+        <div className="col-12 mb-3">
+          <label>Gender</label>
+          <Select
+            options={maleFemale}
+            onChange={(item) => {
+                setDtFormEdit((prevState) => ({
+                  ...prevState,
+                  gender: item.value
+                }));
+            }}
+            value={maleFemale.find((opt) => opt.value === dtFormEdit.gender)}
+            required
+          />
+        </div>
       <div className="col-12 mb-3">
         <label>Role</label>
         <Select

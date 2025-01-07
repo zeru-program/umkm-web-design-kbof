@@ -31,10 +31,10 @@ const SectionExcess = () => {
     <section className="section section-excess text-primary">
       <div className="d-flex align-items-center wrapper-excess justify-content-center container-main h-100">
         <div className="position-relative contain-img-excess">
-          <img src="/images/plants3.jpg" className="img-excess" data-aos="zoom-in" data-aos-delay="500" alt="" />
+          <img src="/images/plants3.jpg" className="img-excess" data-aos="fade-right" data-aos-delay="500" alt="" />
           <div className="bg-primary frame-img-excess"></div>
         </div>
-        <div className="d-flex flex-column">
+        <div className="d-flex contain-text-excess flex-column">
           <h1 className="text-font-color" data-aos="fade-left">Handpicked Aesthetic Plants</h1>
           <p className="text-font-color" data-aos="fade-left" data-aos-delay="300">
             Carefully selected indoor plants to add elegance and freshness to
@@ -105,7 +105,7 @@ const CtaSection2 = () => {
         <img src="/images/man3.jpg" alt="" data-aos="zoom-in" data-aos-delay="300" />
         <img src="/images/woman1.jpg" alt="" data-aos="zoom-in" data-aos-delay="500" />
       </div>
-      <div className="text-center w-100 d-flex flex-column mt-5 align-items-center">
+      <div className="text-center container-main w-100 d-flex flex-column mt-5 align-items-center">
         <h1 data-aos="fade-up">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
         <p data-aos="fade-up" data-aos-delay="300">
           Carefully selected indoor plants to add elegance and freshness to your
