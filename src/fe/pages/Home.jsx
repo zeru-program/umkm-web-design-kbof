@@ -79,14 +79,12 @@ const CtaSection1 = () => {
     <section className="section section-cta1 position-relative">
       <div className="d-flex flex-column wrapper-text-cta1 text-light container-main bg-primary">
         <div>
-          <h1 data-aos="fade-right" >Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
+          <h1 data-aos="fade-right" >Elevate Your Space with the Beauty of Stunning Plants!</h1>
           <p data-aos="fade-right" data-aos-delay="300">
-            Carefully selected indoor plants to add elegance and freshness to
-            your living space.Carefully selected indoor plants to add elegance
-            and freshness to your living space.
+            Elevate your home with our handpicked collection of vibrant, fresh plants. Shop now and create a greener, more inspiring environment today!
           </p>
           <div>
-            <button className="btn btn-light text-primary" data-aos="fade-right" data-aos-delay="500">Explore Now</button>
+            <button className="btn btn-light text-primary" data-aos="fade-right" data-aos-delay="500" onClick={() => window.location.href = '/plants'}>Go To Plant</button>
           </div>
         </div>
       </div>
@@ -106,13 +104,12 @@ const CtaSection2 = () => {
         <img src="/images/woman1.jpg" alt="" data-aos="zoom-in" data-aos-delay="500" />
       </div>
       <div className="text-center container-main w-100 d-flex flex-column mt-5 align-items-center">
-        <h1 data-aos="fade-up">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
+        <h1 data-aos="fade-up">Unlock the Secrets to Thriving Plants!</h1>
         <p data-aos="fade-up" data-aos-delay="300">
-          Carefully selected indoor plants to add elegance and freshness to your
-          living space.
+          Learn the best care techniques and plant care hacks in our Education section. Elevate your skills and let your plants flourish like never before!
         </p>
         <div>
-          <button className="btn bg-primary text-light" data-aos="fade-up" data-aos-delay="500">Explore Now</button>
+          <button className="btn bg-primary text-light" data-aos="fade-up" data-aos-delay="500" onClick={() => window.location.href = '/education'}>Go To Education</button>
         </div>
       </div>
     </section>
@@ -127,14 +124,12 @@ const CtaSection3 = () => {
       </div>
       <div className="d-flex flex-column justify-content-center wrapper-text-cta3 text-light">
         <div>
-          <h1 data-aos="fade-left">Handpicked Aesthetic Plants Handpicked Aesthetic</h1>
+          <h1 data-aos="fade-left">Get to Know Us – The Passion Behind Green House!</h1>
           <p data-aos="fade-left" data-aos-delay="100">
-            Carefully selected indoor plants to add elegance and freshness to
-            your living space.Carefully selected indoor plants to add elegance
-            and freshness to your living space.
+          Discover the story, vision, and dedication that drive our mission to bring nature closer to you. Learn how we’re committed to transforming spaces and building greener futures together.
           </p>
           <div>
-            <button className="btn btn-light text-primary" data-aos="fade-left" data-aos-delay="300">Explore Now</button>
+            <button className="btn btn-light text-primary" data-aos="fade-left" data-aos-delay="300" onClick={() => window.location.href = '/about-us'}>Go To About Us</button>
           </div>
         </div>
       </div>

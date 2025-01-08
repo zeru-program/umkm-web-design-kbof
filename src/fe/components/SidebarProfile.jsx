@@ -45,7 +45,7 @@ const SidebarProfile = () => {
                             <span>My Order</span>
                         </div>
                     </div>
-                    <div className={`nav-link-dash ${location.pathname === "/setting" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/profile/setting'}>
+                    <div className={`nav-link-dash ${location.pathname === "/profile/history" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/profile/history'}>
                         <div className='content-link'>
                             <i className='bi bi-clock-history'></i>
                             <span>My History</span>

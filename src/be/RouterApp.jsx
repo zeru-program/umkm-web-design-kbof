@@ -22,6 +22,7 @@ import Checkout from '../fe/pages/Checkout'
 import OrderDetail from '../fe/pages/DetailOrder'
 import Profile from '../fe/pages/Profile'
 import MyOrder from '../fe/pages/MyOrder'
+import MyHistory from '../fe/MyHistory'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
@@ -82,6 +83,7 @@ const RouterApp = () => {
             <Route path='/auth/logout' element={<AuthLogout />} />
             <Route path='/profile' element={<AuthNotRoute element={<Profile />}/>} />
             <Route path='/profile/my-order' element={<AuthNotRoute element={<MyOrder />}/>} />
+            <Route path='/profile/history' element={<AuthNotRoute element={<MyHistory />}/>} />
             <Route path='/dashboard' element={<PrivateRoute element={<DHome />}/>} />
             <Route path='/dashboard/analytics' element={<PrivateRoute element={<DAnalytics />}/>} />
             <Route path='/dashboard/orders' element={<PrivateRoute element={<DOrders />}/>} />

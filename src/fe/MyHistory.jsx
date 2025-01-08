@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Base from "../layouts/Base";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useLocation } from 'react-router-dom';
-import UsersEdit from '../../be/edit/UsersEdit';
-import Users from '../../be/get/Users';
-import Toast from '../components/Toast';
-import SidebarProfile from '../components/SidebarProfile';
-import OrdersGet from '../../be/get/OrdersGet';
-import ProductsGet from '../../be/get/ProductsGet';
+import Toast from './components/Toast';
+import SidebarProfile from './components/SidebarProfile';
+import Base from './layouts/Base';
+import OrdersGet from '../be/get/OrdersGet';
+import ProductsGet from '../be/get/ProductsGet';
 
 const ButtonTrigSidebar = () => {
     return (
@@ -24,7 +21,9 @@ const ButtonTrigSidebar = () => {
     )
 }
 
-const OrderContent = () => {
+const HistoryCanvas = () => {
+    // const [comuledted, setComuled]
+    
     const { dataOrders } = OrdersGet()
     const { dataProducts } = ProductsGet()
     const [load, setLoad] = useState(true)
@@ -47,7 +46,7 @@ const OrderContent = () => {
 
       
         useEffect(() => {
-          let filteredProducts = dataOrders.filter((item) => item.id_user === sessionStorage.getItem('id'));
+          let filteredProducts = dataOrders.filter((item) => item.id_user === sessionStorage.getItem('id') && item.status === "success");
         
           // Pagination
           const indexOfLastItem = currentPage * itemsPerPage;
@@ -57,14 +56,13 @@ const OrderContent = () => {
           setTotalPages(Math.ceil(totalDatas /itemsPerPage))
           setLoad(false)
         }, [dataProducts, currentPage, totalDatas]);
-        
     return (
-        <>
-        <div className='container-main w-100 py-5'>
-            <ButtonTrigSidebar />
-            <div className='w-100 d-flex flex-column py-3 mt-5'>
-                <h1 className='text-center mb-5'>My Order</h1>
-                <div className='d-flex gap-4 flex-column'>
+        <section className='w-100 d-flex gap-3 align-items-center py-3 '>
+            <div className='w-100 container-main d-flex flex-column my-3'>
+                <ButtonTrigSidebar />
+                <div className='w-100 d-flex justify-content-center  flex-column my-3'>
+                    <h1 className='text-center mt-5'>My History</h1>
+                    <div className='d-flex gap-3 flex-column w-100 mt-5'>
                     {
                         !load ?
                         currentItems.length > 0 ? 
@@ -75,7 +73,7 @@ const OrderContent = () => {
                             <div className='d-flex flex-wrap w-auto gap-3 align-items-center'>
                                 <img src={find[0].img || "https://speptdrwxksyzfydiuzf.supabase.co/storage/v1/object/public/products/default-plant2.jpg"} alt={find[0].name} />
                                 <div>
-                                    <h3 className='text-satoshi'>{find[0].name} <span className=''>x{data.qty}</span></h3>
+                                    <h3 className='text-satoshi text-left'>{find[0].name} <span className=''>x{data.qty}</span></h3>
                                     <p className='text-primary'>Rp {parseFloat(data.total).toLocaleString("id-ID")}</p>
                                 </div>
                             </div>
@@ -99,52 +97,50 @@ const OrderContent = () => {
                             )
                             : "tes"
                     }
-                </div>
-                {/* <div className='mt-5 w-100 d-flex justify-content-center'>
-                    <button className='btn bg-primary text-light'>Explore Now</button>
-                </div> */}
-                <nav className="pt-5 pb-3" aria-label="Page navigation example">
-                    <p className="text-center">
-                    Showing {totalPages} page of {totalDatas} Datas.
-                    </p>
-
-                    <ul className="pagination justify-content-center">
-                    <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                        <button className="page-link" onClick={handlePrevPage}>
-                        Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, i) => (
-                        <li
-                        key={i}
-                        className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-                        >
-                        <button
-                            className="page-link"
-                            onClick={() => setCurrentPage(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
+                    <nav className="pt-5 pb-3" aria-label="Page navigation example">
+                        <p className="text-center">
+                        Showing {totalPages} page of {totalDatas} Datas.
+                        </p>
+    
+                        <ul className="pagination justify-content-center">
+                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                            <button className="page-link" onClick={handlePrevPage}>
+                            Previous
+                            </button>
                         </li>
-                    ))}
-                    <li
-                        className={`page-item ${
-                        currentPage === totalPages ? "disabled" : ""
-                        }`}
-                    >
-                        <button className="page-link" onClick={handleNextPage}>
-                        Next
-                        </button>
-                    </li>
-                    </ul>
-                </nav>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <li
+                            key={i}
+                            className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                            >
+                            <button
+                                className="page-link"
+                                onClick={() => setCurrentPage(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                            </li>
+                        ))}
+                        <li
+                            className={`page-item ${
+                            currentPage === totalPages ? "disabled" : ""
+                            }`}
+                        >
+                            <button className="page-link" onClick={handleNextPage}>
+                            Next
+                            </button>
+                        </li>
+                        </ul>
+                    </nav>
+                    </div>
+                </div>
             </div>
-        </div>
-        </>
+        </section>
     )
 }
 
-const MyOrder = () => {
+
+const MyHistory = () => {
     useEffect(() => {
         
       if (sessionStorage.getItem('success')) {
@@ -167,7 +163,9 @@ const MyOrder = () => {
           <>
           <SidebarProfile/>
           <section className='' style={{background: "url('/images/bekron.png')"}}>
-            <OrderContent />
+            {/* <OrderContent /> */}
+            {/* <ButtonTrigSidebar /> */}
+            <HistoryCanvas />
           </section>
           </>
         }
@@ -175,4 +173,4 @@ const MyOrder = () => {
     );
 }
 
-export default MyOrder
+export default MyHistory

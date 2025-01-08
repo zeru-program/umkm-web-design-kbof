@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +10,7 @@ html {
 }
 
 :root {
-  --playfair: "Playfair";
+  --playfair: "Playfair Display";
   --satoshi: "Satoshi", sans-serif;
 
   --light: #F4F9F4;
@@ -586,6 +589,7 @@ input[type="password"]::-ms-clear {
 /* size mobile */
 @media screen and (max-width: 800px) {
    h1 {
+    font-family: var(--playfair) !important;
     font-size: 32px;
   }/*
   h2 {
