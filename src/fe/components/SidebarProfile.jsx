@@ -21,7 +21,7 @@ const SidebarProfile = () => {
                             <img src={imageNav ? "/images/logo-navbar.png" : "/images/logo.png"} style={{cursor: "pointer",width: imageNav ? "180px" : "25px"}} className='logo-sidebar mb-4 pb-4' onClick={() => window.location.href = '/'} />
                             <div className='d-flex gap-3 align-items-center'>
                                 <img className='img-profile-side' src={sessionStorage.getItem('img') || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"} alt="image_user" />
-                                <div>
+                                <div className="">
                                     <h6 className="offcanvas-title d-none d-sm-block" id="offcanvas">Hi, {sessionStorage.getItem('username')}</h6>
                                     <span className="offcanvas-title d-none d-sm-block" id="offcanvas"> {sessionStorage.getItem('email')}</span>
                                 </div>

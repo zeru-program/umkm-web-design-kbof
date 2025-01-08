@@ -68,6 +68,7 @@ const HistoryCanvas = () => {
                         currentItems.length > 0 ? 
                         currentItems.map((data, index) => {
                             const find = dataProducts.filter((product) => product.id_product === data.id_product)
+                            if (find) {
                             return (
                             <div key={index} className='box-history rounded-3 overflow-hidden w-100 py-4 d-flex flex-wrap justify-content-between px-5 align-items-center' style={{background: "#E8EFEA"}}>
                             <div className='d-flex flex-wrap w-auto gap-3 align-items-center'>
@@ -89,13 +90,19 @@ const HistoryCanvas = () => {
                                 <span className='text-satoshi fw-bold'>{data.status}</span>
                             </div>
                         </div>
-                            );
+                            )} else {
+                                setLoad(true)
+                            }
                         }) : (
                             <div className='w-100 d-flex justify-content-center text-center text-satoshi'>
                                 <span>You have never ordered any products.</span>
                             </div>
                             )
-                            : "tes"
+                            : (
+                                <div className='w-100 d-flex justify-content-center text-center text-satoshi'>
+                                    <span>You have never ordered any products.</span>
+                                </div>
+                                )
                     }
                     <nav className="pt-5 pb-3" aria-label="Page navigation example">
                         <p className="text-center">

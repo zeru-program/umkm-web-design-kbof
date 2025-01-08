@@ -83,6 +83,12 @@ const Navbar = ({ isHide }) => {
     }
   }, [search])
 
+  useEffect(() => {
+    if (location.pathname === '/about-us') {
+      setIsScroll(true)
+    }
+  })
+
   return (
     <header className={!isHide ? "d-block" : "d-none"}>
       {/* Promo bar */}
@@ -131,6 +137,11 @@ const Navbar = ({ isHide }) => {
               <li className="nav-item">
                 <a className={`nav-link ${location.pathname === '/about-us' ? 'active' : ''}`} href="/about-us">
                   About Us
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className={`nav-link ${location.pathname === '/contact-us' ? 'active' : ''}`} href="/contact-us">
+                  Contact Us
                 </a>
               </li>
             </ul>

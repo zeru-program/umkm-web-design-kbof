@@ -23,12 +23,14 @@ import OrderDetail from '../fe/pages/DetailOrder'
 import Profile from '../fe/pages/Profile'
 import MyOrder from '../fe/pages/MyOrder'
 import MyHistory from '../fe/MyHistory'
+import ContactUs from '../fe/pages/ContactUs'
+import CheckoutTest from '../fe/pages/CheckoutTest'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
-  const cekAdmin = sessionStorage.getItem('username')
-    if (!cekLogin && (cekAdmin !== "admin" || cekAdmin !== "developer")) {
-      return <Navigate to='/auth/sign-in' replace />
+  const cekAdmin = sessionStorage.getItem('role')
+    if (cekLogin && cekAdmin === 'pembeli') {
+      return <Navigate to='/' replace />
     }
     return element;
 }
@@ -52,6 +54,7 @@ const AuthLogout = () => {
   useEffect(() => {
     sessionStorage.removeItem('isLogin')
     sessionStorage.removeItem('username')
+    sessionStorage.removeItem('img')
     sessionStorage.removeItem('password')
     sessionStorage.removeItem('email')
     sessionStorage.removeItem('phone')
@@ -70,6 +73,7 @@ const RouterApp = () => {
     <Router>
         <Routes>
             <Route path='/' element={<Home/>} />
+            <Route path='/checkout-test' element={<CheckoutTest/>} />
             <Route path='/plants' element={<Product/>} />
             <Route path='/plants/:idP' element={<ProductDetail/>} />
             <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} />
@@ -77,6 +81,7 @@ const RouterApp = () => {
             <Route path='/education' element={<Education/>} />
             <Route path='/education/:idE' element={<EducationDetail/>} />
             <Route path='/about-us' element={<AboutUs/>} />
+            <Route path='/contact-us' element={<ContactUs/>} />
             <Route path='/dummy/orders' element={<OrdersDummy/>} />
             <Route path='/auth/sign-in' element={<AuthRoute element={<Login/>} />} />
             <Route path='/auth/sign-up' element={<AuthRoute element={<Register/>} />} />

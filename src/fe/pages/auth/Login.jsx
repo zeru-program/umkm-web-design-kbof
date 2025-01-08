@@ -26,6 +26,7 @@ const SideInput = () => {
         if (matchedUser) {
             sessionStorage.setItem('isLogin', true)
             sessionStorage.setItem('username', matchedUser.username)
+            sessionStorage.setItem('img', matchedUser.img || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg")
             sessionStorage.setItem('password', matchedUser.password)
             sessionStorage.setItem('email', matchedUser.email)
             sessionStorage.setItem('phone', matchedUser.phone)
@@ -36,7 +37,7 @@ const SideInput = () => {
             console.log(matchedUser.gender)
             Swal.fire('Success', 'Logged in successfully', 'success').then((result) => {
                 if (result.isConfirmed) {
-                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer') {
+                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer' || matchedUser.role === 'seller') {
                         window.location.href = '/dashboard'
                     } else {
                         window.location.href = '/'

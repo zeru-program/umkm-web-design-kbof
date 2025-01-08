@@ -5,6 +5,7 @@ const Sidebar = ({handleSideClick, sideActive}) => {
     // const [sideActive, setSideActive] = useState(false)
     const location = useLocation()
     const [imageNav, setImageNav] = useState(false)
+    const roleUser = sessionStorage.getItem('role')
 
     useEffect(() => {
         if (window.innerWidth < 700) {
@@ -30,37 +31,37 @@ const Sidebar = ({handleSideClick, sideActive}) => {
             </div>
             <div className="offcanvas-body px-0">
             <div className='w-100 d-flex flex-column py-1'>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard'}>
+            <div className={`nav-link-dash ${location.pathname === "/dashboard" || location.pathname === "/dashboard/" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard'}>
                 <div className='content-link'>
                     <i className='bx bxs-dashboard'></i>
                     <span>Dashboard</span>
                 </div>
             </div>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard/analytics" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/analytics'}>
+            {/* <div className={`nav-link-dash ${location.pathname === "/dashboard/analytics" ? "active" : ""} d-${roleUser === "admin" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/analytics'}>
                 <div className='content-link'>
                     <i className='bx bxs-pie-chart-alt-2'></i>
                     <span>Analytics</span>
                 </div>
-            </div>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard/orders" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/orders'}>
+            </div> */}
+            <div className={`nav-link-dash ${location.pathname === "/dashboard/orders" ? "active" : ""} d-${roleUser === "admin" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/orders'}>
                 <div className='content-link'>
                     <i className='bx bxs-shopping-bag'></i>
                     <span>Orders</span>
                 </div>
             </div>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard/products" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/products'}>
+            <div className={`nav-link-dash ${location.pathname === "/dashboard/products" ? "active" : ""} d-${roleUser === "admin" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/products'}>
                 <div className='content-link'>
                     <i className='bx bxs-package'></i>
                     <span>Products</span>
                 </div>
             </div>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard/blogs" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/blogs'}>
+            <div className={`nav-link-dash ${location.pathname === "/dashboard/blogs" ? "active" : ""} d-${roleUser === "seller" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/blogs'}>
                 <div className='content-link'>
                     <i className='bx bxl-blogger'></i>
                     <span>Blog</span>
                 </div>
             </div>
-            <div className={`nav-link-dash ${location.pathname === "/dashboard/users" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/users'}>
+            <div className={`nav-link-dash ${location.pathname === "/dashboard/users" ? "active" : ""} d-${roleUser === "seller" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/users'}>
                 <div className='content-link'>
                     <i className='bi bi-person-fill'></i>
                     <span>Users</span>

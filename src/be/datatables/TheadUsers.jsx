@@ -17,6 +17,7 @@ const TheadUsers = () => {
             <img
               src={row.img}
               alt={row.name}
+              style={{objectFit: "cover"}}
               className="img-tbody img-thumbnail"
               />
               <div className="d-flex flex-column gap-2">

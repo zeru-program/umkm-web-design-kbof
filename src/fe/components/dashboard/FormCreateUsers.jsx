@@ -146,7 +146,7 @@ const FormCreateUsers = () => {
             onChange={(item) => {
                 setDtFormCreate((prevState) => ({
                   ...prevState,
-                  status: item.value
+                  role: item.value
                 }));
             }}
             value={roleOpt.find((opt) => opt.value === dtFormCreate.role)}

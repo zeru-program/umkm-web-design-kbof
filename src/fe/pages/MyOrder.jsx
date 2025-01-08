@@ -70,6 +70,8 @@ const OrderContent = () => {
                         currentItems.length > 0 ? 
                         currentItems.map((data, index) => {
                             const find = dataProducts.filter((product) => product.id_product === data.id_product)
+                            // console.log(find)
+                            if (find.length > 0) {
                             return (
                             <div key={index} className='box-history rounded-3 overflow-hidden w-100 py-4 d-flex flex-wrap justify-content-between px-5 align-items-center' style={{background: "#E8EFEA"}}>
                             <div className='d-flex flex-wrap w-auto gap-3 align-items-center'>
@@ -91,13 +93,19 @@ const OrderContent = () => {
                                 <span className='text-satoshi fw-bold'>{data.status}</span>
                             </div>
                         </div>
-                            );
+                            )} else {
+                                setLoad(true)
+                            }
                         }) : (
                             <div className='w-100 d-flex justify-content-center text-center text-satoshi'>
                                 <span>You have never ordered any products.</span>
                             </div>
                             )
-                            : "tes"
+                            : (
+                                <div className='w-100 d-flex justify-content-center text-center text-satoshi'>
+                                    <span>You have never ordered any products.</span>
+                                </div>
+                                )
                     }
                 </div>
                 {/* <div className='mt-5 w-100 d-flex justify-content-center'>

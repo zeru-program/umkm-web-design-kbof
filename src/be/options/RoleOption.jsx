@@ -6,6 +6,7 @@ const RoleOption = () => {
     { value: "admin", label: "Admin" },
     { value: "developer", label: "Developer" },
     { value: "pembeli", label: "Pembeli" },
+    { value: "seller", label: "Seller" },
   ]);
   return { roleOpt };
 };

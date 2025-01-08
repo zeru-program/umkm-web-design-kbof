@@ -52,14 +52,16 @@ const Footer = () => {
             <h3 className="">Contact</h3>
             <ul className="list-unstyled">
               <li>Email: <a href="mailto:contact@greenhouse.com" className="text-white text-decoration-none">contact@greenhouse.com</a></li>
-              <li>Phone: <a href="tel:+1234567890" className="text-white text-decoration-none">+123-456-7890</a></li>
-              <li>Address: 123 Green St., Eco City, Country</li>
+              <li>Phone: <a href="tel:+6287774487198" className="text-white text-decoration-none">+6287774487198</a></li>
+              <li>Address: Jl. Raya Tajur, Kp. Buntar RT.02/RW.08, Kel. Muara sari, Kec.
+                Bogor Selatan, RT.03/RW.08, Muarasari, Kec. Bogor Sel., Kota
+                Bogor, Jawa Barat 16137</li>
             </ul>
           </div>
         </div>
         <div className="mt-4 text-center">
           <hr className="border-white opacity-50" />
-          <div className='d-flex justify-content-between'>
+          <div className='d-flex justify-content-between'>  
           <p>© 2024 Green House.</p>
           <p>All Rights Reserved.</p>
           </div>

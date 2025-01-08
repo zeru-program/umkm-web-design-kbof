@@ -1,8 +1,8 @@
 import React from 'react'
 import Dashboard from '../../layouts/Dashboard'
 import Header from '../../components/dashboard/Header'
-import OrdersChart from '../../components/dashboard/chart/OrdersChart'
 import BoxDash from '../../components/dashboard/BoxDash'
+import OrdersChart from '../../components/dashboard/chart/OrdersChart'
 import ProductsChart from '../../components/dashboard/chart/ProductsChart'
 
 const SegmenAnalyticOrders = () => {
