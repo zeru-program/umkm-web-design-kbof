@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import Select from 'react-select';
 import ProductsOption from '../../../be/options/ProductsOption';
 import ProductsGet from '../../../be/get/ProductsGet';
@@ -10,6 +10,7 @@ import PromoPost from '../../../be/post/PromoPost';
 import StatusOption from '../../../be/options/StatusOption';
 import ProductsEdit from '../../../be/edit/ProductsEdit';
 import CodePost from '../../../be/post/CodePost';
+import CodeEdit from '../../../be/edit/CodeEdit';
 const now = new Date();
 const formattedDate = now.getFullYear() + "-" +
   String(now.getMonth() + 1).padStart(2, '0') + "-" +
@@ -17,34 +18,32 @@ const formattedDate = now.getFullYear() + "-" +
   String(now.getHours()).padStart(2, '0') + ":" +
   String(now.getMinutes()).padStart(2, '0');
 
-const FormEditCode = () => {
+const FormEditCode = forwardRef(({dataEdit}, ref) => {
   const { productOpt } = ProductsOption();
   const { statusOptPromo } = StatusOption()
   const { usersOpt } = UsersOption();
   const { dataProducts } = ProductsGet();
   const { dataUsers } = Users();
   const { handlePost } = CodePost();
-  const { handleEdit } = ProductsEdit()
+  const { handleEdit } = CodeEdit()
 //   console.log(GenerateString(9))
 
-  const [dtFormCreate, setDtFormCreate] = useState({
+  const [dtFormEdit, setDtFormEdit] = useState({
     code_id: GenerateString(8),
     code_name: '',
     percentage_promo: '',
-    status: 'draft',
-    create_at: formattedDate,
-    create_by: sessionStorage.getItem('username'),
+    status: '',
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
   
-    setDtFormCreate((prevState) => {
+    setDtFormEdit((prevState) => {
       if (name === "percentage_promo") {
         return {
           ...prevState,
           [name]: value,
-          result_price: dtFormCreate.initial_price - ((value / 100) * dtFormCreate.initial_price)
+          result_price: dtFormEdit.initial_price - ((value / 100) * dtFormEdit.initial_price)
         }
       }
        return {
@@ -54,17 +53,28 @@ const FormEditCode = () => {
     });
   };
   // console.log(formattedDate.slice(0, 10))
-  
+   useEffect(() => {
+      if (Array.isArray(dataEdit) && dataEdit.length == 1) {
+        console.log(dataEdit)
+          setDtFormEdit({
+              ...dtFormEdit,
+              code_id: dataEdit[0].code_id,
+              code_name: dataEdit[0].code_name,
+              percentage_promo: dataEdit[0].percentage_promo.replace('%', ''),
+              status: dataEdit[0].status,
+          })
+      }
+    }, [dataEdit])
 
   return (
-    <form action="" id='formCreateCode' onSubmit={async (e) => {
+    <form action="" id='formEditCode' ref={ref} onSubmit={async (e) => {
         e.preventDefault()
-        const updatePercen = {...dtFormCreate, percentage_promo: dtFormCreate.percentage_promo + "%"}
-        setDtFormCreate(updatePercen)
+        const updatePercen = {...dtFormEdit, percentage_promo: dtFormEdit.percentage_promo + "%"}
+        setDtFormEdit(updatePercen)
 
-        const res = await handlePost(updatePercen)
+        const res = await handleEdit(updatePercen, dataEdit[0].key)
         if (res) {
-            sessionStorage.setItem("success", "Success Create Code")
+            sessionStorage.setItem("success", "Success Edit Code")
             location.reload()
         } else {
             alert('opss, any problem')
@@ -73,16 +83,16 @@ const FormEditCode = () => {
       <div className="row">
         <div className="col-12 mb-3">
           <label>Code ID</label>
-          <input type="number" disabled className='form-control' placeholder='Genereate Otomatic' required />
+          <input type="text" disabled className='form-control' value={dtFormEdit.code_id} placeholder='Genereate Otomatic' required />
         </div>
         <div className="col-12 mb-3">
           <label>Code Name</label>
-          <input type="text" className='form-control' name='code_name' placeholder='Input code name..' value={dtFormCreate.code_name} onInput={handleInputChange} required />
+          <input type="text" className='form-control' name='code_name' placeholder='Input code name..' value={dtFormEdit.code_name} onInput={handleInputChange} required />
         </div>
         <div className="col-12 mb-3">
           <label>Percentage Promo</label>
           <div className='input-group'>
-            <input type="number" value={dtFormCreate.percentage_promo} onInput={handleInputChange} name="percentage_promo" min={1} max={100} className='form-control' placeholder='Input percentage promo (0-100)' required />
+            <input type="number" value={dtFormEdit.percentage_promo} onInput={handleInputChange} name="percentage_promo" min={1} max={100} className='form-control' placeholder='Input percentage promo (0-100)' required />
             <span className="input-group-text">%</span>
           </div>
         </div>
@@ -93,15 +103,15 @@ const FormEditCode = () => {
             <Select
             options={statusOptPromo}
             onChange={(item) => {
-                setDtFormCreate({...dtFormCreate, status: item.value})
+                setDtFormEdit({...dtFormEdit, status: item.value})
             }}
-            value={statusOptPromo.find((opt) => opt.value === dtFormCreate.status)}
+            value={statusOptPromo.find((opt) => opt.value === dtFormEdit.status)}
             required
             />
         </div>
       </div>
     </form>
   );
-};
+})
 
 export default FormEditCode;

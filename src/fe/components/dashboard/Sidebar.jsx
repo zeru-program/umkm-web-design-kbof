@@ -8,9 +8,9 @@ const Sidebar = ({handleSideClick, sideActive}) => {
     const roleUser = sessionStorage.getItem('role')
 
     useEffect(() => {
-        if (window.innerWidth < 700) {
+        if (window.innerWidth < 1000) {
             setImageNav(false);
-        } else if (window.innerWidth > 700) {
+        } else if (window.innerWidth > 1000) {
             setImageNav(true);
         }
     })

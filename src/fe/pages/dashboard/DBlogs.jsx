@@ -280,9 +280,9 @@ const DBlogs = () => {
     <Dashboard content={<>
       <div className='mt-3'>
          <Header title={'Blog/Educations'} pageName={'Blogs'} />
-         <BoxDash content={<>
+         {/* <BoxDash content={<>
           <TextEditor />
-          </>} />
+          </>} /> */}
          <BlogData />
       </div>
     </>} />

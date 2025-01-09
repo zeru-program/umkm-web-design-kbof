@@ -6,6 +6,8 @@ import BlogsGet from "../../be/get/BlogsGet";
 import Users from "../../be/get/Users";
 import DOMPurify from "dompurify";
 import dayjs from "dayjs";
+import AOS from "aos";
+import 'animate.css';
 
 
 const Detail = ({find, findAuthor}) => {
@@ -17,14 +19,14 @@ const Detail = ({find, findAuthor}) => {
         <img src={find.img ? find.img : "/images/plants2-bg.jpg"} alt="" className="w-100" style={{height: "350px", objectFit: "cover"}} />
       </div>
       <div className="box-content-education py-5 d-flex flex-column py-4 container-main">
-        <h3>
+        <h3 data-aos="fade-right">
           {find.title}
         </h3>
-        <div className="creator-education-detail mt-2 d-flex gap-2 align-items-center">
-          <img src={findAuthor.img ? findAuthor.img : "/images/man1.jpg"} alt="" />
-          <span>{findAuthor.username}</span>
+        <div className="creator-education-detail mt-2 d-flex gap-2 align-items-center" data-aos="fade-right" data-aos-delay="500">
+          <img src={findAuthor && findAuthor.img ? findAuthor.img : "/images/man1.jpg"} style={{objectFit: "cover"}} alt="" />
+          <span>{findAuthor ? findAuthor.username : "Unknown"}</span>
         </div>
-        <div className="mt-4">
+        <div className="mt-4" data-aos="fade-right" data-aos-delay="500">
            <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}>
             </div>
         </div>
@@ -145,6 +147,10 @@ const EducationDetail = () => {
             setFindAuthor(findAuthors || null)
         }
         setFind(foundBlogs || null);
+        AOS.init({
+          duration: 1000,
+          once: true,
+        });
       } else {
         setFind(null);
       }

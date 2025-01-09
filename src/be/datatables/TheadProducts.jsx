@@ -68,6 +68,7 @@ const TheadProducts = () => {
     {
       name: "Created At",
       selector: (row) => row.created_at,
+      width: "2 00px",
       sortable: true,
     },
     {

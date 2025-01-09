@@ -25,11 +25,15 @@ import MyOrder from '../fe/pages/MyOrder'
 import MyHistory from '../fe/MyHistory'
 import ContactUs from '../fe/pages/ContactUs'
 import CheckoutTest from '../fe/pages/CheckoutTest'
+import PaySuccess from '../fe/pages/PaySuccess'
+import PayProccess from '../fe/pages/PayProccess'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
   const cekAdmin = sessionStorage.getItem('role')
-    if (cekLogin && cekAdmin === 'pembeli') {
+    if (!cekLogin) {
+      return <Navigate to='/' replace />
+    } else if (cekLogin && cekAdmin === 'pembeli') {
       return <Navigate to='/' replace />
     }
     return element;
@@ -73,10 +77,13 @@ const RouterApp = () => {
     <Router>
         <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path='/checkout-test' element={<CheckoutTest/>} />
+            {/* <Route path='/checkout-test' element={<CheckoutTest/>} /> */}
             <Route path='/plants' element={<Product/>} />
             <Route path='/plants/:idP' element={<ProductDetail/>} />
             <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} />
+            <Route path='/payment/' element={<AuthNotRoute element={<PaySuccess />}/>} />
+            <Route path='/payment/:idPay' element={<AuthNotRoute element={<PaySuccess />}/>} />
+            <Route path='/payment/proccess/' element={<AuthNotRoute element={<PayProccess />}/>} />
             <Route path='/detail/order/:idO' element={<OrderDetail/>} />
             <Route path='/education' element={<Education/>} />
             <Route path='/education/:idE' element={<EducationDetail/>} />

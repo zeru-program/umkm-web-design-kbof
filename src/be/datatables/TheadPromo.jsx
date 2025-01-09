@@ -30,6 +30,7 @@ const TheadPromo = () => {
     {
       name: "Periode",
       selector: (row) => row.periode,
+      width: "200px",
       sortable: true,
     },
     {

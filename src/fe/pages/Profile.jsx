@@ -11,14 +11,14 @@ import { supabase } from '../../be/supabaseConfig';
 
 const ButtonTrigSidebar = () => {
     return (
-        <div className='d-flex gap-3 align-items-center'>
+        <div className='d-flex container-main gap-3 w-100 bg-primary text-light py-3 align-items-center'>
             <div className='' data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" id='iClick'>
             <i className='bi-list fw-bold cursor-pointer' style={{cursor: "pointer", fontSize: "25px"}} ></i>
             </div>
-            <div className='d-flex align-items-center gap-2' style={{cursor: "pointer"}} onClick={() => history.back()}>
+            {/* <div className='d-flex align-items-center gap-2' style={{cursor: "pointer"}} onClick={() => history.back()}>
                 <i className='bi bi-arrow-left'></i>
                 <span>Back</span>
-            </div>
+            </div> */}
         </div>
     )
 }
@@ -115,14 +115,13 @@ const ProfileContent = () => {
     return (
         <>
         <div className='container-main w-100 py-5'>
-            <ButtonTrigSidebar />
             <div className='w-100 d-flex py-3 mt-5'>
                 <div className='d-flex align-items-center align-left-desktop text-center w-100 gap-5 flex-wrap'>
                     <div className=' w100-responsive2'>
                         <div className='position-relative d-flex flex-column align-items-center'>
-                            <img style={{borderRadius: "50%", width: "200px", height: "200px", objectFit: "cover", background: "gray"}} src={fileUrl || ""} alt="" />
+                            <img style={{borderRadius: "50%", width: "200px", height: "200px", objectFit: "cover", background: "gray"}} src={fileUrl || ""} data-aos="zoom-in" alt="" />
                             <div className='d-block mt-3'>
-                                <button disabled={btnClick ? true : false} className='btn bg-primary position-relative' onClick={() => handleSave()}>
+                                <button disabled={btnClick ? true : false} className='btn bg-primary position-relative' data-aos="zoom-in" data-aos-delay="500" onClick={() => handleSave()}>
                                     <input type="file" style={{cursor: "pointer", display: fileEdit ? "none" : "flex"}} className='w-100 h-100 opacity-0 position-absolute top-0 start-0'  accept='image/*' onChange={(e) => {
                                         const file = e.target.files[0];
                                         if (file) {
@@ -138,9 +137,9 @@ const ProfileContent = () => {
                         </div>
                     </div>
                     <div className='d-flex flex-column w100-responsive'>
-                        <h2>{sessionStorage.getItem('username')}</h2>
-                        <h4>{sessionStorage.getItem('email')}</h4>
-                        <h4>{sessionStorage.getItem('role')}</h4>
+                        <h2 data-aos="fade-right">{sessionStorage.getItem('username')}</h2>
+                        <h4 data-aos="fade-right" data-aos-delay="300">{sessionStorage.getItem('email')}</h4>
+                        <h4 data-aos="fade-right" data-aos-delay="500">{sessionStorage.getItem('role')}</h4>
                     </div>
                 </div>
             </div>
@@ -281,6 +280,7 @@ const Profile = () => {
         mainContent={
           <>
           <SidebarProfile/>
+          <ButtonTrigSidebar />
           <section className='' style={{background: "url('/images/bekron.png')"}}>
             <ProfileContent />
             <FormEditProfile />

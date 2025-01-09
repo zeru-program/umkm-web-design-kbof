@@ -121,23 +121,28 @@ const DisplayProduct = () => {
   };
 
   useEffect(() => {
+    // Filter produk aktif
     let filteredProducts = dataProducts.filter((item) => item.status === "active");
   
-    if (filter.type === "popular") {
-      filteredProducts = filteredProducts.filter((item) => item.is_popular);
-    } else if (filter.type === "promo") {
-      filteredProducts = filteredProducts.filter((item) => item.is_discount);
-    } else if (filter.type === "newest") {
-      filteredProducts = filteredProducts.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-    } else if (filter.rating !== 0) {
-        // if (filter.rating ) {
-            filteredProducts = filteredProducts.filter((item) => item.rating == filter.rating);
-        // }
+    // Filter berdasarkan type
+    if (filter.type) {
+      if (filter.type === "popular") {
+        filteredProducts = filteredProducts.filter((item) => item.is_popular);
+      } else if (filter.type === "promo") {
+        filteredProducts = filteredProducts.filter((item) => item.is_discount);
+      } else if (filter.type === "newest") {
+        filteredProducts = filteredProducts.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+      }
     }
   
-    // Search filter
+    // Filter berdasarkan rating (sinkron dengan type)
+    if (filter.rating !== 0) {
+      filteredProducts = filteredProducts.filter((item) => item.rating == filter.rating);
+    }
+  
+    // Filter pencarian
     if (searchProducts) {
       filteredProducts = filteredProducts.filter((item) =>
         item.name.toLowerCase().includes(searchProducts.toLowerCase())
@@ -149,8 +154,9 @@ const DisplayProduct = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setCurrentItems(filteredProducts.slice(indexOfFirstItem, indexOfLastItem));
     setTotalDatas(filteredProducts.length);
-    setTotalPages(Math.ceil(totalDatas /itemsPerPage))
-  }, [dataProducts, searchProducts, filter, currentPage, totalDatas]);
+    setTotalPages(Math.ceil(filteredProducts.length / itemsPerPage));
+  }, [dataProducts, searchProducts, filter, currentPage]);
+  
   
 
   // console.log(dataProducts)

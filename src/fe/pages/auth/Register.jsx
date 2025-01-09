@@ -10,6 +10,8 @@ const SideInput = () => {
         username: '',
         password: '',
         gender: '',
+        role: 'pembeli',
+        status: 'active',
         email: ''
     })
     const handleSubmit = async () => {

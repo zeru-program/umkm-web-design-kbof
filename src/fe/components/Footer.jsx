@@ -7,7 +7,9 @@ const Footer = () => {
         <div className="row gy-4 text-center text-md-start">
           {/* Logo and Description */}
           <div className="col-12 col-md-3">
-            <img src="/images/logo-navbar2.png" className='img-logo-footer' alt="" />
+            <div className=' col-md-2 mb-3'>
+              <img src="/images/logo-navbar2.png" className='img-logo-footer' alt="" />
+            </div>
             <p>Bring Nature Into Your Space</p>
             <div className="d-flex justify-content-center justify-content-md-start gap-3">
               <a href="#" className="text-white">
@@ -40,10 +42,10 @@ const Footer = () => {
           <div className="col-12 col-md-3">
             <h3 className="">Help</h3>
             <ul className="list-unstyled">
-              <li><a href="/faq" className="text-white text-decoration-none">FAQ</a></li>
-              <li><a href="/support" className="text-white text-decoration-none">Support</a></li>
-              <li><a href="/refunds" className="text-white text-decoration-none">Refunds</a></li>
-              <li><a href="/how-to-shop" className="text-white text-decoration-none">How To Shop</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">FAQ</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">Support</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">Refunds</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">How To Shop</a></li>
             </ul>
           </div>
 
@@ -53,9 +55,8 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li>Email: <a href="mailto:contact@greenhouse.com" className="text-white text-decoration-none">contact@greenhouse.com</a></li>
               <li>Phone: <a href="tel:+6287774487198" className="text-white text-decoration-none">+6287774487198</a></li>
-              <li>Address: Jl. Raya Tajur, Kp. Buntar RT.02/RW.08, Kel. Muara sari, Kec.
-                Bogor Selatan, RT.03/RW.08, Muarasari, Kec. Bogor Sel., Kota
-                Bogor, Jawa Barat 16137</li>
+              <li className=''>Address: Jl. Raya Tajur, Kp. Buntar RT.02/RW.08, Kel. Muara sari, Kec.
+                Bogor Selatan</li>
             </ul>
           </div>
         </div>

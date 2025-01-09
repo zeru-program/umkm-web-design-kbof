@@ -4,6 +4,9 @@ import { data, useParams } from "react-router-dom";
 import ProductsGet from "../../be/get/ProductsGet";
 import N404 from "./N404";
 import PromoGet from "../../be/get/PromoGet";
+import AOS from "aos";
+import 'animate.css';
+import "aos/dist/aos.css";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -19,8 +22,8 @@ const formattedDate =
 const SupportText = ({ idP, find, dataProducts }) => {
   return (
     <div className="support-text d-none">
-      <h2 className="text-font-color">{find.name}</h2>
-      <p>{find.description}</p>
+      <h2 className="text-font-color" data-aos="fade-right">{find.name}</h2>
+      <p data-aos="fade-right" data-aos-delay="500">{find.description}</p>
     </div>
   );
 };
@@ -33,8 +36,8 @@ const ImgProduct = ({ find, findPromo }) => {
                 <span className="">- {findPromo.percentage_promo}</span>
             </div>
         ) : ""}
-      <img src={find.img ? find.img : "/images/plants1-full2.png"} className="mb-4" alt="" />
-      <span className="text-danger w-100">You must sign in if you wan to but this product</span>
+      <img src={find.img ? find.img : "/images/plants1-full2.png"} className="mb-4" data-aos="zoom-in" data-aos-delay="500" alt="" />
+      <span className="text-danger w-100" data-aos="zoom-in" data-aos-delay="500">You must sign in if you wan to buy this product</span>
     </div>
   );
 };
@@ -50,27 +53,27 @@ const ReadyCheckout = ({ find, findPromo }) => {
   return (
     <div className="ready-checkout">
       <div className="img-spec mb-3">
-        <img src={find.img ? find.img : "/images/plants1-full2.png"} alt="" />
+        <img src={find.img ? find.img : "/images/plants1-full2.png"} data-aos="zoom-in" data-aos-delay="500" alt="" />
       </div>
       <div className="gap-2 d-flex align-items-end contain-spec flex-column">
         <div>
-          <h1 className="d-mobile">{find.name}</h1>
+          <h1 className="d-mobile" data-aos="fade-left" >{find.name}</h1>
         </div>
         <div className="d-flex gap-2">
-          <span>{find.spesification.height}cm Height</span>
+          <span data-aos="fade-left" data-aos-delay="300">{find.spesification.height}cm Height</span>
         </div>
         <div className="d-flex gap-2">
-          <span>{find.spesification.weight}kg Weight</span>
+          <span data-aos="fade-left" data-aos-delay="500">{find.spesification.weight}kg Weight</span>
         </div>
         <div className="d-flex gap-2">
-          <span>
+          <span data-aos="fade-left" data-aos-delay="800">
             {find.spesification.is_fresh
               ? "Lush and healthy plants"
               : "Old production plants"}
           </span>
         </div>
       </div>
-      <div className="d-flex flex-column contain-spec align-items-end">
+      <div className="d-flex flex-column contain-spec align-items-end" data-aos="fade-left" data-aos-delay="500">
           {findPromo ? (
             <>
             <h3 className="text-font-color">
@@ -85,7 +88,7 @@ const ReadyCheckout = ({ find, findPromo }) => {
           </>}
       </div>
       <div className="d-flex mt-3 gap-3">
-        <button className="btn bg-primary px-5 text-light" onClick={() => handleBuy()}>Buy Now</button>
+        <button className="btn bg-primary px-5 text-light animate__animated animate__delay-5s animate__tada animate__infinite" onClick={() => handleBuy()}>Buy Now</button>
         {/* <button
           className="btn bg-transparent text-primary"
           style={{ border: "1.5px solid #496653" }}
@@ -144,7 +147,7 @@ const Recomendation = ({ find }) => {
 
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h1>Recomendation</h1>
+      <h1 data-aos="fade-right">Recomendation</h1>
       <div className="d-flex mt-4 flex-wrap w-100 justify-content-center gap-4">
         {!loadProducts ? (
           currentItems.map((item, index) => {
@@ -156,7 +159,7 @@ const Recomendation = ({ find }) => {
               );
               if (
                 findTemporary &&
-                findTemporary.periode_start === formattedDate.slice(0, 10) &&
+                findTemporary.periode_start <= formattedDate.slice(0, 10) &&
                 findTemporary.periode_end >= formattedDate.slice(0, 10)
               ) {
                 find = findTemporary;
@@ -172,6 +175,7 @@ const Recomendation = ({ find }) => {
                 key={index + 1}
                 className="box-product d-flex flex-column align-items-center text-satoshi position-relative"
                 onClick={() => (window.location.href = "/plants/" + item.name)}
+                 data-aos="zoom-in" data-aos-delay="500"
               >
                 {isFind}
                 <div>
@@ -281,6 +285,11 @@ const ProductDetail = () => {
             setFindPromo(foundProductPromo || null)
           }
           setFind(foundProduct || null); // Jika tidak ditemukan, set ke null
+          
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
       } else {
         setFind(null)
         setFindPromo(null)

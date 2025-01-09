@@ -12,31 +12,24 @@ const authorization = `Basic ${btoa(`${serverKey}:`)}`;
 
 const PostOrder = () => {
     const postPayment = async (idOrder, productId, productName, price, totals, qty, userId, userName) => {
-        console.log(authorization)
         
-        let parameter = {
-            item_details: {
-                product_id: productId,
-                product_name: productName,
-                price: price,
-                qty: qty
-            },
-            transaction_details: {
-                order_id: idOrder,
-                totals: totals
-            }
-        }
         try {
-            const response = await fetch('https://app.sandbox.midtrans.com/snap/v1/transactions', {
+            // console.log(price)
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/create-transaction`, {
                 method: "POST",
-                mode: "no-cors",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Accept": "application/json",
-                    "Authorization": authorization,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(parameter)
+                body: JSON.stringify({
+                    idOrder,
+                    productId,
+                    productName,
+                    price,
+                    totals,
+                    qty,
+                    userId,
+                    userName
+                })
             })
             const result = await response.json();
             console.log(result);
