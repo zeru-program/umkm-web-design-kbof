@@ -96,16 +96,6 @@ const SectionExcess = () => {
 const CtaSection1 = () => {
   return (
       <>
-      <Wave fill='var(--primary)'
-        paused={false}
-        style={{ display: 'flex', marginBottom: "-10px" }}
-        options={{
-          height: 20,
-          amplitude: 30,
-          speed: 0.15,
-          points: 3
-        }}
-      />
     <section className="section section-cta1 pi30 bg-primary">
       <div className="d-flex flex-column wrapper-text-cta1 text-light container  position-relative">
         <div className="" style={{paddingRight: "50px"}}>
@@ -171,7 +161,7 @@ const CtaSection3 = () => {
   }, []);
   return (
       <>
-      {/* <Wave fill='var(--primary)'
+      <Wave fill='var(--primary)'
         paused={false}
         style={{ display: 'flex', marginBottom: "-10px" }}
         options={{
@@ -180,7 +170,7 @@ const CtaSection3 = () => {
           speed: 0.15,
           points: 3
         }}
-      /> */}
+      />
     <section className="bg-primary w-100">
     <div className="section section-cta3 position-relative d-flex container">
       <div className="wrapper-img-cta3 d-flex align-items-center">
