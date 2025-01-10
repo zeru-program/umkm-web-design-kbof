@@ -23,6 +23,13 @@ html {
 button:hover {
     background: var(--primary) !important;
 }
+.btn.border-primary:hover {
+  color: var(--light) !important;
+}
+.btn.bg-primary:hover {
+  /* color: var(--secondary) !important; */
+  background-color: var(--secondary) !important;
+}
 body {
   width: 100%;
   overflow-x: hidden;
@@ -32,7 +39,7 @@ body {
 }
 
 /* init font */
-h1 {
+h1, .h1 {
   font-size: 60px;  
   font-family: var(--playfair);
 }
@@ -728,7 +735,7 @@ input[type="password"]::-ms-clear {
 /* responsive */
 /* size mobile */
 @media screen and (max-width: 800px) {
-   h1 {
+   h1, .h1 {
     font-family: var(--playfair) !important;
     font-size: 32px;
   }
@@ -973,7 +980,7 @@ input[type="password"]::-ms-clear {
 
 /* size tablet */
 @media screen and (min-width: 800px) and (max-width: 1200px) {
-  h1 {
+  h1, .h1 {
    font-size: 32px;
   }
   p {
@@ -1259,7 +1266,7 @@ input[type="password"]::-ms-clear {
   .wrapper-img-cta3 {
     position: absolute;
     bottom: 0;
-    left: -200px;
+    left: -100px;
     /* z-index: -1 */
   }
   .section-cta3 h1 {

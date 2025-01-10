@@ -3,12 +3,30 @@ import Base from "../layouts/Base";
 import Wave from 'react-wavify'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { TypeAnimation } from 'react-type-animation';
+
 
 const Hero = () => {
   return (
     <div className="hero hero-home pi30"  data-aos="fade-down">
       <div className="container d-flex align-items-center h-100">
         <div className="w-hero-title-home">
+          {/* <div className="h1">
+            <TypeAnimation
+              sequence={[
+                'Bring Nature Into Your Space',
+                1000,
+                '',
+                1000,
+                'Bring Nature Into Your Space',
+              ]}
+              wrapper="span"
+              speed={50}
+              className=""
+              style={{ display: 'inline-block' }}
+              repeat={Infinity}
+            />
+          </div> */}
           <h1 data-aos="fade-right">Bring Nature Into Your Space</h1>
           <p data-aos="fade-right" data-aos-delay="300">
             Discover our curated selection of aesthetic houseplants to transform
@@ -96,7 +114,7 @@ const CtaSection1 = () => {
             Elevate your home with our handpicked collection of vibrant, fresh plants. Shop now and create a greener, more inspiring environment today!
           </p>
           <div>
-            <button className="btn btn-light text-primary" data-aos="fade-right" data-aos-delay="500" onClick={() => window.location.href = '/plants'}>Go To Plant</button>
+            <button className="btn btn-light text-primary" data-aos="fade-right" data-aos-delay="200" onClick={() => window.location.href = '/plants'}>Go To Plant</button>
           </div>
         </div>
         <div className="wrapper-img-cta1">
@@ -153,7 +171,7 @@ const CtaSection3 = () => {
   }, []);
   return (
       <>
-      <Wave fill='var(--primary)'
+      {/* <Wave fill='var(--primary)'
         paused={false}
         style={{ display: 'flex', marginBottom: "-10px" }}
         options={{
@@ -162,7 +180,7 @@ const CtaSection3 = () => {
           speed: 0.15,
           points: 3
         }}
-      />
+      /> */}
     <section className="bg-primary w-100">
     <div className="section section-cta3 position-relative d-flex container">
       <div className="wrapper-img-cta3 d-flex align-items-center">
@@ -172,7 +190,7 @@ const CtaSection3 = () => {
         <div>
           <h1 data-aos="fade-left">Get to Know Us – The Passion Behind Green House!</h1>
           <p data-aos="fade-left" data-aos-delay="100">
-          Discover the story, vision, and dedication that drive our mission to bring nature closer to you. Learn how we’re committed to transforming spaces and building greener futures together.
+            Discover the story, vision, and dedication that drive our mission to bring nature closer to you. Learn how we’re committed to transforming spaces and building greener futures together.
           </p>
           <div>
             <button className="btn btn-light text-primary" data-aos="fade-left" data-aos-delay="300" onClick={() => window.location.href = '/about-us'}>Go To About Us</button>

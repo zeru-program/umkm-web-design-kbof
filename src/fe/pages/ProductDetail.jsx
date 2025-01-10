@@ -74,7 +74,7 @@ const ReadyCheckout = ({ find, findPromo }) => {
         </div>
       </div>
       <div className="d-flex flex-column contain-spec align-items-end" data-aos="fade-left" data-aos-delay="500">
-          {findPromo ? (
+          {findPromo && findPromo.result_price && findPromo.initial_price ? (
             <>
             <h3 className="text-font-color">
                 Rp{parseFloat(findPromo.result_price).toLocaleString("id-ID")}
@@ -112,7 +112,7 @@ const Detail = ({ idP, find, findPromo, dataProducts }) => {
   );
 };
 
-const Recomendation = ({ find }) => {
+const Recomendation = ({ find, findPromo }) => {
   const { dataProducts, loadProducts } = ProductsGet();
   const { dataPromo } = PromoGet();
   // paginasi
@@ -308,12 +308,13 @@ const ProductDetail = () => {
         </div>
       </div>
     );
+  } else {
+    // Tampilkan halaman 404 jika produk tidak ditemukan
+    if (!find) {
+      return <N404 />;
+    }
   }
 
-  // Tampilkan halaman 404 jika produk tidak ditemukan
-  if (!find) {
-    return <N404 />;
-  }
 
   // Render halaman detail produk
   return (
@@ -321,7 +322,7 @@ const ProductDetail = () => {
       mainContent={
         <section className="section-all-detail-product container-main">
           <Detail idP={idP} find={find} findPromo={findPromo} dataProducts={dataProducts} />
-          <Recomendation idP={idP} find={find} />
+          <Recomendation idP={idP} find={find} findPromo={findPromo} />
         </section>
       }
     />

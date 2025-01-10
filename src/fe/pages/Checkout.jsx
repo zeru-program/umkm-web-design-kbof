@@ -57,6 +57,7 @@ const CardCheckout = ({ find, findPromo }) => {
   const { postPayment } = PostOrder()
   const { dataProducts } = ProductsGet()
   const [disabledButton, setDissabledButton] = useState(false)
+  const [discountPrice, setDiscountPrice] = useState('')
   const [dataCheckout, setDataCheckout] = useState({
     id_product: find.id_product,
     id_order: GenerateString(9),
@@ -81,9 +82,9 @@ const CardCheckout = ({ find, findPromo }) => {
   const calculateTotal = (quantity) => {
     let baseTotal;
     if (findPromo) {
-      baseTotal = find.is_discount && (findPromo.periode_start <= formattedDate.slice(0, 10) && findPromo.periode_end >= formattedDate.slice(0, 10)) ? (findPromo.result_price * quantity + findPromo.result_price * (11 / 100) + findPromo.result_price * (2 / 100)).toFixed(0) : (find.price * quantity + find.price * (11 / 100) + find.price * (2 / 100)).toFixed(0);
+      baseTotal = find.is_discount && (findPromo.periode_start <= formattedDate.slice(0, 10) && findPromo.periode_end >= formattedDate.slice(0, 10)) ? ((findPromo.result_price * quantity) + (findPromo.result_price * (11 / 100) + findPromo.result_price * (2 / 100))).toFixed(0) : ((find.price * quantity) + (find.price * (11 / 100) + find.price * (2 / 100))).toFixed(0);
     } else {
-      baseTotal = find.price * quantity + find.price * (11 / 100) + find.price * (2 / 100).toFixed(0);
+      baseTotal = ((find.price * quantity) + (find.price * (11 / 100) + find.price * (2 / 100))).toFixed(0);
     }
     return baseTotal;
   };
@@ -101,6 +102,8 @@ const CardCheckout = ({ find, findPromo }) => {
 
     if (promo) {
       const discount = (parseInt(promo.percentage_promo.replace("%", ""), 10) / 100) * baseTotal;
+      // console.log(discount)
+      setDiscountPrice(discount)
       const newTotal = baseTotal - discount;
       setTotals(newTotal.toFixed(0));
       setDataCheckout({...dataCheckout, total: newTotal.toFixed(0)}); 
@@ -151,7 +154,7 @@ const CardCheckout = ({ find, findPromo }) => {
         if (find) {
           // console.log(findPromo)
           // console.log(dataCheckout.total)
-          const res = await postPayment(dataCheckout.id_order, find.id_product, find.name, parseFloat(findPromo ? findPromo.result_price : find.price), dataCheckout.total, parseInt(dataCheckout.qty), dataCheckout.id_user, sessionStorage.getItem('username'))
+          const res = await postPayment(dataCheckout.id_order, find.id_product, find.name, parseFloat(findPromo ? findPromo.result_price : find.price), dataCheckout.total, parseInt(dataCheckout.qty), dataCheckout.id_user, sessionStorage.getItem('username'), discountPrice)
           if (res) {
             console.log(res)
             tokenPay = {...dataCheckout, token_payment: res.token }
@@ -258,11 +261,11 @@ const CardCheckout = ({ find, findPromo }) => {
           </div>
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
             <span>Tax @11% (Indonesia)</span>
-            <span>Rp{parseFloat(find.price * (11 / 100)).toLocaleString("id-ID")}</span>
+            <span>Rp{parseInt(findPromo && findPromo.result_price ? findPromo.result_price * (11 / 100) : find.price * (11 / 100)).toLocaleString("id-ID")}</span>
           </div>
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
             <span>Admin Tax @2%</span>
-            <span>Rp{parseFloat(find.price * (2 / 100)).toLocaleString("id-ID")}</span>
+            <span>Rp{parseFloat(findPromo && findPromo.result_price ? findPromo.result_price * (2 / 100) : find.price * (2 / 100)).toLocaleString("id-ID")}</span>
           </div>
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
             <span className="fw-bold">Totals</span>
@@ -284,7 +287,7 @@ const CardCheckout = ({ find, findPromo }) => {
           <div className="w-100 mb-3 flex-column align-items-start d-flex">
             <span>Have A Code?</span>
             <input type="text" placeholder="Drop here.." value={codePromo} onInput={(e) => setCodePromo(e.target.value)} className="form-control mt-2" />
-            <button className="mt-3 btn w-100 border-primary text-satoshi text-primary" onClick={() => handleApplyPromo()}>Apply</button>
+            <button className={`mt-3 btn w-100 border-${discountPrice ? " bg-primary text-light" : "primary text-primary"} text-satoshi`} disabled={discountPrice ? true : false} onClick={() => handleApplyPromo()}>Apply</button>
             {/* <span className="text-danger text-center mt-3" style={{fontSize: "13px"}}>All of these products only support COD payments</span> */}
           </div>
         </div>
@@ -341,12 +344,13 @@ const Checkout = () => {
         </div>
       </div>
     );
+  } else {
+    // Tampilkan halaman 404 jika produk tidak ditemukan
+    if (!find) {
+      return <N404 />;
+    }
   }
 
-  // Tampilkan halaman 404 jika produk tidak ditemukan
-  if (!find) {
-    return <N404 />;
-  }
 
   // Render halaman detail produk
   return (

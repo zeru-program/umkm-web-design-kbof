@@ -21,7 +21,7 @@ const filterStyles = {
     control: (base, state) => ({
         ...base,
         fontWeight: "500",
-        width: "140px",
+        width: "130px",
         fontFamily: "var(--satoshi)",
         background: "transparent",
         borderRadius: 7,
@@ -61,7 +61,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
           </div>
         </div>
       </div>
-      <div className="d-flex mt-4 justify-content-between" style={{width: "90%"}}>
+      <div className="d-flex mt-4 gap-3 overflow-hidden justify-content-between" style={{width: "90%"}}>
         <Select
             placeholder="Sort By"
             styles={filterStyles}
