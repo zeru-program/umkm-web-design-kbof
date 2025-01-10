@@ -32,22 +32,22 @@ const ImgProduct = ({ find, findPromo }) => {
   return (
     <div className="img-product-detail text-center position-relative">
         {findPromo ? (
-             <div className="bg-primary text-satoshi discount-text px-3 position-absolute top-0 start-0 text-light">
+             <div className="bg-primary text-satoshi discount-text px-3 position-absolute top-0 start-0 text-light" data-aos="zoom-in" data-aos-delay="800" style={{zIndex: 100}}>
                 <span className="">- {findPromo.percentage_promo}</span>
             </div>
         ) : ""}
       <img src={find.img ? find.img : "/images/plants1-full2.png"} className="mb-4" data-aos="zoom-in" data-aos-delay="500" alt="" />
-      <span className="text-danger w-100" data-aos="zoom-in" data-aos-delay="500">You must sign in if you wan to buy this product</span>
+      <span className="text-danger w-100" data-aos="zoom-in" data-aos-delay="500">You must sign in if you want to buy this product</span>
     </div>
   );
 };
 
 const ReadyCheckout = ({ find, findPromo }) => {
   const handleBuy = () => {
-    if (!sessionStorage.getItem('isLogin')) {
+  /*  if (!sessionStorage.getItem('isLogin')) {
         sessionStorage.setItem('error', 'You must log in to order products!')
         window.location.href = '/auth/sign-in/'
-      }
+      }*/
     window.location.href = '/checkout/' + find.name
   }
   return (
@@ -239,7 +239,7 @@ const Recomendation = ({ find }) => {
               Previous
             </button>
           </li>
-          {Array.from({ length: totalPages }, (_, i) => (
+         {/* {Array.from({ length: totalPages }, (_, i) => (
             <li
               key={i}
               className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
@@ -251,7 +251,7 @@ const Recomendation = ({ find }) => {
                 {i + 1}
               </button>
             </li>
-          ))}
+          ))} */}
           <li
             className={`page-item ${
               currentPage === totalPages ? "disabled" : ""

@@ -244,7 +244,7 @@ const CardCheckout = ({ find, findPromo }) => {
           <div className="w-100 mb-3 justify-content-between align-items-center d-flex">
             <div className="d-flex gap-3 align-items-center">
             <img src={find.img} className="img-thumbnail img-tbody" alt="" />
-            <span>x{dataCheckout.qty}</span>
+            <span>x{dataCheckout.qty || 1}</span>
             </div>
             <span>Rp{parseFloat(find.is_discount && findPromo && (findPromo.periode_start <= formattedDate.slice(0, 10) && findPromo.periode_end >= formattedDate.slice(0, 10)) ? findPromo.result_price * dataCheckout.qty : find.price * dataCheckout.qty).toLocaleString("id-ID")}</span>
           </div>

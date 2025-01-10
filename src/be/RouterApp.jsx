@@ -79,8 +79,10 @@ const RouterApp = () => {
             <Route path='/' element={<Home/>} />
             {/* <Route path='/checkout-test' element={<CheckoutTest/>} /> */}
             <Route path='/plants' element={<Product/>} />
-            <Route path='/plants/:idP' element={<ProductDetail/>} />
-            <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} />
+           {/* <Route path='/plants/:idP' element={<ProductDetail/>} /> */}
+            <Route path='/plants/:idP' element={<ProductDetail/>} /> 
+           {/* <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} /> */}
+            <Route path='/checkout/:idC' element={<Checkout />} />  
             <Route path='/payment/' element={<AuthNotRoute element={<PaySuccess />}/>} />
             <Route path='/payment/:idPay' element={<AuthNotRoute element={<PaySuccess />}/>} />
             <Route path='/payment/proccess/' element={<AuthNotRoute element={<PayProccess />}/>} />

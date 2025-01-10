@@ -15,10 +15,10 @@ const Detail = ({find, findAuthor}) => {
 
   return (
     <section className="section section-detail-education d-flex flex-column align-items-center">
-      <div className="w-100">
+      <div className="w-100" data-aos="zoom-in">
         <img src={find.img ? find.img : "/images/plants2-bg.jpg"} alt="" className="w-100" style={{height: "350px", objectFit: "cover"}} />
       </div>
-      <div className="box-content-education py-5 d-flex flex-column py-4 container-main">
+      <div className="box-content-education py-5 d-flex flex-column py-4 container-main" data-aos="zoom-in" data-aos-delay="500">
         <h3 data-aos="fade-right">
           {find.title}
         </h3>
@@ -91,12 +91,12 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
       }, [dataBlogs, searchBlogs, filter, currentPage, totalDatas]);
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h1>Recomendation</h1>
+      <h1 data-aos="fade-right">Recomendation</h1>
       <div className="d-flex mt-4 flex-wrap gap-4">
         {!loadBlogs ? (
             currentItems.map((item, index) => {
             return (
-                <div className='box-education' key={index + 1}>
+                <div className='box-education' key={index + 1} data-aos="zoom-in" data-aos-delay="500">
                 <div className='date-type-education text-satoshi d-flex justify-content-between'>
                     <p>{dayjs(item.created_at).locale("id").format("D MMMM YYYY")}</p>
                     <div className='bg-primary rounded-3 px-2 text-light' style={{height: "26px"}}>

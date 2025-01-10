@@ -20,7 +20,9 @@ html {
   --accent: #F39C12;
   --font-color: #34495E;
 }
-
+button:hover {
+    background: var(--primary) !important;
+}
 body {
   width: 100%;
   overflow-x: hidden;
@@ -151,6 +153,13 @@ h3 {
   height: 50px;
   bottom: 20px;
   right: 20px;
+}
+.btn-outline-p {
+    transition: all .5s ease !important;
+}
+.btn-outline-p:hover {
+    background: var(--primary) !important;
+    color: var(--light) !important;
 }
 /* init variation color */
 

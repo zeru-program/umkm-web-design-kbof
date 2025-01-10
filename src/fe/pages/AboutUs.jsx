@@ -101,7 +101,7 @@ const AboutProfile = () => {
                 <h1 className='text-primary' data-aos="fade-left">About Us</h1>
                 <p data-aos="fade-left" data-aos-delay="300">Founded with a passion for plants and technology, Green House empowers sellers and plant lovers through innovation.</p>
                 <div>
-                    <button className='btn bg-primary text-light' data-aos="fade-left" data-aos-delay="500">Go To Contact Us</button>
+                    <button className='btn bg-primary text-light' data-aos="fade-left" data-aos-delay="500" onClick={() => window.location.href = "/contact-us"}>Go To Contact Us</button>
                 </div>
             </div>
         </section>

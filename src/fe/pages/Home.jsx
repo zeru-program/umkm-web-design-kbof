@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Base from "../layouts/Base";
+import Wave from 'react-wavify'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -15,8 +16,8 @@ const Hero = () => {
             meets elegance.
           </p>
           <div className="d-flex flex-wrap gap-3">
-            <button className="btn bg-primary text-light" data-aos="fade-right" data-aos-delay="800" onClick={() => window.location.href = '/plants'}>Explore Now</button>
-            <button className="btn bg-transparent border-primary text-primary" data-aos="fade-right" data-aos-delay="500" onClick={() => window.location.href = '/contact-us'}>
+            <button className="btn bg-primary text-light" data-aos="fade-right" data-aos-delay="600" onClick={() => window.location.href = '/plants'}>Explore Now</button>
+            <button className="btn bg-transparent border-primary btn-outline-p text-primary" data-aos="fade-right" data-aos-delay="500" onClick={() => window.location.href = '/contact-us'}>
               Contact Us
             </button>
           </div>
@@ -76,6 +77,17 @@ const SectionExcess = () => {
 
 const CtaSection1 = () => {
   return (
+      <>
+      <Wave fill='var(--primary)'
+        paused={false}
+        style={{ display: 'flex', marginBottom: "-10px" }}
+        options={{
+          height: 20,
+          amplitude: 30,
+          speed: 0.15,
+          points: 3
+        }}
+      />
     <section className="section section-cta1 pi30 bg-primary">
       <div className="d-flex flex-column wrapper-text-cta1 text-light container  position-relative">
         <div className="" style={{paddingRight: "50px"}}>
@@ -92,6 +104,7 @@ const CtaSection1 = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
@@ -139,6 +152,17 @@ const CtaSection3 = () => {
     };
   }, []);
   return (
+      <>
+      <Wave fill='var(--primary)'
+        paused={false}
+        style={{ display: 'flex', marginBottom: "-10px" }}
+        options={{
+          height: 20,
+          amplitude: 30,
+          speed: 0.15,
+          points: 3
+        }}
+      />
     <section className="bg-primary w-100">
     <div className="section section-cta3 position-relative d-flex container">
       <div className="wrapper-img-cta3 d-flex align-items-center">
@@ -157,6 +181,7 @@ const CtaSection3 = () => {
       </div>
     </div>
   </section>
+  </>
   );
 };
 
