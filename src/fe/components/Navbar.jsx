@@ -179,6 +179,13 @@ const Navbar = ({ isHide }) => {
                         </>
                       ) : (
                         <>
+                        <a href={isLoggedIn ? "/cart" : ""} className="d-flex mx-2 align-items-center text-primary" style={{display: isLoggedIn ? "flex" : "none",fontStyle: "normal", textDecoration: "none"}}>
+                          <i
+                            className={`text-primary icon-complementary ${
+                              isLoggedIn ? 'fa-solid fa-basket-shopping' : ''
+                            }`}
+                          ></i>
+                          </a>
                         <a href={!isLoggedIn ? "/auth/sign-in" : "/profile"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
                           <i
                             className={`text-primary icon-complementary bi bi-${

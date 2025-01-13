@@ -730,6 +730,32 @@ input[type="password"]::-ms-clear {
 .accordion-body {
   font-family: var(--satoshi);
 }
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  margin-right: 10px;
+}
+
+input[type="checkbox"]:hover {
+  accent-color: var(--primary);
+}
+.btn.bg-transparent:hover {
+  color: var(--light) !important;
+}
+/* Ubah background header */
+.rdt_Table, .rdt_TableHeadRow, .rdt_Pagination {
+  background-color: transparent !important;
+  border: 0 !important;
+}
+/* Gaya untuk baris tabel */
+.rdt_TableRow {
+  border: 0 !important;
+  background-color: rgba(232, 239, 234, 1) !important; 
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+
+
 /* additional content */
 
 /* responsive */

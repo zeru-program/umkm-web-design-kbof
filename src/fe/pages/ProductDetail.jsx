@@ -7,6 +7,12 @@ import PromoGet from "../../be/get/PromoGet";
 import AOS from "aos";
 import 'animate.css';
 import "aos/dist/aos.css";
+import Modal from "../components/dashboard/Modal";
+import Modal2 from "../components/dashboard/Modal2";
+import CartsPost from "../../be/post/CartsPost";
+import Toast from "../components/Toast";
+import CartsEdit from "../../be/edit/CartsEdit";
+import CartsGet from "../../be/get/CartsGet";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -43,6 +49,10 @@ const ImgProduct = ({ find, findPromo }) => {
 };
 
 const ReadyCheckout = ({ find, findPromo }) => {
+  const [qtyCart, setQtyCart] = useState(1)
+  const { handlePost } = CartsPost()
+  const { handleEdit } = CartsEdit()
+  const { dataCarts } = CartsGet()
   const handleBuy = () => {
   /*  if (!sessionStorage.getItem('isLogin')) {
         sessionStorage.setItem('error', 'You must log in to order products!')
@@ -50,6 +60,53 @@ const ReadyCheckout = ({ find, findPromo }) => {
       }*/
     window.location.href = '/checkout/' + find.name
   }
+  const handleAddCart = async (e) => {
+    e.preventDefault()
+    try {
+      const productInUserExist = dataCarts.find((item) => item.user_id === sessionStorage.getItem('id') && item.product_id === find.id_product)
+      if (productInUserExist) {
+        const dataExist = {
+          qty: productInUserExist.qty + qtyCart
+        }
+
+        const resEdit = await handleEdit(dataExist, productInUserExist.key)
+        if (resEdit) {
+          sessionStorage.setItem('success', 'Success Add ' + qtyCart + ' Items to cart')
+        } else {
+          alert('something wrong..')
+        }
+      } else {
+        const data = {
+          cart_id: "",
+          product_id: find.id_product,
+          user_id: sessionStorage.getItem('id'),
+          qty: qtyCart,
+        }
+        // console.log(data)
+        const res = await handlePost(data)
+
+        if (res) {
+          sessionStorage.setItem('success', 'Success Add ' + qtyCart + ' Product to cart')
+        } else {
+          alert('something wrong..')
+        }
+     }
+      location.reload()
+    } catch (error) {
+      console.error(error)
+      alert('failed to fetch')
+    }
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem('success')) {
+      Toast.fire({
+        icon: "success",
+        title: sessionStorage.getItem('success'),
+      });
+      sessionStorage.removeItem("success");
+  }
+  }, [])
   return (
     <div className="ready-checkout">
       <div className="img-spec mb-3">
@@ -88,7 +145,32 @@ const ReadyCheckout = ({ find, findPromo }) => {
           </>}
       </div>
       <div className="d-flex mt-3 gap-3">
-        <button className="btn bg-primary px-5 text-light animate__animated animate__delay-5s animate__tada animate__infinite" onClick={() => handleBuy()}>Buy Now</button>
+        <button className="btn bg-transparent border-primary px-3 text-primary" data-bs-toggle="modal" data-bs-target="#addCart">
+          <i className="fa-solid fa-basket-shopping" style={{paddingRight: "10px"}}></i>
+          Add To Cart
+        </button>
+        <Modal2
+            modalName={"addCart"}
+            modalLable={"addCartModal"}
+            modalTitle={"Add Produk To Cart"}
+            cancelButton={true}
+            confirmButton={true}
+            modalConfirmText={"Add"}
+            handleSubmitForm={(e) => handleAddCart(e)}
+            modalContent={
+              <>
+                <div className="form-group mb-2 w-100 d-flex flex-column align-items-center justify-content-center h-100">
+                  <input type="number" className="bg-transparent w-100 text-center border-0 text-dark" value={qtyCart} readOnly />
+                  <div className="d-flex gap-3 mt-3">
+                      <button type="button" onClick={(e) => setQtyCart((prevQty) => (prevQty > 1 ? prevQty - 1 : 1))} className="btn bg-transparent border-primary text-primary px-4">-</button>
+                      <button type="button" onClick={(e) => setQtyCart(qtyCart + 1)} className="btn bg-primary text-light px-4">+</button>
+                  </div>
+                </div>
+                {/* <FormDetailBlogs dataDetail={selectedRow} /> */}
+              </>
+            }
+          />
+        <button className="btn bg-primary px-4 text-light" onClick={() => handleBuy()}>Buy Now</button>
         {/* <button
           className="btn bg-transparent text-primary"
           style={{ border: "1.5px solid #496653" }}
@@ -320,7 +402,7 @@ const ProductDetail = () => {
   return (
     <Base
       mainContent={
-        <section className="section-all-detail-product container-main">
+        <section className="section-all-detail-product container">
           <Detail idP={idP} find={find} findPromo={findPromo} dataProducts={dataProducts} />
           <Recomendation idP={idP} find={find} findPromo={findPromo} />
         </section>

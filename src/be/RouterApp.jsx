@@ -27,6 +27,7 @@ import ContactUs from '../fe/pages/ContactUs'
 import CheckoutTest from '../fe/pages/CheckoutTest'
 import PaySuccess from '../fe/pages/PaySuccess'
 import PayProccess from '../fe/pages/PayProccess'
+import Cart from '../fe/pages/Cart'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
@@ -83,6 +84,7 @@ const RouterApp = () => {
             <Route path='/plants/:idP' element={<ProductDetail/>} /> 
            {/* <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} /> */}
             <Route path='/checkout/:idC' element={<Checkout />} />  
+            <Route path='/cart/' element={<AuthNotRoute element={<Cart />}/>} />
             <Route path='/payment/' element={<AuthNotRoute element={<PaySuccess />}/>} />
             <Route path='/payment/:idPay' element={<AuthNotRoute element={<PaySuccess />}/>} />
             <Route path='/payment/proccess/' element={<AuthNotRoute element={<PayProccess />}/>} />
