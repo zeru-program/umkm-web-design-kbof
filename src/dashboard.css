@@ -97,6 +97,19 @@ body {
     /* border-radius: 50%; */
     margin-block: 10px;
 }
+
+/* Ubah background header */
+.rdt_Table, .rdt_TableHeadRow, .rdt_Pagination, .sc-geXuza.gJnpNS {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+  /* Gaya untuk baris tabel */
+  .rdt_TableRow {
+    border: 0 !important;
+    background-color: rgba(0, 0, 0, .1) !important; 
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
 /* content style */
 
 

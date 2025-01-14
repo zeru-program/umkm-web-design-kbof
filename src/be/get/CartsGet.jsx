@@ -2,10 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import ProductsGet from "./ProductsGet";
 import Users from "./Users";
 import dayjs from "dayjs";
+import PromoGet from "./PromoGet";
 
 const CartsGet = () => {
   const { dataProducts, loadProducts } = ProductsGet();
   const { dataUsers } = Users();
+  const { dataPromo } = PromoGet();
   const [dataCarts, setDataCarts] = useState([]);
   const [dataTableCarts, setDataTableCarts] = useState([]);
   const [dataFilterCarts, setDataFilterCarts] = useState([]);
@@ -34,14 +36,13 @@ const CartsGet = () => {
     FetchDataCarts();
   }, []);
 
-  // set data untuk data table react memakai use memo dan dipanggil dengan dataTableCarts: transformedCarts di return
   const transformedCarts = useMemo(() => {
     if (!dataCarts) {
       setLoadCarts(false)
-      return [];   
+      return [];
     }
     if (loadProducts || !Array.isArray(dataCarts) || dataCarts.length === 0) {
-      setLoadCarts(true)
+      setLoadCarts(false)
       return []; 
     }
     if (
@@ -54,20 +55,21 @@ const CartsGet = () => {
       setLoadCarts(true);
       const transformedData = dataCarts.filter((item) => item.user_id === sessionStorage.getItem('id')).map((data, index) => {
         const findProd = dataProducts.find((item) => item.id_product === data.product_id);
+        const findPromo = dataPromo.find((item) => item.id_product === data.product_id);
         if (findProd) {
           // console.log("find", findProd)
-        return {
-          key: data.key,
-          id: index + 1,
-          product: data.product_id,
-          product_id: data.product_id,
-          product_name: findProd.name,
-          product_img: findProd.img,
-          product_spec: findProd.spesification,
-          product_price: findProd.price,
-          qty: data.qty,
-          total: findProd.price * data.qty,
-        };
+          return {
+            key: data.key,
+            id: index + 1,
+            product: data.product_id,
+            product_id: data.product_id,
+            product_name: findProd.name,
+            product_img: findProd.img,
+            product_spec: findProd.spesification,
+            product_price: findProd.is_discount ? findPromo.result_price : findProd.price,
+            qty: data.qty,
+            total: findProd.price * data.qty,
+          };
       }
       });
       // console.log(transformedData)

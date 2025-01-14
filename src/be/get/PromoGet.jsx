@@ -18,9 +18,9 @@ const PromoGet = () => {
     fetch(`${import.meta.env.VITE_DB}product_promo.json`)
       .then((res) => res.json())
       .then((data) => {
-        setDataPromo(
-          Object.entries(data).map(([key, value]) => ({ key, ...value }))
-        );
+        // if (data) {
+        // }
+        setDataPromo(Object.entries(data).map(([key, value]) => ({ key, ...value })));
         setLoadPromo(false);
       })
       .catch((error) => console.error(error));
@@ -55,6 +55,7 @@ const PromoGet = () => {
           key: data.key,
           id: index + 1,
           id_product: data.id_product,
+          product_name: dataProducts.find((product) => product.id_product === data.id_product).name,
           percentage_promo: data.percentage_promo,
           initial_price: initialPrice || "Loading..",
           result_price: Math.max(resultPrice, 0) || "Loading..", 

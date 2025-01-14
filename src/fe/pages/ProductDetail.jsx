@@ -54,10 +54,10 @@ const ReadyCheckout = ({ find, findPromo }) => {
   const { handleEdit } = CartsEdit()
   const { dataCarts } = CartsGet()
   const handleBuy = () => {
-  /*  if (!sessionStorage.getItem('isLogin')) {
+    if (!sessionStorage.getItem('isLogin')) {
         sessionStorage.setItem('error', 'You must log in to order products!')
         window.location.href = '/auth/sign-in/'
-      }*/
+      }
     window.location.href = '/checkout/' + find.name
   }
   const handleAddCart = async (e) => {
@@ -145,7 +145,7 @@ const ReadyCheckout = ({ find, findPromo }) => {
           </>}
       </div>
       <div className="d-flex mt-3 gap-3">
-        <button className="btn bg-transparent border-primary px-3 text-primary" data-bs-toggle="modal" data-bs-target="#addCart">
+        <button className="btn bg-transparent align-items-center border-primary px-3 text-primary" style={{display: sessionStorage.getItem('isLogin') ? "flex" : "none"}} data-bs-toggle="modal" data-bs-target="#addCart">
           <i className="fa-solid fa-basket-shopping" style={{paddingRight: "10px"}}></i>
           Add To Cart
         </button>

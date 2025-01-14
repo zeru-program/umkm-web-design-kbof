@@ -172,6 +172,13 @@ const Navbar = ({ isHide }) => {
                     {/* <span className="iconify text-primary icon-complementary" data-icon="mdi:person"></span> */}
                     {isLoggedIn && isAdminOrDev ? (
                       <>
+                        <a href={isLoggedIn ? "/cart" : ""} className="d-flex mx-2 align-items-center text-primary position-relative" style={{display: isLoggedIn ? "flex" : "none",fontStyle: "normal", textDecoration: "none"}}>
+                          <i
+                            className={`text-primary icon-complementary ${
+                              isLoggedIn ? 'fa-solid fa-basket-shopping' : ''
+                            }`}
+                          ></i>
+                          </a>
                           <a href="/dashboard" className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
                             <i className="text-primary icon-complementary bi bi-clipboard-data-fill"></i>
                             <span className="text-nowrap">Go Dashboard</span>
@@ -179,12 +186,13 @@ const Navbar = ({ isHide }) => {
                         </>
                       ) : (
                         <>
-                        <a href={isLoggedIn ? "/cart" : ""} className="d-flex mx-2 align-items-center text-primary" style={{display: isLoggedIn ? "flex" : "none",fontStyle: "normal", textDecoration: "none"}}>
+                        <a href={isLoggedIn ? "/cart" : ""} className="d-flex mx-2 align-items-center text-primary position-relative" style={{display: isLoggedIn ? "flex" : "none",fontStyle: "normal", textDecoration: "none"}}>
                           <i
                             className={`text-primary icon-complementary ${
                               isLoggedIn ? 'fa-solid fa-basket-shopping' : ''
                             }`}
                           ></i>
+                          {/* <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+<span class="visually-hidden">unread messages</span></span> */}
                           </a>
                         <a href={!isLoggedIn ? "/auth/sign-in" : "/profile"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
                           <i

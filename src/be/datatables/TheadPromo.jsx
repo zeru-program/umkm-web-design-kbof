@@ -9,8 +9,8 @@ const TheadPromo = () => {
       sortable: true,
     },
     {
-      name: "Product ID",
-      selector: (row) => row.id_product,
+      name: "Product Name",
+      selector: (row) => row.product_name,
       sortable: true,
     },
     {

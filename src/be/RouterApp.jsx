@@ -83,7 +83,7 @@ const RouterApp = () => {
            {/* <Route path='/plants/:idP' element={<ProductDetail/>} /> */}
             <Route path='/plants/:idP' element={<ProductDetail/>} /> 
            {/* <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} /> */}
-            <Route path='/checkout/:idC' element={<Checkout />} />  
+            <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />} />} />  
             <Route path='/cart/' element={<AuthNotRoute element={<Cart />}/>} />
             <Route path='/payment/' element={<AuthNotRoute element={<PaySuccess />}/>} />
             <Route path='/payment/:idPay' element={<AuthNotRoute element={<PaySuccess />}/>} />

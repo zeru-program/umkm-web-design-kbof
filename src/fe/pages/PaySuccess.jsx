@@ -13,7 +13,7 @@ const DetailSuccess = ({ idPay, find, dataProducts }) => {
         <div className='position-absolute d-flex justify-content-center' style={{width: "100%", height: "auto", zIndex: "", left: "0", top: "-50px"}}>
           <i className='bi-check bg-primary text-light d-flex justify-content-center align-items-center' style={{borderRadius: "50%", width: "100px", height: "100px", fontSize: "4em"}}></i>
         </div>
-        <div className='w-100 d-flex flex-column align-items-center pt-5 pb-3 h-100 rounded-3' style={{background: "#E2F2E7"}}>
+        <div className='w-100 d-flex flex-column align-items-center pt-5 pb-3 h-100 rounded-3 bg-light shadow' style={{background: ""}}>
           <h1 className='text-center text-primary my-5'>Payment Successfully</h1>
           <img src={dataProducts.img} className='img-pay mb-5' alt="" />
           <div className='w-100 container-main text-satoshi pb-3 mb-5 d-flex justify-content-between'>
@@ -33,7 +33,7 @@ const DetailSuccess = ({ idPay, find, dataProducts }) => {
             </div>
           </div>
             <div className='mb-5 pb-3'>
-            <button className='btn bg-primary text-light' onClick={() => window.location.href = '/'}>Back To Home</button>
+            <button className='btn bg-primary text-light' onClick={() => window.location.href = '/plants'}>Buy Another Plants</button>
             </div>
         </div>
       </section>
@@ -46,7 +46,7 @@ const DetailFailed = ({ idPay, find, dataProducts }) => {
         <div className='position-absolute d-flex justify-content-center' style={{width: "100%", height: "auto", zIndex: "", left: "0", top: "-50px"}}>
           <i className='bi-x bg-danger text-light d-flex justify-content-center align-items-center' style={{borderRadius: "50%", width: "100px", height: "100px", fontSize: "4em"}}></i>
         </div>
-        <div className='w-100 d-flex flex-column align-items-center pt-5 pb-3 h-100 rounded-3' style={{background: "#F2E5E4"}}>
+        <div className='w-100 d-flex flex-column align-items-center pt-5 pb-3 h-100 rounded-3 bg-light shadow' style={{background: ""}}>
           <h1 className='text-center text-danger my-5'>Payment Failed</h1>
           <img src={dataProducts.img} className='img-pay mb-5' alt="" />
           <div className='w-100 container-main text-satoshi pb-3 mb-5 d-flex justify-content-between'>

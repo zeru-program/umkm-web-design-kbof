@@ -26,9 +26,13 @@ const SidebarProfile = () => {
                                     <span className="offcanvas-title d-none d-sm-block" id="offcanvas"> {sessionStorage.getItem('email')}</span>
                                 </div>
                             </div>
-                            <button type="button" className="btn-close mt-1 text-reset" style={{marginInline: 0, display: !imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close" />
+                            <button type="button" className="btn bg-transparent mt-1 text-reset" style={{marginInline: 0, display: !imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close">
+                                <i className="bi-x-lg"></i>
+                            </button>
                         </div>
-                        <button type="button" className="btn-close mt-1 text-reset" style={{display: imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close" />
+                        <button type="button" className="btn bg-transparent mt-1 text-reset" style={{display: imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i className="bi-x-lg"></i>
+                        </button>
                     </div>
                     </div>
                     <div className="offcanvas-body px-0">
@@ -37,6 +41,12 @@ const SidebarProfile = () => {
                         <div className='content-link'>
                             <i className='bi bi-person-fill'></i>
                             <span>Profile</span>
+                        </div>
+                    </div>
+                    <div className={`nav-link-dash ${location.pathname === "/cart" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/cart'}>
+                        <div className='content-link'>
+                            <i className='bi bi-basket-fill'></i>
+                            <span>My Carts</span>
                         </div>
                     </div>
                     <div className={`nav-link-dash ${location.pathname === "/profile/my-order" ? "active" : ""} d-flex gap-3 align-items-center py-3`} onClick={() => window.location.href = '/profile/my-order'}>

@@ -179,7 +179,6 @@ const OrderDetail = () => {
       const findOrder = dataOrders.find((item) => item.id_order === idO);
       
       if (findOrder && sessionStorage.getItem("first_pay")) {
-        console.log(findOrder)
         const token = sessionStorage.getItem("first_pay");
         snap.pay(token, {
           onSuccess: async (result) => {
@@ -197,7 +196,7 @@ const OrderDetail = () => {
           onError: (result) => console.error("Payment error:", result),
           onClose: () => console.warn("Customer closed the payment popup"),
         });
-        sessionStorage.removeItem("first_pay");
+        sessionStorage.removeItem("first_pay"); 
       }
     }
   }, [dataOrders, dataProducts, idO]);
