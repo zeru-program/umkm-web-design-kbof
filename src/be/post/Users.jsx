@@ -15,10 +15,9 @@ const UsersPost = () => {
                     username: data.username,
                     password: data.password,
                     email: data.email,
-                    role: data.role ? data.role : "pembeli",
-                    // gender: data.gender ? data.gender : "",
-                    phone: data.phone ? data.phone : "",
-                    img: data.img ? data.img : "",
+                    role: data.role || "pembeli",
+                    phone: data.phone || "",
+                    img: data.img || "",
                 })
             })
 

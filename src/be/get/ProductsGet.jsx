@@ -65,7 +65,10 @@ const ProductsGet = () => {
 
   // kondisikan data yang terfilter setiap perubahan filter data
   useEffect(() => {
-    const filtered = dataTableProducts.filter((item) =>
+    const sortedData = [...dataTableProducts].sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+    const filtered = sortedData.filter((item) =>
       Object.values(item)
         .join(" ")
         .toLowerCase()

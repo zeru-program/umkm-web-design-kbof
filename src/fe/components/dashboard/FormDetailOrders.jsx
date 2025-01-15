@@ -7,6 +7,7 @@ import StatusOption from '../../../be/options/StatusOption';
 import Rating from '../../../be/options/Rating';
 import ProductsEdit from '../../../be/edit/ProductsEdit';
 import UsersOption from '../../../be/options/UsersOption';
+import ProductsGet from '../../../be/get/ProductsGet';
 
 const FormDetailOrders = ({dataDetail}) => {
   const { productOpt } = ProductsOption();
@@ -14,6 +15,8 @@ const FormDetailOrders = ({dataDetail}) => {
   const { statusOptOrders } = StatusOption()
   const { usersOpt } = UsersOption()
   const { ratingOpt } = Rating()
+  const [find, setFind] = useState(null)
+  const { dataProducts } = ProductsGet()
   const { handleEdit } = ProductsEdit();
   const [dtFormEdit, setDtFormEdit] = useState({
     id_product: '',
@@ -51,7 +54,10 @@ const FormDetailOrders = ({dataDetail}) => {
   };
 
   useEffect(() => {
-    if (Array.isArray(dataDetail) && dataDetail.length === 1) {
+    if (Array.isArray(dataDetail) && dataDetail.length === 1 && dataProducts.length > 0) {
+        setFind(dataProducts.find((item) => item.id_product === dataDetail[0].productID) || null)
+        console.log(dataDetail[0].productID)
+        console.log(find)
         setDtFormEdit({
           ...dtFormEdit,
           id_product: dataDetail[0].productID,
@@ -64,7 +70,7 @@ const FormDetailOrders = ({dataDetail}) => {
           qty: dataDetail[0].qty,
           status: dataDetail[0].status,
           token: dataDetail[0].token,
-          total: dataDetail[0].total,
+          total: parseFloat(dataDetail[0].total),
           created_at: dataDetail[0].created_at
         });
       }      
@@ -74,6 +80,11 @@ const FormDetailOrders = ({dataDetail}) => {
     <form action="" id='formEditProduct' onSubmit={async (e) => {
         e.preventDefault()
     }}>
+      <div className='w-100 d-flex justify-content-center'>
+        <div>
+          <img src={find ? find.img : ""} style={{width: "100px"}} alt={dataDetail.id_product} />
+        </div>
+      </div>
     <div className="row">
       <div className="col-12 mb-3">
           <label>Order ID</label>

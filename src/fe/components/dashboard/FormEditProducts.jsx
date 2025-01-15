@@ -65,9 +65,9 @@ const FormEditProducts = forwardRef(({ dataEdit }, ref) => {
           img: dataEdit[0].img || '',
           is_discount: dataEdit[0].promo || false,
           is_popular: dataEdit[0].popular || false,
-          price: dataEdit[0].price || '',
+          price: dataEdit[0].price || 0,
           type: dataEdit[0].type || '',
-          stock: dataEdit[0].stock || '',
+          stock: dataEdit[0].stock || 0,
           rating: dataEdit[0].rating || 1,
           spesification: {
             weight: dataEdit[0].spesification?.weight || '',

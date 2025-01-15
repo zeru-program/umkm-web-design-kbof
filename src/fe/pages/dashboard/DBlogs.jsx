@@ -40,6 +40,18 @@ const BlogData = () => {
       ...provided,
       width: "auto !important",
     }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isSelected ? "#496653" : state.isFocused ? "#496653" : "#FFF",
+      // background: "red",
+      color: state.isSelected ? "#FFF" : state.isFocused ? "#FFF" : "#333",
+      cursor: "pointer",
+      fontFamily: "var(--satoshi)",
+      // paddingTop: "0",
+      "&:active": {
+        background: "#ddd",
+      },
+    }),
   };
 
   useEffect(() => {
@@ -280,9 +292,9 @@ const DBlogs = () => {
     <Dashboard content={<>
       <div className='mt-3'>
          <Header title={'Blog/Educations'} pageName={'Blogs'} />
-         <BoxDash content={<>
+         {/* <BoxDash content={<>
           <TextEditor />
-          </>} />
+          </>} /> */}
          <BlogData />
       </div>
     </>} />

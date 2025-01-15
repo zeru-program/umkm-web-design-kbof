@@ -237,14 +237,14 @@ const FormCreateProducts = () => {
         <div className="col-6 mb-3">
           <label>Weight</label>
           <div className="input-group">
-            <input type="number" name='weight' value={dtFormCreate.spesification.weight} onInput={handleInputChange} placeholder='Ex.. 4Kg' className="form-control" required />
+            <input type="number" name='weight' min={1} value={dtFormCreate.spesification.weight} onInput={handleInputChange} placeholder='Ex.. 4Kg' className="form-control" required />
             <span className="input-group-text">Kg</span>
           </div>
         </div>
         <div className="col-6 mb-3">
           <label>Height</label>
           <div className="input-group">
-            <input type="number" name='height' value={dtFormCreate.spesification.height} onInput={handleInputChange} placeholder='Ex.. 4cm' className="form-control" required />
+            <input type="number" name='height' min={1} value={dtFormCreate.spesification.height} onInput={handleInputChange} placeholder='Ex.. 4cm' className="form-control" required />
             <span className="input-group-text">Cm</span>
           </div>
         </div>

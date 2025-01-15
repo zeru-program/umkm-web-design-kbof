@@ -10,7 +10,8 @@ const NavbarDashboard = ({handleClickNav, sideStatus}) => {
       <div className='d-flex gap-3'>
         {/* <i className='bi-bell-fill'></i> */}
         <div className='gap-3 d-flex align-items-center'>
-          <i className='bi-person-fill'></i>
+          {/* <i className='bi-person-fill'></i> */}
+          <img className='img-nav-profile' src={sessionStorage.getItem('img') || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"} alt="" />
           <div className="dropdown">
             <div className='d-flex gap-1' data-bs-toggle="dropdown" aria-expanded="false" style={{cursor: "pointer"}}>
               <span className='fw-bold'>Hi, {sessionStorage.getItem('username')}</span>
@@ -18,7 +19,7 @@ const NavbarDashboard = ({handleClickNav, sideStatus}) => {
             </div>
             <ul className="dropdown-menu">
               <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => document.getElementById('iClick').click()}>Trigger Sidebar</a></li>
-              {/* <li><a className="dropdown-item" href="#">Another action</a></li> */}
+              <li><a className="dropdown-item" href="/">Home</a></li>
               <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
             </ul>
           </div>

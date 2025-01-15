@@ -6,6 +6,7 @@ import Select from "react-select";
 import Filter1Product from "../../be/options/Filter1Product";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import CustomStyleSelect from "../components/CustomStyleSelect";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -17,33 +18,14 @@ const formattedDate =
   String(now.getHours()).padStart(2, "0") +
   ":" +
   String(now.getMinutes()).padStart(2, "0");
-const filterStyles = {
-    control: (base, state) => ({
-        ...base,
-        fontWeight: "500",
-        width: "140px",
-        fontFamily: "var(--satoshi)",
-        background: "transparent",
-        borderRadius: 7,
-        borderColor: "#496653",
-        boxShadow: state.isFocused ? null : null,
-        "&:hover": {
-          borderColor: "#496653"
-        }
-      }),    
-    menu: base => ({
-        ...base,
-        zIndex: 100,
-    })
-}
 
 const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}) => {
     const { filter1, filter2 } = Filter1Product()
   return (
-    <section className="w-100 d-flex flex-column align-content-center container-main section-product">
-      <div className="d-flex flex-column align-items-center">
+    <section className="w-100 d-flex flex-column align-items-center container-main section-product">
+      <div className="d-flex w-title-products flex-column align-items-center">
         <h2 className="text-font-color" data-aos="zoom-in">Plants</h2>
-        <p className="text-satoshi" data-aos="zoom-in" data-aos-delay="300">
+        <p className="text-satoshi text-center" data-aos="zoom-in" data-aos-delay="300">
           Discover our curated selection of aesthetic houseplants to transform
           your home into a vibrant.
         </p>
@@ -54,17 +36,17 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
             placeholder="Search Plant Here.."
             value={searchProducts}
             onInput={(e) => setSearchProducts(e.target.value)}
-            className="text-satoshi form-control py-2 input-search-product "
+            className="text-satoshi form-control py-4 px-4 input-search-product "
           />
           <div className="bg-primary text-light d-flex justify-content-center align-items-center icon-search-product" data-aos="zoom-in" data-aos-delay="500">
             <i className="bi-search"></i>
           </div>
         </div>
       </div>
-      <div className="d-flex mt-4 justify-content-between">
+      <div className="d-flex mt-4 gap-3  justify-content-between" style={{width: "90%"}}>
         <Select
             placeholder="Sort By"
-            styles={filterStyles}
+            styles={CustomStyleSelect}
             options={filter1}
             onChange={(item) => {
                 setFilter((prevState) => ({
@@ -72,13 +54,13 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
                   type: item.value
                 }));
             }}
-            data-aos="zoom-in" data-aos-delay="100"
             value={filter1.find((opt) => opt.value === filter.type)}
+            // data-aos="zoom-in" data-aos-delay="100"
             required
           />
         <Select
             placeholder="Filter By"
-            styles={filterStyles}
+            styles={CustomStyleSelect}
             options={filter2}
             onChange={(item) => {
                 setFilter((prevState) => ({
@@ -121,23 +103,28 @@ const DisplayProduct = () => {
   };
 
   useEffect(() => {
+    // Filter produk aktif
     let filteredProducts = dataProducts.filter((item) => item.status === "active");
   
-    if (filter.type === "popular") {
-      filteredProducts = filteredProducts.filter((item) => item.is_popular);
-    } else if (filter.type === "promo") {
-      filteredProducts = filteredProducts.filter((item) => item.is_discount);
-    } else if (filter.type === "newest") {
-      filteredProducts = filteredProducts.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-    } else if (filter.rating !== 0) {
-        // if (filter.rating ) {
-            filteredProducts = filteredProducts.filter((item) => item.rating == filter.rating);
-        // }
+    // Filter berdasarkan type
+    if (filter.type) {
+      if (filter.type === "popular") {
+        filteredProducts = filteredProducts.filter((item) => item.is_popular);
+      } else if (filter.type === "promo") {
+        filteredProducts = filteredProducts.filter((item) => item.is_discount);
+      } else if (filter.type === "newest") {
+        filteredProducts = filteredProducts.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+      }
     }
   
-    // Search filter
+    // Filter berdasarkan rating (sinkron dengan type)
+    if (filter.rating !== 0) {
+      filteredProducts = filteredProducts.filter((item) => item.rating == filter.rating);
+    }
+  
+    // Filter pencarian
     if (searchProducts) {
       filteredProducts = filteredProducts.filter((item) =>
         item.name.toLowerCase().includes(searchProducts.toLowerCase())
@@ -149,8 +136,9 @@ const DisplayProduct = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setCurrentItems(filteredProducts.slice(indexOfFirstItem, indexOfLastItem));
     setTotalDatas(filteredProducts.length);
-    setTotalPages(Math.ceil(totalDatas /itemsPerPage))
-  }, [dataProducts, searchProducts, filter, currentPage, totalDatas]);
+    setTotalPages(Math.ceil(filteredProducts.length / itemsPerPage));
+  }, [dataProducts, searchProducts, filter, currentPage]);
+  
   
 
   // console.log(dataProducts)
@@ -168,7 +156,7 @@ const DisplayProduct = () => {
               );
               if (
                 findTemporary &&
-                findTemporary.periode_start === formattedDate.slice(0, 10) &&
+                findTemporary.periode_start <= formattedDate.slice(0, 10) &&
                 findTemporary.periode_end >= formattedDate.slice(0, 10)
               ) {
                 find = findTemporary;
@@ -236,7 +224,7 @@ const DisplayProduct = () => {
           </>
         )}
       </section>
-      <nav aria-label="Page navigation example">
+      <nav className="pb-5" aria-label="Page navigation example">
         <p className="text-center">
           Showing {totalPages} page of {totalDatas} Datas.
         </p>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/AuthLayout'
 import './Auth.css'
 import Users from '../../../be/get/Users'
 import Swal from 'sweetalert2'
+import Toast from '../../components/Toast'
 
 const SideInput = () => {
     const { dataUsers } = Users()
@@ -25,15 +26,18 @@ const SideInput = () => {
         if (matchedUser) {
             sessionStorage.setItem('isLogin', true)
             sessionStorage.setItem('username', matchedUser.username)
+            sessionStorage.setItem('img', matchedUser.img || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg")
             sessionStorage.setItem('password', matchedUser.password)
             sessionStorage.setItem('email', matchedUser.email)
             sessionStorage.setItem('phone', matchedUser.phone)
             sessionStorage.setItem('id', matchedUser.id)
             sessionStorage.setItem('key', matchedUser.key)
             sessionStorage.setItem('role', matchedUser.role)
+            sessionStorage.setItem('gender', matchedUser.gender)
+            console.log(matchedUser.gender)
             Swal.fire('Success', 'Logged in successfully', 'success').then((result) => {
                 if (result.isConfirmed) {
-                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer') {
+                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer' || matchedUser.role === 'seller' || matchedUser.role === 'administrator') {
                         window.location.href = '/dashboard'
                     } else {
                         window.location.href = '/'
@@ -48,6 +52,7 @@ const SideInput = () => {
     return (
         <section className='d-flex text-primary justify-content-center align-items-center auth-side-input'>
             <div className='con-auth'>
+                <img src="/images/logo.png" className='img-back-auth' onClick={() => window.location.href = '/'} style={{cursor :"pointer"}} alt="" />
                 <h2 className='text-font-color' style={{paddingRight: "100px"}}>Welcome Back!</h2>
                 <p>Start Your Journey with Aesthetic Plants.</p>
                 <form className='w-100' onSubmit={(e) => {
@@ -56,13 +61,13 @@ const SideInput = () => {
                 }}>
                  <div className="mb-3">
                     <label className="form-label">Email / Username</label>
-                    <input type="text" className="form-control input-auth" onChange={(e) => setDataForm({...dataForm, username_or_email: e.target.value})} placeholder='Enter Your Email/Username' id="exampleInputEmail1" />
+                    <input type="text" className="form-control input-auth text-satoshi" onChange={(e) => setDataForm({...dataForm, username_or_email: e.target.value})} placeholder='Enter Your Email/Username' id="exampleInputEmail1" />
                  </div>
                 <div className="mb-3">
                     <label  className="form-label">Password</label>
                     <div className='position-relative'>
-                        <input type={isEyePass ? "text" : "password"} onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth" style={{paddingRight: "50px"}} placeholder='Enter Your Password' id="exampleInputPassword1" />
-                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "9px", cursor: "pointer"}}></i>
+                        <input type={isEyePass ? "text" : "password"} onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth text-satoshi" style={{paddingRight: "50px"}} placeholder='Enter Your Password' id="exampleInputPassword1" />
+                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "6px", cursor: "pointer"}}></i>
                     </div>
                 </div>
                 <button type="submit" className="btn bg-primary text-light w-100 py-2 mt-2">Sign In</button>
@@ -81,13 +86,13 @@ const SideInput = () => {
 const SideBackground = () => {
     return (
         <section className='auth-side-background text-light position-relative'>
-            <div className='px-4 position-absolute bottom-0'>
-                <h2 className='fw-bold'>Handpicked Aesthetic PlantsHandpicked Aesthetic Plants</h2>
+            <div className='px-4 position-absolute' style={{bottom: "40px", left: "40px"}}>
+                <h2 className='fw-bold'>“Gardening is the purest of all human pleasures”</h2>
                 <div className='d-flex align-items-center gap-3 mb-4'>
-                    <img src="/images/man1.jpg" className='img-side-background' alt="" />
+                    <img src="/images/francis-bacon.jpg" className='img-side-background' alt="" />
                     <div>
-                        <h3 className='mb-0'>Discover our curated</h3>
-                        <p className='mb-0'>Discover our curated</p>
+                        <h3 className='mb-0'>Francis Bacon</h3>
+                        <p className='mb-0'>Philosopher and politician</p>
                     </div>
                 </div>
             </div>
@@ -96,6 +101,15 @@ const SideBackground = () => {
 }
 
 const Login = () => {
+    useEffect(() => {
+        if (sessionStorage.getItem('error')) {
+            Toast.fire({
+              icon: "error",
+              title: sessionStorage.getItem('error'),
+            });
+            sessionStorage.removeItem("error");
+        }
+    }, [])
   return (
     <AuthLayout mainContent={<>
     <div className='contain-auth' style={{width: "100%", height: "100vh"}}>

@@ -1,0 +1,13 @@
+
+/* Ubah background header */
+.rdt_Table, .rdt_TableHeadRow, .rdt_Pagination, .sc-geXuza.gJnpNS {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+  /* Gaya untuk baris tabel */
+  .rdt_TableRow {
+    border: 0 !important;
+    background-color: rgba(232, 239, 234, 1) !important; 
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }

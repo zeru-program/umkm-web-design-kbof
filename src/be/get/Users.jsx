@@ -44,6 +44,7 @@ const Users = () => {
         email: data.email,
         phone: data.phone,
         role: data.role,
+        gender: data.gender,
         status: data.status || "Draft",
         statusDisplay: data.status || "Draft",
       }));

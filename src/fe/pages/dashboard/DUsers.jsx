@@ -42,6 +42,18 @@ const UsersData = () => {
       ...provided,
       width: "auto !important",
     }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isSelected ? "#496653" : state.isFocused ? "#496653" : "#FFF",
+      // background: "red",
+      color: state.isSelected ? "#FFF" : state.isFocused ? "#FFF" : "#333",
+      cursor: "pointer",
+      fontFamily: "var(--satoshi)",
+      // paddingTop: "0",
+      "&:active": {
+        background: "#ddd",
+      },
+    }),
   };
 
   useEffect(() => {
@@ -87,31 +99,6 @@ const UsersData = () => {
             >
               <i className="bi-arrow-clockwise"></i>
             </button>
-            {/* <button
-              className="btn text-light bg-secondary"
-              onClick={(e) => {
-                if (!selectedRow || selectedRow.length === 0) {
-                  e.preventDefault();
-                  Toast.fire({
-                    icon: "error",
-                    title: "Please select the data!",
-                  });
-                  return;
-                } else if (selectedRow && selectedRow.length > 1) {
-                  e.preventDefault();
-                  Toast.fire({
-                    icon: "error",
-                    title: "Please select only 1 data!",
-                  });
-                  return;
-                }
-              }}
-              {...(selectedRow && selectedRow.length == 1
-                ? { "data-bs-toggle": "modal", "data-bs-target": "#detail" }
-                : {})}
-            >
-              <i className="bi-eye-fill"></i>
-            </button> */}
             <button
               className="btn text-light"
               style={{ background: "#19459D" }}
@@ -193,7 +180,7 @@ const UsersData = () => {
           </div>
 
           {/* modal  */}
-          <Modal
+          {/* <Modal
             modalName={"detail"}
             modalLable={"detailModal"}
             modalTitle={"Detail"}
@@ -204,7 +191,7 @@ const UsersData = () => {
               <FormDetailUsers dataDetail={selectedRow} />
               </>
             }
-          />
+          /> */}
           <Modal
             modalName={"create"}
             modalLable={"createModal"}
@@ -217,7 +204,7 @@ const UsersData = () => {
             }
             modalConfirmText={"Create"}
             modalConfirmClicked={() => {
-              const form = document.getElementById("formCreateOrder");
+              const form = document.getElementById("formCreateUser");
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form
@@ -244,7 +231,7 @@ const UsersData = () => {
             }
             modalConfirmText={"Save changes"}
             modalConfirmClicked={() => {
-              const form = document.getElementById("formEditOrder");
+              const form = document.getElementById("formEditUser");
               if (form) {
                 if (form.checkValidity()) {
                   // Jika validasi berhasil, kirim form

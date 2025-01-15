@@ -32,6 +32,7 @@ const OrdersDelete = () => {
             return res;
           })
         );
+        console.log(results)
         sessionStorage.setItem(
           "success",
           `Success remove ${selectedRow.length} data`

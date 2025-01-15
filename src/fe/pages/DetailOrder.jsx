@@ -12,6 +12,7 @@ import Toast from "../components/Toast";
 import Swal from "sweetalert2";
 import OrdersPost from "../../be/post/OrdersPost";
 import OrdersGet from "../../be/get/OrdersGet";
+import OrdersEdit from "../../be/edit/OrdersEdit";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -25,6 +26,7 @@ const formattedDate =
   String(now.getMinutes()).padStart(2, "0");
 
 const Detail = ({ find, idO, findProduct }) => {
+  const { handleEdit } = OrdersEdit()
   const [badgeStatus, setBadgeStatus] = useState("");
   useEffect(() => {
     if (find.status === "success") {
@@ -35,6 +37,40 @@ const Detail = ({ find, idO, findProduct }) => {
       setBadgeStatus("warning");
     }
   }, [find]);
+
+  const confirmPay = async () => {
+    // console.log(find);
+  
+    if (!find || !find.token_payment) {
+      console.error("Token payment is not available in `find`");
+      return;
+    }
+  
+    if (typeof snap === "undefined") {
+      console.error("Snap is not initialized");
+      return;
+    }
+    // console.log(find)
+    snap.pay(find.token_payment, {
+      onSuccess: async (result) => {
+        console.log("Payment success:", result);
+        try {
+          const res = await handleEdit({ status: "success" }, find.key || "");
+          if (res) {
+            window.location.href = "/payment/" + idO;
+          }
+        } catch (error) {
+          console.error("Error during success callback:", error);
+        }
+      },
+      onPending: (result) => console.log("Payment pending:", result),
+      onError: (result) => console.error("Payment error:", result),
+      onClose: () => console.warn("Customer closed the payment popup"),
+    });
+  };
+  
+
+
   return (
     <>
       <section className="mb-5 pb-5">
@@ -77,6 +113,15 @@ const Detail = ({ find, idO, findProduct }) => {
                       {/* <span>x{find.qty}</span> */}
                       <span className="fw-bold">Rp{parseFloat(find.total).toLocaleString("id-ID")}</span>
                   </div>
+                  <div className="mt-2">
+                    {
+                      find.payment_method === "digital" && find.status === "pending" ? (
+                        <button className="btn bg-primary text-light" onClick={confirmPay}>Confirm Payment</button>
+                      ) : find.payment_method === "cod" && find.status === "pending" ? (
+                        <span className="text-danger">You choose cash on delivery as your payment method, please prepare it</span>
+                      ) : ""
+                    }
+                  </div>
                 </div>
               </div>
             </>
@@ -91,6 +136,7 @@ const OrderDetail = () => {
   const { idO } = useParams();
   const { dataProducts, loadProducts } = ProductsGet();
   const { dataPromo } = PromoGet();
+  const { handleEdit } = OrdersEdit()
   const { dataOrders, loadOrders } = OrdersGet();
   const [find, setFind] = useState(null);
   const [findProduct, setFindProduct] = useState(null);
@@ -109,6 +155,63 @@ const OrderDetail = () => {
       }
     }
   }, [dataOrders, dataProducts, idO]);
+
+  useEffect(() => {
+    const snapJs = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT;
+  
+    if (!document.querySelector(`script[src="${snapJs}"]`)) {
+      const script = document.createElement("script");
+      script.src = snapJs;
+      script.setAttribute("data-client-key", clientKey);
+      script.async = true;
+  
+      script.onload = () => {
+        console.log("Snap script loaded");
+      };
+  
+      document.body.appendChild(script);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (dataOrders && dataProducts && dataOrders.length > 0 && dataProducts.length > 0) {
+      const findOrder = dataOrders.find((item) => item.id_order === idO);
+      
+      if (findOrder && sessionStorage.getItem("first_pay")) {
+        const token = sessionStorage.getItem("first_pay");
+        snap.pay(token, {
+          onSuccess: async (result) => {
+            console.log("Payment success:", result);
+            try {
+              const res = await handleEdit({ status: "success" }, findOrder.key || "");
+              if (res) {
+                window.location.href = "/payment/" + idO;
+              }
+            } catch (error) {
+              console.error("Error during success callback:", error);
+            }
+          },
+          onPending: (result) => console.log("Payment pending:", result),
+          onError: (result) => console.error("Payment error:", result),
+          onClose: () => console.warn("Customer closed the payment popup"),
+        });
+        sessionStorage.removeItem("first_pay"); 
+      }
+
+      if (sessionStorage.getItem('success')) {
+        Toast.fire({
+          icon: "success",
+          title: sessionStorage.getItem('success'),
+        });
+        sessionStorage.removeItem("success");
+    }
+    }
+  }, [dataOrders, dataProducts, idO]);
+  
+  
+
+
   // Tampilkan spinner saat data sedang dimuat
   if (loadOrders) {
     return (

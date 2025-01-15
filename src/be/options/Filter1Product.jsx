@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductsGet from "../get/ProductsGet";
 
 const Filter1Product = () => {
-    const [filter1] = useState([
+    const [filter1, setFilter1] = useState([
       { value: "popular", label: "Popular" },
       { value: "promo", label: "Promo" },
       { value: "newest", label: "Newest" },

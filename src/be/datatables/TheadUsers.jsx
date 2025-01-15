@@ -17,6 +17,7 @@ const TheadUsers = () => {
             <img
               src={row.img}
               alt={row.name}
+              style={{objectFit: "cover"}}
               className="img-tbody img-thumbnail"
               />
               <div className="d-flex flex-column gap-2">
@@ -26,6 +27,7 @@ const TheadUsers = () => {
           </div>
         );
       },
+      width: "200px",
       sortable: true,
     },
     {
@@ -36,6 +38,20 @@ const TheadUsers = () => {
     {
       name: "Email",
       selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.gender,
+      cell: (row) => {
+        if (row.gender == true) {
+          return <div className="badge bg-primary p-1 text-light">Male</div>;
+        } else if (row.gender == false) {
+          return <div className="badge bg-danger text-light">Female</div>;
+        } else {
+          return <div className="badge bg-dark text-light">Unknown</div>;
+        }
+      },
       sortable: true,
     },
     {
@@ -51,6 +67,8 @@ const TheadUsers = () => {
           return <div className="badge bg-info p-1 text-light">Pembeli</div>;
         } else if (row.role === "admin") {
           return <div className="badge bg-primary text-light">Admin</div>;
+        } else if (row.role === "administrator") {
+          return <div className="badge bg-primary text-light">Administrator</div>;
         } else if (row.role === "developer") {
           return <div className="badge bg-primary text-light">Developer</div>;
         }

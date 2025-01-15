@@ -40,6 +40,11 @@ const Thead = () => {
       name: "Total",
       selector: (row) => row.total,
       sortable: true,
+      cell: (row) => {
+        if (row.total) {
+          return "Rp" + parseFloat(row.total).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Created At",

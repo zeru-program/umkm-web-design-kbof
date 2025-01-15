@@ -20,12 +20,23 @@ import OrdersDummy from './dummy/OrdersDummy'
 import N404 from '../fe/pages/N404'
 import Checkout from '../fe/pages/Checkout'
 import OrderDetail from '../fe/pages/DetailOrder'
+import Profile from '../fe/pages/Profile'
+import MyOrder from '../fe/pages/MyOrder'
+import MyHistory from '../fe/MyHistory'
+import ContactUs from '../fe/pages/ContactUs'
+import CheckoutTest from '../fe/pages/CheckoutTest'
+import PaySuccess from '../fe/pages/PaySuccess'
+import PayProccess from '../fe/pages/PayProccess'
+import Cart from '../fe/pages/Cart'
+import DReviews from '../fe/pages/dashboard/DReviews'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
-  const cekAdmin = sessionStorage.getItem('username')
-    if (!cekLogin && (cekAdmin !== "admin" || cekAdmin !== "developer")) {
-      return <Navigate to='/auth/sign-in' replace />
+  const cekAdmin = sessionStorage.getItem('role')
+    if (!cekLogin) {
+      return <Navigate to='/' replace />
+    } else if (cekLogin && cekAdmin === 'pembeli') {
+      return <Navigate to='/' replace />
     }
     return element;
 }
@@ -49,6 +60,7 @@ const AuthLogout = () => {
   useEffect(() => {
     sessionStorage.removeItem('isLogin')
     sessionStorage.removeItem('username')
+    sessionStorage.removeItem('img')
     sessionStorage.removeItem('password')
     sessionStorage.removeItem('email')
     sessionStorage.removeItem('phone')
@@ -68,20 +80,29 @@ const RouterApp = () => {
         <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/plants' element={<Product/>} />
-            <Route path='/plants/:idP' element={<ProductDetail/>} />
-            <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />}/>} />
+            <Route path='/plants/:idP' element={<ProductDetail/>} /> 
+            <Route path='/checkout/:idC' element={<AuthNotRoute element={<Checkout />} />} />  
+            <Route path='/cart/' element={<AuthNotRoute element={<Cart />}/>} />
+            <Route path='/payment/' element={<AuthNotRoute element={<PaySuccess />}/>} />
+            <Route path='/payment/:idPay' element={<AuthNotRoute element={<PaySuccess />}/>} />
+            <Route path='/payment/proccess/' element={<AuthNotRoute element={<PayProccess />}/>} />
             <Route path='/detail/order/:idO' element={<OrderDetail/>} />
             <Route path='/education' element={<Education/>} />
             <Route path='/education/:idE' element={<EducationDetail/>} />
             <Route path='/about-us' element={<AboutUs/>} />
+            <Route path='/contact-us' element={<ContactUs/>} />
             <Route path='/dummy/orders' element={<OrdersDummy/>} />
             <Route path='/auth/sign-in' element={<AuthRoute element={<Login/>} />} />
             <Route path='/auth/sign-up' element={<AuthRoute element={<Register/>} />} />
             <Route path='/auth/logout' element={<AuthLogout />} />
+            <Route path='/profile' element={<AuthNotRoute element={<Profile />}/>} />
+            <Route path='/profile/my-order' element={<AuthNotRoute element={<MyOrder />}/>} />
+            <Route path='/profile/history' element={<AuthNotRoute element={<MyHistory />}/>} />
             <Route path='/dashboard' element={<PrivateRoute element={<DHome />}/>} />
             <Route path='/dashboard/analytics' element={<PrivateRoute element={<DAnalytics />}/>} />
             <Route path='/dashboard/orders' element={<PrivateRoute element={<DOrders />}/>} />
             <Route path='/dashboard/products' element={<PrivateRoute element={<DProducts />}/>} />
+            <Route path='/dashboard/reviews' element={<PrivateRoute element={<DReviews />}/>} />
             <Route path='/dashboard/blogs' element={<PrivateRoute element={<DBlogs />}/>} />
             <Route path='/dashboard/users' element={<PrivateRoute element={<DUsers />}/>} />
             <Route path='*' element={<N404/>} />

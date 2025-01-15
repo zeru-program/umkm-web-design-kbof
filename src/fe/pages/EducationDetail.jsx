@@ -6,27 +6,42 @@ import BlogsGet from "../../be/get/BlogsGet";
 import Users from "../../be/get/Users";
 import DOMPurify from "dompurify";
 import dayjs from "dayjs";
+import AOS from "aos";
+import 'animate.css';
 
 
 const Detail = ({find, findAuthor}) => {
-    const sanitizedContent = DOMPurify.sanitize(find.content);
+  const sanitizedContent = DOMPurify.sanitize(find.content);
+  const [copy, setCopy] = useState(false)
+  const copyUrl = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setCopy(true)
+    setTimeout(() => {
+      setCopy(false)
+    }, 1500);
+  }
 
   return (
     <section className="section section-detail-education d-flex flex-column align-items-center">
-      <div className="w-100">
+      <div className="w-100" data-aos="zoom-in">
         <img src={find.img ? find.img : "/images/plants2-bg.jpg"} alt="" className="w-100" style={{height: "350px", objectFit: "cover"}} />
       </div>
-      <div className="box-content-education py-5 d-flex flex-column py-4 container-main">
-        <h3>
+      <div className="box-content-education py-5 d-flex flex-column py-4 container-main" data-aos="zoom-in" data-aos-delay="500">
+        <h3 data-aos="fade-right">
           {find.title}
         </h3>
-        <div className="creator-education-detail mt-2 d-flex gap-2 align-items-center">
-          <img src={findAuthor.img ? findAuthor.img : "/images/man1.jpg"} alt="" />
-          <span>{findAuthor.username}</span>
+        <div className="creator-education-detail mt-2 d-flex gap-2 align-items-center" data-aos="fade-right" data-aos-delay="500">
+          <img src={findAuthor && findAuthor.img ? findAuthor.img : "/images/man1.jpg"} style={{objectFit: "cover"}} alt="" />
+          <span>{findAuthor ? findAuthor.username : "Unknown"}</span>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 text-satoshi" data-aos="fade-right" data-aos-delay="500">
            <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}>
             </div>
+        </div>
+        <div className="mt-4">
+          <button className="btn bg-primary text-light" onClick={() => copyUrl()}>
+            <i className="bi-share-fill px-2"></i>  {copy ? "Link Copied !" : "Share Link"}
+          </button>
         </div>
       </div>
     </section>
@@ -43,7 +58,7 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
 
       // paginasi
       const [currentPage, setCurrentPage] = useState(1);
-      const itemsPerPage = 10;
+      const itemsPerPage = 3;
       const indexOfLastItem = currentPage * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
       const [currentItems, setCurrentItems] = useState([])
@@ -89,12 +104,12 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
       }, [dataBlogs, searchBlogs, filter, currentPage, totalDatas]);
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h2>Recomendation</h2>
+      <h1 data-aos="fade-right">Recomendation</h1>
       <div className="d-flex mt-4 flex-wrap gap-4">
         {!loadBlogs ? (
             currentItems.map((item, index) => {
             return (
-                <div className='box-education' key={index + 1}>
+                <div className='box-education' key={index + 1} data-aos="zoom-in" data-aos-delay="500">
                 <div className='date-type-education text-satoshi d-flex justify-content-between'>
                     <p>{dayjs(item.created_at).locale("id").format("D MMMM YYYY")}</p>
                     <div className='bg-primary rounded-3 px-2 text-light' style={{height: "26px"}}>
@@ -105,11 +120,11 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
                     <img src={item.img ? item.img : ""} alt={item.title} />
                 </div>
                 <div className='mt-4'>
-                    <h5>{item.title}</h5>
-                    <p className='text-satoshi'>{item.short_desc}</p>
+                    <h5 className="p-elipsis">{item.title}</h5>
+                    <p className='text-satoshi p-elipsis'>{item.short_desc}</p>
                 </div>
                 <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>
+                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Read Now</button>
                 </div>
             </div>
             );
@@ -124,6 +139,42 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
             </>
         )}
       </div>
+      
+      <nav aria-label="Page navigation example" className="mt-5">
+        <p className="text-center">
+          Showing {totalPages} page of {totalDatas} Datas.
+        </p>
+
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <button className="page-link" onClick={handlePrevPage}>
+              Previous
+            </button>
+          </li>
+         {/* {Array.from({ length: totalPages }, (_, i) => (
+            <li
+              key={i}
+              className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))} */}
+          <li
+            className={`page-item ${
+              currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            <button className="page-link" onClick={handleNextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </section>
   );
 };
@@ -145,6 +196,10 @@ const EducationDetail = () => {
             setFindAuthor(findAuthors || null)
         }
         setFind(foundBlogs || null);
+        AOS.init({
+          duration: 1000,
+          once: true,
+        });
       } else {
         setFind(null);
       }

@@ -9,7 +9,10 @@ const SideInput = () => {
     const [dataForm, setDataForm] = useState({
         username: '',
         password: '',
-        email: ''
+        role: 'pembeli',
+        status: 'active',
+        email: '',
+        img: "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
     })
     const handleSubmit = async () => {
         try {
@@ -52,6 +55,7 @@ const SideInput = () => {
     return (
         <section className='d-flex text-primary justify-content-center align-items-center auth-side-input'>
             <div className='con-auth'>
+                <img src="/images/logo.png" className='img-back-auth' onClick={() => window.location.href = '/'} style={{cursor :"pointer"}} alt="" />
                 <h2 className='text-font-color'>Create Your Account</h2>
                 <p>Access Your Personalized Plant Recommendations.</p>
                 <form className='w-100' onSubmit={(e) => {
@@ -60,17 +64,17 @@ const SideInput = () => {
                 }}>
                  <div className="mb-3">
                     <label className="form-label">Username</label>
-                    <input type="text" onChange={(e) => setDataForm({...dataForm, username: e.target.value})} className="form-control input-auth" placeholder='Enter Your Username' required />
+                    <input type="text" onChange={(e) => setDataForm({...dataForm, username: e.target.value})} className="form-control input-auth text-satoshi" placeholder='Enter Your Username' required />
                  </div>
                  <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" autoComplete='current-email' onChange={(e) => setDataForm({...dataForm, email: e.target.value})} className="form-control input-auth" placeholder='Enter Your Email' required />
+                    <input type="email" autoComplete='current-email' onChange={(e) => setDataForm({...dataForm, email: e.target.value})} className="form-control input-auth text-satoshi" placeholder='Enter Your Email' required />
                  </div>
                 <div className="mb-3">
                     <label  className="form-label">Password</label>
                     <div className='position-relative'>
-                        <input type={isEyePass ? "text" : "password"} autoComplete='current-password' onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth" style={{paddingRight: "50px"}} placeholder='Enter Your Password' required  />
-                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "9px", cursor: "pointer"}}></i>
+                        <input type={isEyePass ? "text" : "password"} autoComplete='current-password' onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth text-satoshi" style={{paddingRight: "50px"}} placeholder='Enter Your Password' required  />
+                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "6px", cursor: "pointer"}}></i>
                     </div>
                 </div>
                 <button type="submit" className="btn bg-primary text-light w-100 py-2 mt-2">Sign Up</button>
@@ -89,13 +93,13 @@ const SideInput = () => {
 const SideBackground = () => {
     return (
         <section className='auth-side-background text-light position-relative'>
-            <div className='px-4 position-absolute bottom-0'>
-                <h2 className='fw-bold'>Handpicked Aesthetic PlantsHandpicked Aesthetic Plants</h2>
+            <div className='px-4 position-absolute' style={{bottom: "40px", left: "40px"}}>
+                <h2 className='fw-bold'>“Gardening is the purest of all human pleasures”</h2>
                 <div className='d-flex align-items-center gap-3 mb-4'>
-                    <img src="/images/man1.jpg" className='img-side-background' alt="" />
+                    <img src="/images/francis-bacon.jpg" style={{objectFit: "cover"}} className='img-side-background' alt="" />
                     <div>
-                        <h3 className='mb-0'>Discover our curated</h3>
-                        <p className='mb-0'>Discover our curated</p>
+                        <h3 className='mb-0'>Francis Bacon</h3>
+                        <p className='mb-0'>Philosopher and politician</p>
                     </div>
                 </div>
             </div>

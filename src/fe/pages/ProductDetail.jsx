@@ -4,6 +4,15 @@ import { data, useParams } from "react-router-dom";
 import ProductsGet from "../../be/get/ProductsGet";
 import N404 from "./N404";
 import PromoGet from "../../be/get/PromoGet";
+import AOS from "aos";
+import 'animate.css';
+import "aos/dist/aos.css";
+import Modal from "../components/dashboard/Modal";
+import Modal2 from "../components/dashboard/Modal2";
+import CartsPost from "../../be/post/CartsPost";
+import Toast from "../components/Toast";
+import CartsEdit from "../../be/edit/CartsEdit";
+import CartsGet from "../../be/get/CartsGet";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -19,8 +28,8 @@ const formattedDate =
 const SupportText = ({ idP, find, dataProducts }) => {
   return (
     <div className="support-text d-none">
-      <h2 className="text-font-color">{find.name}</h2>
-      <p>{find.description}</p>
+      <h2 className="text-font-color" data-aos="fade-right">{find.name}</h2>
+      <p data-aos="fade-right" data-aos-delay="500">{find.description}</p>
     </div>
   );
 };
@@ -29,39 +38,100 @@ const ImgProduct = ({ find, findPromo }) => {
   return (
     <div className="img-product-detail text-center position-relative">
         {findPromo ? (
-             <div className="bg-primary text-satoshi discount-text px-3 position-absolute top-0 start-0 text-light">
+             <div className="bg-primary text-satoshi discount-text px-3 position-absolute top-0 start-0 text-light" data-aos="zoom-in" data-aos-delay="800" style={{zIndex: 100}}>
                 <span className="">- {findPromo.percentage_promo}</span>
             </div>
         ) : ""}
-      <img src={find.img ? find.img : "/images/plants1-full2.png"} className="mb-4" alt="" />
-      <span className="text-danger w-100">You must sign in if you wan to but this product</span>
+      <img src={find.img ? find.img : "/images/plants1-full2.png"} className="mb-4" data-aos="zoom-in" data-aos-delay="500" alt="" />
+      <span className="text-danger w-100" data-aos="zoom-in" data-aos-delay="500">You must sign in if you want to buy this product</span>
     </div>
   );
 };
 
 const ReadyCheckout = ({ find, findPromo }) => {
+  const [qtyCart, setQtyCart] = useState(1)
+  const { handlePost } = CartsPost()
+  const { handleEdit } = CartsEdit()
+  const { dataCarts } = CartsGet()
+  const handleBuy = () => {
+    if (!sessionStorage.getItem('isLogin')) {
+        sessionStorage.setItem('error', 'You must log in to order products!')
+        window.location.href = '/auth/sign-in/'
+      }
+    window.location.href = '/checkout/' + find.name
+  }
+  const handleAddCart = async (e) => {
+    e.preventDefault()
+    try {
+      const productInUserExist = dataCarts.find((item) => item.user_id === sessionStorage.getItem('id') && item.product_id === find.id_product)
+      if (productInUserExist) {
+        const dataExist = {
+          qty: productInUserExist.qty + qtyCart
+        }
+
+        const resEdit = await handleEdit(dataExist, productInUserExist.key)
+        if (resEdit) {
+          sessionStorage.setItem('success', 'Success Add ' + qtyCart + ' Items to cart')
+        } else {
+          alert('something wrong..')
+        }
+      } else {
+        const data = {
+          cart_id: "",
+          product_id: find.id_product,
+          user_id: sessionStorage.getItem('id'),
+          qty: qtyCart,
+        }
+        // console.log(data)
+        const res = await handlePost(data)
+
+        if (res) {
+          sessionStorage.setItem('success', 'Success Add ' + qtyCart + ' Product to cart')
+        } else {
+          alert('something wrong..')
+        }
+     }
+      location.reload()
+    } catch (error) {
+      console.error(error)
+      alert('failed to fetch')
+    }
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem('success')) {
+      Toast.fire({
+        icon: "success",
+        title: sessionStorage.getItem('success'),
+      });
+      sessionStorage.removeItem("success");
+  }
+  }, [])
   return (
     <div className="ready-checkout">
       <div className="img-spec mb-3">
-        <img src={find.img ? find.img : "/images/plants1-full2.png"} alt="" />
+        <img src={find.img ? find.img : "/images/plants1-full2.png"} data-aos="zoom-in" data-aos-delay="500" alt="" />
       </div>
       <div className="gap-2 d-flex align-items-end contain-spec flex-column">
-        <div className="d-flex gap-2">
-          <span>{find.spesification.height}cm Height</span>
+        <div>
+          <h1 className="d-mobile" data-aos="fade-left" >{find.name}</h1>
         </div>
         <div className="d-flex gap-2">
-          <span>{find.spesification.weight}kg Weight</span>
+          <span data-aos="fade-left" data-aos-delay="300">{find.spesification.height}cm Height</span>
         </div>
         <div className="d-flex gap-2">
-          <span>
+          <span data-aos="fade-left" data-aos-delay="500">{find.spesification.weight}kg Weight</span>
+        </div>
+        <div className="d-flex gap-2">
+          <span data-aos="fade-left" data-aos-delay="800">
             {find.spesification.is_fresh
               ? "Lush and healthy plants"
               : "Old production plants"}
           </span>
         </div>
       </div>
-      <div className="d-flex flex-column contain-spec align-items-end">
-          {findPromo ? (
+      <div className="d-flex flex-column contain-spec align-items-end" data-aos="fade-left" data-aos-delay="500">
+          {findPromo && findPromo.result_price && findPromo.initial_price ? (
             <>
             <h3 className="text-font-color">
                 Rp{parseFloat(findPromo.result_price).toLocaleString("id-ID")}
@@ -74,14 +144,33 @@ const ReadyCheckout = ({ find, findPromo }) => {
                 </h3>
           </>}
       </div>
-      <div className="d-flex mt-3 gap-3">
-        <button className="btn bg-primary px-5 text-light" onClick={() => window.location.href = '/checkout/' + find.name}>Buy Now</button>
-        {/* <button
-          className="btn bg-transparent text-primary"
-          style={{ border: "1.5px solid #496653" }}
-        >
-          Add To Chart
-        </button> */}
+      <div className={`d-flex mt-3 gap-${sessionStorage.getItem('isLogin') ? "3" : ""}`}>
+        <button className="btn bg-transparent align-items-center border-primary px-3 text-primary" style={{display: sessionStorage.getItem('isLogin') ? "flex" : "none"}} data-bs-toggle="modal" data-bs-target="#addCart">
+          <i className="fa-solid fa-basket-shopping" style={{paddingRight: "10px"}}></i>
+          Add To Cart
+        </button>
+        <Modal2
+            modalName={"addCart"}
+            modalLable={"addCartModal"}
+            modalTitle={"Add Produk To Cart"}
+            cancelButton={true}
+            confirmButton={true}
+            modalConfirmText={"Add"}
+            handleSubmitForm={(e) => handleAddCart(e)}
+            modalContent={
+              <>
+                <div className="form-group mb-2 w-100 d-flex flex-column align-items-center justify-content-center h-100">
+                  <input type="number" className="bg-transparent w-100 text-center border-0 text-dark" value={qtyCart} readOnly />
+                  <div className="d-flex gap-3 mt-3">
+                      <button type="button" onClick={(e) => setQtyCart((prevQty) => (prevQty > 1 ? prevQty - 1 : 1))} className="btn bg-transparent border-primary text-primary px-4">-</button>
+                      <button type="button" onClick={(e) => setQtyCart(qtyCart + 1)} className="btn bg-primary text-light px-4">+</button>
+                  </div>
+                </div>
+                {/* <FormDetailBlogs dataDetail={selectedRow} /> */}
+              </>
+            }
+          />
+        <button className="btn bg-primary px-4 text-light" onClick={() => handleBuy()}>Buy Now</button>
       </div>
     </div>
   );
@@ -99,7 +188,7 @@ const Detail = ({ idP, find, findPromo, dataProducts }) => {
   );
 };
 
-const Recomendation = ({ find }) => {
+const Recomendation = ({ find, findPromo }) => {
   const { dataProducts, loadProducts } = ProductsGet();
   const { dataPromo } = PromoGet();
   // paginasi
@@ -134,8 +223,8 @@ const Recomendation = ({ find }) => {
 
   return (
     <section className="section section-recomend mt-5 py-5">
-      <h2>Recomendation</h2>
-      <div className="d-flex mt-4 flex-wrap gap-4">
+      <h1 data-aos="fade-right">Recomendation</h1>
+      <div className="d-flex mt-4 flex-wrap w-100 justify-content-center gap-4">
         {!loadProducts ? (
           currentItems.map((item, index) => {
             let find;
@@ -146,7 +235,7 @@ const Recomendation = ({ find }) => {
               );
               if (
                 findTemporary &&
-                findTemporary.periode_start === formattedDate.slice(0, 10) &&
+                findTemporary.periode_start <= formattedDate.slice(0, 10) &&
                 findTemporary.periode_end >= formattedDate.slice(0, 10)
               ) {
                 find = findTemporary;
@@ -162,6 +251,7 @@ const Recomendation = ({ find }) => {
                 key={index + 1}
                 className="box-product d-flex flex-column align-items-center text-satoshi position-relative"
                 onClick={() => (window.location.href = "/plants/" + item.name)}
+                 data-aos="zoom-in" data-aos-delay="500"
               >
                 {isFind}
                 <div>
@@ -225,7 +315,7 @@ const Recomendation = ({ find }) => {
               Previous
             </button>
           </li>
-          {Array.from({ length: totalPages }, (_, i) => (
+         {/* {Array.from({ length: totalPages }, (_, i) => (
             <li
               key={i}
               className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
@@ -237,7 +327,7 @@ const Recomendation = ({ find }) => {
                 {i + 1}
               </button>
             </li>
-          ))}
+          ))} */}
           <li
             className={`page-item ${
               currentPage === totalPages ? "disabled" : ""
@@ -264,12 +354,18 @@ const ProductDetail = () => {
     if (dataProducts && dataProducts.length > 0) {
       const foundProduct = dataProducts.find((item) => item.name === idP);
       if (foundProduct) {
-          const foundProductPromo = dataPromo.find((item) => item.id_product === foundProduct.id_product);
+          const foundProductPromo = dataPromo.find((item) => item.id_product === foundProduct.id_product && (item.status === "active" && item.periode_start <= formattedDate.slice(0, 10) && item.periode_end >= formattedDate.slice(0, 10)));
           if (foundProductPromo) {
             // console.log('product is promo')
+            console.log(formattedDate.slice(0, 10))
             setFindPromo(foundProductPromo || null)
           }
           setFind(foundProduct || null); // Jika tidak ditemukan, set ke null
+          
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
       } else {
         setFind(null)
         setFindPromo(null)
@@ -288,20 +384,21 @@ const ProductDetail = () => {
         </div>
       </div>
     );
+  } else {
+    // Tampilkan halaman 404 jika produk tidak ditemukan
+    if (!find) {
+      return <N404 />;
+    }
   }
 
-  // Tampilkan halaman 404 jika produk tidak ditemukan
-  if (!find) {
-    return <N404 />;
-  }
 
   // Render halaman detail produk
   return (
     <Base
       mainContent={
-        <section className="section-all-detail-product container-main">
+        <section className="section-all-detail-product container">
           <Detail idP={idP} find={find} findPromo={findPromo} dataProducts={dataProducts} />
-          <Recomendation idP={idP} find={find} />
+          <Recomendation idP={idP} find={find} findPromo={findPromo} />
         </section>
       }
     />

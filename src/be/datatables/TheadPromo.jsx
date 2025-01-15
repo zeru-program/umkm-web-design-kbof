@@ -9,8 +9,8 @@ const TheadPromo = () => {
       sortable: true,
     },
     {
-      name: "Product ID",
-      selector: (row) => row.id_product,
+      name: "Product Name",
+      selector: (row) => row.product_name,
       sortable: true,
     },
     {
@@ -21,15 +21,26 @@ const TheadPromo = () => {
       name: "Initial Price",
       selector: (row) => row.initial_price,
       sortable: true,
+      cell: (row) => {
+        if (row.initial_price) {
+          return "Rp" + parseFloat(row.initial_price).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Result Price",
       selector: (row) => row.result_price,
       sortable: true,
+      cell: (row) => {
+        if (row.result_price) {
+          return "Rp" + parseFloat(row.result_price).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Periode",
       selector: (row) => row.periode,
+      width: "200px",
       sortable: true,
     },
     {

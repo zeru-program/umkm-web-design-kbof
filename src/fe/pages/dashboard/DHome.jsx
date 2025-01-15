@@ -13,6 +13,83 @@ import FormEditOrders from "../../components/dashboard/FormEditOrders";
 import Select from "react-select";
 import StatusOption from "../../../be/options/StatusOption";
 import FormDetailOrders from "../../components/dashboard/FormDetailOrders";
+import ProductsGet from "../../../be/get/ProductsGet";
+import CodeGet from "../../../be/get/CodeGet";
+import BlogsGet from "../../../be/get/BlogsGet";
+import OrdersChart from '../../components/dashboard/chart/OrdersChart'
+import ProductsChart from '../../components/dashboard/chart/ProductsChart'
+
+const Report = () => {
+  const { dataOrders } = OrdersGet()
+  const { dataProducts } = ProductsGet()
+  const { dataCode } = CodeGet()
+  const { dataBlogs } = BlogsGet()
+  return (
+    <section>
+      <BoxDash title={"Recap Data"} content={<>
+        <div className="d-flex flex-wrap gap-2 mt-3">
+          <div className="d-flex w-100 contain-box gap-3">
+            <div className="info-box" onClick={() => window.location.href = "/dashboard/orders"} style={{cursor: "pointer"}}>
+              <span className="info-box-icon bg-primary"><i className="fas fa-shopping-cart" /></span>
+              <div className="info-box-content">
+                <span className="info-box-text">Recap Orders</span>
+                <span className="info-box-number">{dataOrders.length || 'loading..'}</span>
+              </div>
+            </div>
+            <div className="info-box" onClick={() => window.location.href = "/dashboard/products"} style={{cursor: "pointer"}}>
+              <span className="info-box-icon bg-info"><i className="fas fa-box" /></span>
+              <div className="info-box-content">
+                <span className="info-box-text">Recap Products</span>
+                <span className="info-box-number">{dataProducts.length || "loading.."}</span>
+              </div>
+            </div>
+          </div>
+          <div className="d-flex w-100 contain-box gap-3">
+          <div className="info-box" onClick={() => window.location.href = "/dashboard/products"} style={{cursor: "pointer"}}>
+            <span className="info-box-icon bg-warning"><i className="fas fa-ticket text-light" /></span>
+            <div className="info-box-content">
+              <span className="info-box-text">Code Avaible</span>
+              <span className="info-box-number">{dataCode.filter((item) => item.status === "active").length || 'loading..'}</span>
+            </div>
+          </div>
+          <div className="info-box" onClick={() => window.location.href = "/dashboard/blogs"} style={{cursor: "pointer"}}>
+            <span className="info-box-icon bg-danger"><i className="fas fa-newspaper" /></span>
+            <div className="info-box-content">
+              <span className="info-box-text">Recap Blog</span>
+              <span className="info-box-number">{dataBlogs.length}</span>
+            </div>
+          </div>
+          </div>
+        </div>
+        </>} />
+    </section>
+  )
+}
+
+const SegmenAnalytic = () => {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px", width: "100%" }}>
+      <div className="w-res" style={{ width: "48%", height: "auto" }}>
+        <OrdersChart title="Sales Chart - Left" />
+      </div>
+      <div className="w-res" style={{ width: "48%", height: "auto" }}>
+        <ProductsChart />
+      </div>
+    </div>
+  );
+};
+
+const Chart = () => {
+  return (
+    <section>
+      <BoxDash title={"Analytics"} content={<>
+        <div className='mt-3'>
+         <SegmenAnalytic />
+        </div>
+        </>} />
+    </section>
+  )
+}
 
 const RecentOrders = () => {
   const { Orders } = Thead();
@@ -38,6 +115,18 @@ const RecentOrders = () => {
     container: (provided) => ({
       ...provided,
       width: "auto !important",
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isSelected ? "#496653" : state.isFocused ? "#496653" : "#FFF",
+      // background: "red",
+      color: state.isSelected ? "#FFF" : state.isFocused ? "#FFF" : "#333",
+      cursor: "pointer",
+      fontFamily: "var(--satoshi)",
+      // paddingTop: "0",
+      "&:active": {
+        background: "#ddd",
+      },
     }),
   };
 
@@ -273,6 +362,8 @@ const DHome = () => {
         <>
           <div className="mt-3 pb-5 d-flex flex-column">
             <Header title={"Dashboard"} pageName={"Home"} />
+            <Report />
+            <Chart />
             <RecentOrders />
           </div>
         </>
