@@ -54,8 +54,9 @@ const FormDetailOrders = ({dataDetail}) => {
   };
 
   useEffect(() => {
-    if (Array.isArray(dataDetail) && dataDetail.length === 1) {
+    if (Array.isArray(dataDetail) && dataDetail.length === 1 && dataProducts.length > 0) {
         setFind(dataProducts.find((item) => item.id_product === dataDetail[0].productID) || null)
+        console.log(dataDetail[0].productID)
         console.log(find)
         setDtFormEdit({
           ...dtFormEdit,
@@ -69,7 +70,7 @@ const FormDetailOrders = ({dataDetail}) => {
           qty: dataDetail[0].qty,
           status: dataDetail[0].status,
           token: dataDetail[0].token,
-          total: dataDetail[0].total,
+          total: parseFloat(dataDetail[0].total),
           created_at: dataDetail[0].created_at
         });
       }      

@@ -4,7 +4,7 @@ import ProductsOption from "../../be/options/ProductsOption";
 import Select, { components } from "react-select";
 import ProductsGet from "../../be/get/ProductsGet";
 const searchStyles = {
-  control: (base) => ({
+  control: (base, state) => ({
       ...base,
       fontWeight: "500",
       width: "200px",
@@ -14,7 +14,21 @@ const searchStyles = {
       background: "#EEEAE7",
       marginRight: "15px",
       paddingInline: "10px",
-      textWrap: "nowrap"
+      textWrap: "nowrap",
+      boxShadow: state.isFocused ? "0 0 0 1px #496653" : "none",
+      "&:hover": {
+        border: "0",
+      },
+    }),
+    option: (base, state) => ({
+      ...base,
+      background: state.isSelected ? "#496653" : state.isFocused ? "#496653" : "#EEEAE7",
+      // background: "red",
+      color: state.isFocused ? "#FFF" : "#333",
+      cursor: "pointer",
+      "&:active": {
+        background: "#ddd",
+      },
     }),
 }
 const isLoggedIn = sessionStorage.getItem('isLogin');
@@ -179,10 +193,28 @@ const Navbar = ({ isHide }) => {
                             }`}
                           ></i>
                           </a>
-                          <a href="/dashboard" className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
+                          <a href={!isLoggedIn ? "/auth/sign-in" : "/profile"} className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
+                          <i
+                            className={`text-primary icon-complementary bi bi-${
+                              isLoggedIn ? 'person-fill' : 'box-arrow-in-right'
+                            }`}
+                          ></i>
+                          </a>
+                          <div className="dropdown">
+                            <div className='d-flex gap-1' data-bs-toggle="dropdown" aria-expanded="false" style={{cursor: "pointer"}}>
+                              <span className='fw-bold'>Hi, {sessionStorage.getItem('username')}</span>
+                              <i className='bi-caret-down-fill'></i>
+                            </div>
+                            <ul className="dropdown-menu">
+                              <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => window.location.href = '/profile'}>Profile</a></li>
+                              <li><a className="dropdown-item" href="/dashboard">Go Dashboard</a></li>
+                              <li><a className="dropdown-item" href="/auth/logout"><span className="text-danger">Logout</span></a></li>
+                            </ul>
+                          </div>
+                          {/* <a href="/dashboard" className="d-flex gap-3 align-items-center text-primary" style={{fontStyle: "normal", textDecoration: "none"}}>
                             <i className="text-primary icon-complementary bi bi-clipboard-data-fill"></i>
                             <span className="text-nowrap">Go Dashboard</span>
-                          </a>
+                          </a> */}
                         </>
                       ) : (
                         <>
@@ -214,14 +246,11 @@ const Navbar = ({ isHide }) => {
                               <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
                             </ul>
                           </div>
-                            ) : (<span className="text-nowrap" onClick={() => window.location.href = "/auth/sign-in"} style={{cursor: "pointer"}}>Sign</span>) 
+                            ) : (<span className="text-nowrap" onClick={() => window.location.href = "/auth/sign-in"} style={{cursor: "pointer", color: "#496653"}}>Sign</span>) 
                           }
                         </>
                       )}
                 </div>
-                {/* <a href="/">
-                  <span className="iconify text-primary icon-complementary" data-icon="fa6-solid:bucket"></span>
-                </a> */}
               </div>
             </form>
           </div>

@@ -11,7 +11,15 @@ import 'animate.css';
 
 
 const Detail = ({find, findAuthor}) => {
-    const sanitizedContent = DOMPurify.sanitize(find.content);
+  const sanitizedContent = DOMPurify.sanitize(find.content);
+  const [copy, setCopy] = useState(false)
+  const copyUrl = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setCopy(true)
+    setTimeout(() => {
+      setCopy(false)
+    }, 1500);
+  }
 
   return (
     <section className="section section-detail-education d-flex flex-column align-items-center">
@@ -31,8 +39,8 @@ const Detail = ({find, findAuthor}) => {
             </div>
         </div>
         <div className="mt-4">
-          <button className="btn bg-primary text-light">
-            <i className="bi-share-fill px-2"></i>  Share Link
+          <button className="btn bg-primary text-light" onClick={() => copyUrl()}>
+            <i className="bi-share-fill px-2"></i>  {copy ? "Link Copied !" : "Share Link"}
           </button>
         </div>
       </div>
@@ -116,7 +124,7 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
                     <p className='text-satoshi p-elipsis'>{item.short_desc}</p>
                 </div>
                 <div>
-                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Explore Now</button>
+                    <button className='btn bg-primary text-light' onClick={() => window.location.href = '/education/' + item.title}>Read Now</button>
                 </div>
             </div>
             );

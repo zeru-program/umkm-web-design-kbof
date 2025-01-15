@@ -67,6 +67,8 @@ const TheadUsers = () => {
           return <div className="badge bg-info p-1 text-light">Pembeli</div>;
         } else if (row.role === "admin") {
           return <div className="badge bg-primary text-light">Admin</div>;
+        } else if (row.role === "administrator") {
+          return <div className="badge bg-primary text-light">Administrator</div>;
         } else if (row.role === "developer") {
           return <div className="badge bg-primary text-light">Developer</div>;
         }

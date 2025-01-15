@@ -6,6 +6,7 @@ import Select from "react-select";
 import Filter1Product from "../../be/options/Filter1Product";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import CustomStyleSelect from "../components/CustomStyleSelect";
 const now = new Date();
 const formattedDate =
   now.getFullYear() +
@@ -17,25 +18,6 @@ const formattedDate =
   String(now.getHours()).padStart(2, "0") +
   ":" +
   String(now.getMinutes()).padStart(2, "0");
-const filterStyles = {
-    control: (base, state) => ({
-        ...base,
-        fontWeight: "500",
-        width: "130px",
-        fontFamily: "var(--satoshi)",
-        background: "transparent",
-        borderRadius: 7,
-        borderColor: "#496653",
-        boxShadow: state.isFocused ? null : null,
-        "&:hover": {
-          borderColor: "#496653"
-        }
-      }),
-    menu: base => ({
-        ...base,
-        zIndex: 100,
-    })
-}
 
 const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}) => {
     const { filter1, filter2 } = Filter1Product()
@@ -54,7 +36,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
             placeholder="Search Plant Here.."
             value={searchProducts}
             onInput={(e) => setSearchProducts(e.target.value)}
-            className="text-satoshi form-control py-2 input-search-product "
+            className="text-satoshi form-control py-4 px-4 input-search-product "
           />
           <div className="bg-primary text-light d-flex justify-content-center align-items-center icon-search-product" data-aos="zoom-in" data-aos-delay="500">
             <i className="bi-search"></i>
@@ -64,7 +46,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
       <div className="d-flex mt-4 gap-3  justify-content-between" style={{width: "90%"}}>
         <Select
             placeholder="Sort By"
-            styles={filterStyles}
+            styles={CustomStyleSelect}
             options={filter1}
             onChange={(item) => {
                 setFilter((prevState) => ({
@@ -78,7 +60,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
           />
         <Select
             placeholder="Filter By"
-            styles={filterStyles}
+            styles={CustomStyleSelect}
             options={filter2}
             onChange={(item) => {
                 setFilter((prevState) => ({

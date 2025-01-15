@@ -59,7 +59,7 @@ const OrdersChart = () => {
     ],
     datasets: [
       {
-        label: "Sales",
+        label: "Orders",
         data: dataCounts,
         backgroundColor: "#496653",
         borderColor: "#496653",

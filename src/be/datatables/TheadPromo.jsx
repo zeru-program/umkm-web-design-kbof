@@ -21,11 +21,21 @@ const TheadPromo = () => {
       name: "Initial Price",
       selector: (row) => row.initial_price,
       sortable: true,
+      cell: (row) => {
+        if (row.initial_price) {
+          return "Rp" + parseFloat(row.initial_price).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Result Price",
       selector: (row) => row.result_price,
       sortable: true,
+      cell: (row) => {
+        if (row.result_price) {
+          return "Rp" + parseFloat(row.result_price).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Periode",

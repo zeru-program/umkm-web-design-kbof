@@ -239,7 +239,7 @@ const OrderContent = () => {
               )
             }
           </div>
-          <div className="" style={{marginTop: "5px"}}>
+          <div className="" style={{marginTop: "5px"}} data-aos="fade-up" data-aos-delay="300">
             <div className="w-100 rounded-3 py-4 bg-sec d-flex contain-cart-chechkout px-4 align-items-center justify-content-around">
               <div className="code-div d-flex flex-column gap-3">
                 <span className="text-satoshi fw-bold text-primary">Have A Code?</span>

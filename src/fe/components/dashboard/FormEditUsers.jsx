@@ -25,7 +25,6 @@ const FormEditUsers = ({dataEdit}) => {
     role: '',
     gender: '',
     username: '',
-    password: '',
     img: '',
     status: 'active',
   });
@@ -73,11 +72,11 @@ const FormEditUsers = ({dataEdit}) => {
     }}>
     <div className="row">
       <div className="col-12 mb-3">
-        <label>Img</label>
+        <label>Image</label>
         <input
           type="text"
           name="img"
-          placeholder="The image is not cahnged"
+          placeholder="Images cannot be changed here"
           className="form-control"
           value={dtFormEdit.img}
           disabled

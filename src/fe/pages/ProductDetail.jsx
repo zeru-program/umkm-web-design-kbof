@@ -144,7 +144,7 @@ const ReadyCheckout = ({ find, findPromo }) => {
                 </h3>
           </>}
       </div>
-      <div className="d-flex mt-3 gap-3">
+      <div className={`d-flex mt-3 gap-${sessionStorage.getItem('isLogin') ? "3" : ""}`}>
         <button className="btn bg-transparent align-items-center border-primary px-3 text-primary" style={{display: sessionStorage.getItem('isLogin') ? "flex" : "none"}} data-bs-toggle="modal" data-bs-target="#addCart">
           <i className="fa-solid fa-basket-shopping" style={{paddingRight: "10px"}}></i>
           Add To Cart
@@ -171,12 +171,6 @@ const ReadyCheckout = ({ find, findPromo }) => {
             }
           />
         <button className="btn bg-primary px-4 text-light" onClick={() => handleBuy()}>Buy Now</button>
-        {/* <button
-          className="btn bg-transparent text-primary"
-          style={{ border: "1.5px solid #496653" }}
-        >
-          Add To Chart
-        </button> */}
       </div>
     </div>
   );

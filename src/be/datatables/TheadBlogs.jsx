@@ -31,7 +31,7 @@ const TheadBlogs = () => {
     {
       name: "Blog Title",
       selector: (row) => row.blogTitle,
-      width: "200px",
+      width: "400px",
       sortable: true,
     },
     {

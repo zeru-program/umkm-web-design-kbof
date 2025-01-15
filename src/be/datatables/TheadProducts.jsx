@@ -35,6 +35,11 @@ const TheadProducts = () => {
       name: "Price",
       selector: (row) => row.price,
       sortable: true,
+      cell: (row) => {
+        if (row.price) {
+          return "Rp" + parseFloat(row.price).toLocaleString("id-ID")
+        }
+      }
     },
     {
       name: "Stock",

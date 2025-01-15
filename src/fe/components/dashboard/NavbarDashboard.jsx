@@ -19,7 +19,7 @@ const NavbarDashboard = ({handleClickNav, sideStatus}) => {
             </div>
             <ul className="dropdown-menu">
               <li><a className="dropdown-item" style={{cursor: "pointer"}} onClick={() => document.getElementById('iClick').click()}>Trigger Sidebar</a></li>
-              {/* <li><a className="dropdown-item" href="#">Another action</a></li> */}
+              <li><a className="dropdown-item" href="/">Home</a></li>
               <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
             </ul>
           </div>

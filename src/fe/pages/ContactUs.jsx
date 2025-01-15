@@ -15,7 +15,7 @@ const GetInTouch = () => {
           <p className="" data-aos="fade-up" data-aos-delay="500">
           Green House bridges ornamental plant sellers in Bogor with plant lovers across Indonesia, making buying and selling plants effortless and enjoyable
           </p>
-          <div className="d-flex gap-3 mb-3 mt-3 align-items-center text-primary" data-aos="fade-up">
+          <div className="d-flex gap-3 mb-3 mt-3 align-items-center text-primary" data-aos="fade-up" data-aos-delay="600">
             <i className="bi-geo-alt icon-contact"></i>
             <div className="d-flex flex-column">
               <h3 className="fw-bold">Our Address</h3>

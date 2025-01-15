@@ -39,6 +39,9 @@
     height: 1px;
     background: var(--primary);
 }
+.con-auth {
+    padding-inline: 50px;
+}
 
 @media screen and (max-width: 800px) {
     .auth-side-input {

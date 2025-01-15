@@ -15,12 +15,12 @@ const TheadReviews = () => {
       sortable: true,
     },
     {
-      name: "Id Product",
+      name: "Product Name",
       selector: (row) => row.id_product,
       sortable: true,
     },
     {
-      name: "Id User",
+      name: "Orderer Name",
       selector: (row) => row.id_user,
       sortable: true,
     },

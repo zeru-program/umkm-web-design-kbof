@@ -190,7 +190,7 @@ const FormEditProfile = () => {
         }
     }
     return (
-        <div className='py-3 w-100 mt-1 container-main mb-5'>
+        <div className='py-3 w-100 mt-1 container-main mb-5' data-aos="fade-up" data-aos-delay="300">
             <div className='w-100 d-flex flex-column'>
                 <form className='form text-satoshi' onSubmit={handleSubmit}>
                     <div className='row'>

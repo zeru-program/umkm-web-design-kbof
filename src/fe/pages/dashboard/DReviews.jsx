@@ -140,7 +140,7 @@ const UsersData = () => {
               </>
             }
           /> */}
-          <Modal
+          {/* <Modal
             modalName={"create"}
             modalLable={"createModal"}
             modalTitle={"Create"}
@@ -205,7 +205,7 @@ const UsersData = () => {
               setIsDisabledButton(true)
               handleDeleteRow(selectedRow)
             }}
-          />
+          /> */}
         </>
       }
     />

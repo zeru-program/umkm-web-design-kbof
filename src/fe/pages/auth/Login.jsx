@@ -37,7 +37,7 @@ const SideInput = () => {
             console.log(matchedUser.gender)
             Swal.fire('Success', 'Logged in successfully', 'success').then((result) => {
                 if (result.isConfirmed) {
-                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer' || matchedUser.role === 'seller') {
+                    if (matchedUser.role === 'admin' || matchedUser.role === 'developer' || matchedUser.role === 'seller' || matchedUser.role === 'administrator') {
                         window.location.href = '/dashboard'
                     } else {
                         window.location.href = '/'
@@ -61,12 +61,12 @@ const SideInput = () => {
                 }}>
                  <div className="mb-3">
                     <label className="form-label">Email / Username</label>
-                    <input type="text" className="form-control input-auth" onChange={(e) => setDataForm({...dataForm, username_or_email: e.target.value})} placeholder='Enter Your Email/Username' id="exampleInputEmail1" />
+                    <input type="text" className="form-control input-auth text-satoshi" onChange={(e) => setDataForm({...dataForm, username_or_email: e.target.value})} placeholder='Enter Your Email/Username' id="exampleInputEmail1" />
                  </div>
                 <div className="mb-3">
                     <label  className="form-label">Password</label>
                     <div className='position-relative'>
-                        <input type={isEyePass ? "text" : "password"} onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth" style={{paddingRight: "50px"}} placeholder='Enter Your Password' id="exampleInputPassword1" />
+                        <input type={isEyePass ? "text" : "password"} onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth text-satoshi" style={{paddingRight: "50px"}} placeholder='Enter Your Password' id="exampleInputPassword1" />
                         <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "6px", cursor: "pointer"}}></i>
                     </div>
                 </div>
@@ -87,12 +87,12 @@ const SideBackground = () => {
     return (
         <section className='auth-side-background text-light position-relative'>
             <div className='px-4 position-absolute' style={{bottom: "40px", left: "40px"}}>
-                <h2 className='fw-bold'>Handpicked Aesthetic PlantsHandpicked Aesthetic Plants</h2>
+                <h2 className='fw-bold'>“Gardening is the purest of all human pleasures”</h2>
                 <div className='d-flex align-items-center gap-3 mb-4'>
-                    <img src="/images/man1.jpg" className='img-side-background' alt="" />
+                    <img src="/images/francis-bacon.jpg" className='img-side-background' alt="" />
                     <div>
-                        <h3 className='mb-0'>Discover our curated</h3>
-                        <p className='mb-0'>Discover our curated</p>
+                        <h3 className='mb-0'>Francis Bacon</h3>
+                        <p className='mb-0'>Philosopher and politician</p>
                     </div>
                 </div>
             </div>

@@ -82,14 +82,14 @@ const AboutProfile = () => {
     return (
         <section className='w-100 py-3 container section-about-profile gap-2 align-items-center d-flex'>
             <div className='contain-about-profile d-flex gap-3 flex-wrap'>
-                <div className='card-profile' data-aos="zoom-in">
+                <div className='card-profile overflow-hidden' data-aos="zoom-in">
                     <img src="/images/JUSTINE-TEAM.png" className='img-card-profile' alt="" />
                     <div className='position-absolute bottom-0 bg-primary py-3 w-100 text-center text-light'>
                         <h3>Justine</h3>
                         <span className='text-satoshi'>Student In SMKN 4 Bogor</span>
                     </div>
                 </div>
-                <div className='card-profile' data-aos="zoom-in" data-aos-delay="500">
+                <div className='card-profile overflow-hidden' data-aos="zoom-in" data-aos-delay="500">
                     <img src="/images/FARHAN-TEAM.jpg" className='img-card-profile' alt="" />
                     <div className='position-absolute bottom-0 bg-primary py-3 w-100 text-center text-light'>
                         <h3>Farhan</h3>

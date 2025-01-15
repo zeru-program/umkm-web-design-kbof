@@ -24,6 +24,25 @@ import TheadCode from "../../../be/datatables/TheadCode";
 import CodeGet from "../../../be/get/CodeGet";
 import FormEditCode from "../../components/dashboard/FormEditCode";
 
+const customStylesSelect = {
+  container: (provided) => ({
+    ...provided,
+    width: "auto !important",
+  }),
+  option: (base, state) => ({
+    ...base,
+    background: state.isSelected ? "#496653" : state.isFocused ? "#496653" : "#FFF",
+    // background: "red",
+    color: state.isSelected ? "#FFF" : state.isFocused ? "#FFF" : "#333",
+    cursor: "pointer",
+    fontFamily: "var(--satoshi)",
+    // paddingTop: "0",
+    "&:active": {
+      background: "#ddd",
+    },
+  }),
+};
+
 const ManagePromoCta = () => {
   return (
     <BoxDash title={"Manage Your Promo Products"} anyOptionBeetwen={<a className="font-style-underline" href="#promo-product">Click here</a>} />
@@ -55,13 +74,6 @@ const ProductsData = () => {
     filterProducts,
     FetchDataProducts
   } = ProductsGet();
-
-  const customStylesSelect = {
-    container: (provided) => ({
-      ...provided,
-      width: "auto !important",
-    }),
-  };
 
   useEffect(() => {
     setValSelect(statusOptProducts.find(
@@ -317,13 +329,6 @@ const PromoManagement = () => {
     FetchDataPromo
   } = PromoGet();
 
-  const customStylesSelect = {
-    container: (provided) => ({
-      ...provided,
-      width: "auto !important",
-    }),
-  };
-
   useEffect(() => {
     setValSelect(statusOptPromo.find(
       (opt) => opt.value === filterPromo.status
@@ -553,14 +558,7 @@ const CodeManagement = () => {
     filterCode,
     FetchDataCode
   } = CodeGet();
-
-  const customStylesSelect = {
-    container: (provided) => ({
-      ...provided,
-      width: "auto !important",
-    }),
-  };
-
+  
   useEffect(() => {
     setValSelect(statusOptCode.find(
       (opt) => opt.value === filterCode.status

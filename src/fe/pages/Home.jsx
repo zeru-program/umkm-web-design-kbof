@@ -130,7 +130,7 @@ const CtaSection2 = () => {
           Learn the best care techniques and plant care hacks in our Education section. Elevate your skills and let your plants flourish like never before!
         </p>
         <div>
-          <button className="btn bg-primary text-light" data-aos="fade-up" data-aos-delay="500" onClick={() => window.location.href = '/education'}>Go To Education</button>
+          <button className="btn bg-primary text-light" data-aos="fade-up" data-aos-delay="800" onClick={() => window.location.href = '/education'}>Go To Education</button>
         </div>
       </div>
     </section>
@@ -213,8 +213,8 @@ const PlantsQuote = () => {
             <p>
             "Thanks to Green House, I found the perfect plants for my home. So easy to use and super helpful!"
             </p>
-            <div className="d-flex justify-content-center align-items-center">
-              <img src="/images/woman1.jpg" alt="" />
+            <div className="d-flex justify-content-center gap-3 align-items-center">
+              <img src="/images/testimoni3.jpg" alt="" />
               <p className="m-0">Naufal Suhardja</p>
             </div>
           </div>
@@ -224,8 +224,8 @@ const PlantsQuote = () => {
             <p>
             "Selling plants has become easier with Green House. I can reach more customers and manage orders efficiently!"
             </p>
-            <div className="d-flex justify-content-center align-items-center">
-              <img src="/images/woman1.jpg" alt="" />
+            <div className="d-flex justify-content-center gap-3 align-items-center">
+              <img src="/images/testimoni2.jpg" alt="" />
               <p className="m-0">Lina Permana. (Saller)</p>
             </div>
           </div>
@@ -235,8 +235,8 @@ const PlantsQuote = () => {
             <p>
             "The care tips in the Education section are a game changer. My plants have never looked better!"
             </p>
-            <div className="d-flex justify-content-center align-items-center">
-              <img src="/images/woman1.jpg" alt="" />
+            <div className="d-flex justify-content-center gap-3 align-items-center">
+              <img src="/images/testimoni1.jpg" alt="" />
               <p className="m-0">Siti Syabaini</p>
             </div>
           </div>
