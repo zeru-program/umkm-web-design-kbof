@@ -41,7 +41,7 @@ GreenHouse bertujuan untuk:
 
 ## **Cara Menggunakan Aplikasi**
 1. **Jelajahi Landing Pages:** Jelajahi applikasi kami mulai dari halaman Home, Plants, Education, About Us, Contact Us.
-1. **Daftar Akun:** Buat akun sebagai pembeli atau penjual.
+1. **Daftar Akun:** Buat akun sebagai pembeli atau penjual atau login sebagai administrator dengan username admin dan password administratorGH@990!!.
 2. **Jelajahi:** Telusuri marketplace tanaman atau baca konten edukasi.
 3. **Belanja atau Jual:** Beli tanaman atau unggah produk Anda untuk dijual.
 4. **Interaksi dengan Green AI:** Dapatkan rekomendasi dan tips perawatan tanaman yang sesuai dengan kebutuhan Anda.
