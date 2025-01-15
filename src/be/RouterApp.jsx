@@ -28,6 +28,7 @@ import CheckoutTest from '../fe/pages/CheckoutTest'
 import PaySuccess from '../fe/pages/PaySuccess'
 import PayProccess from '../fe/pages/PayProccess'
 import Cart from '../fe/pages/Cart'
+import DReviews from '../fe/pages/dashboard/DReviews'
 
 const PrivateRoute = ({element}) => {
   const cekLogin = sessionStorage.getItem('isLogin')
@@ -104,6 +105,7 @@ const RouterApp = () => {
             <Route path='/dashboard/analytics' element={<PrivateRoute element={<DAnalytics />}/>} />
             <Route path='/dashboard/orders' element={<PrivateRoute element={<DOrders />}/>} />
             <Route path='/dashboard/products' element={<PrivateRoute element={<DProducts />}/>} />
+            <Route path='/dashboard/reviews' element={<PrivateRoute element={<DReviews />}/>} />
             <Route path='/dashboard/blogs' element={<PrivateRoute element={<DBlogs />}/>} />
             <Route path='/dashboard/users' element={<PrivateRoute element={<DUsers />}/>} />
             <Route path='*' element={<N404/>} />

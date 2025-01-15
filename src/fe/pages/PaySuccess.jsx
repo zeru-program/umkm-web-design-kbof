@@ -114,7 +114,7 @@ const PaySuccess = () => {
         mainContent={
           <section className="section-all-detail-product container-main">
             {
-              find.status === 'success' ? (
+              find.status === 'success' || find.status === 'shipping' ? (
                 <DetailSuccess
                 idPay={idPay}
                   find={find}

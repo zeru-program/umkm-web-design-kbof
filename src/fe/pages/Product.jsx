@@ -30,7 +30,7 @@ const filterStyles = {
         "&:hover": {
           borderColor: "#496653"
         }
-      }),    
+      }),
     menu: base => ({
         ...base,
         zIndex: 100,
@@ -61,7 +61,7 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
           </div>
         </div>
       </div>
-      <div className="d-flex mt-4 gap-3 overflow-hidden justify-content-between" style={{width: "90%"}}>
+      <div className="d-flex mt-4 gap-3  justify-content-between" style={{width: "90%"}}>
         <Select
             placeholder="Sort By"
             styles={filterStyles}
@@ -72,8 +72,8 @@ const SectionWelcoming = ({searchProducts, setSearchProducts, filter, setFilter}
                   type: item.value
                 }));
             }}
-            data-aos="zoom-in" data-aos-delay="100"
             value={filter1.find((opt) => opt.value === filter.type)}
+            // data-aos="zoom-in" data-aos-delay="100"
             required
           />
         <Select

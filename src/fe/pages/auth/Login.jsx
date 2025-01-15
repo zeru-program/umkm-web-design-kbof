@@ -67,7 +67,7 @@ const SideInput = () => {
                     <label  className="form-label">Password</label>
                     <div className='position-relative'>
                         <input type={isEyePass ? "text" : "password"} onChange={(e) => setDataForm({...dataForm, password: e.target.value})} className="form-control input-auth" style={{paddingRight: "50px"}} placeholder='Enter Your Password' id="exampleInputPassword1" />
-                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "9px", cursor: "pointer"}}></i>
+                        <i className={`bi-${isEyePass ? "eye" : "eye-slash"}-fill position-absolute`} onClick={() => handleEyePass()} style={{right: "20px", top: "6px", cursor: "pointer"}}></i>
                     </div>
                 </div>
                 <button type="submit" className="btn bg-primary text-light w-100 py-2 mt-2">Sign In</button>

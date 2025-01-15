@@ -28,7 +28,7 @@ const Sidebar = ({handleSideClick, sideActive}) => {
                         <i className="bi-x-lg"></i>
                     </button>
                 </div>
-                <button type="button" className="btn bg-transparent mt-1 text-reset" style={{marginInline: 0, display: imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close">
+                <button type="button" className="btn bg-transparent mt-1 text-reset" style={{marginInline: 0, display:  imageNav ? 'flex' : 'none'}} data-bs-dismiss="offcanvas" aria-label="Close">
                     <i className="bi-x-lg"></i>
                 </button>
             </div>
@@ -57,6 +57,12 @@ const Sidebar = ({handleSideClick, sideActive}) => {
                 <div className='content-link'>
                     <i className='bx bxs-package'></i>
                     <span>Products</span>
+                </div>
+            </div>
+            <div className={`nav-link-dash ${location.pathname === "/dashboard/reviews" ? "active" : ""} d-${roleUser === "admin" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/reviews'}>
+                <div className='content-link'>
+                    <i className='bi bi-star-fill'></i>
+                    <span>Reviews</span>
                 </div>
             </div>
             <div className={`nav-link-dash ${location.pathname === "/dashboard/blogs" ? "active" : ""} d-${roleUser === "seller" ? "none" : "flex"} gap-3 align-items-center py-3`} onClick={() => window.location.href = '/dashboard/blogs'}>

@@ -12,17 +12,17 @@ const Footer = () => {
             </div>
             <p>Bring Nature Into Your Space</p>
             <div className="d-flex justify-content-center justify-content-md-start gap-3">
-              <a href="#" className="text-white">
+              <a href="#" className="text-white d-none">
                 <span className="iconify" data-icon="mdi:facebook"></span>
               </a>
-              <a href="#" className="text-white">
+              <a href="https://www.instagram.com/zerr.ace" className="text-white">
                 <span className="iconify" data-icon="mdi:instagram"></span>
               </a>
-              <a href="#" className="text-white">
+              <a href="#" className="text-white d-none">
                 <span className="iconify" data-icon="ic:baseline-tiktok"></span>
               </a>
-              <a href="#" className="text-white">
-                <span className="iconify" data-icon="mdi:twitter"></span>
+              <a href="https://wa.me/6287774487198" className="text-white">
+                <span className="iconify" data-icon="mdi:whatsapp"></span>
               </a>
             </div>
           </div>
@@ -40,12 +40,12 @@ const Footer = () => {
 
           {/* Help Section */}
           <div className="col-12 col-md-3">
-            <h3 className="">Help</h3>
+            <h3 className="">Information</h3>
             <ul className="list-unstyled">
               <li><a href="/about-us" className="text-white text-decoration-none">FAQ</a></li>
-              <li><a href="/about-us" className="text-white text-decoration-none">Support</a></li>
-              <li><a href="/about-us" className="text-white text-decoration-none">Refunds</a></li>
-              <li><a href="/about-us" className="text-white text-decoration-none">How To Shop</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">About Application</a></li>
+              <li><a href="/about-us" className="text-white text-decoration-none">Our Team</a></li>
+              {/* <li><a href="/about-us" className="text-white text-decoration-none">How To Shop</a></li> */}
             </ul>
           </div>
 
@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="mt-4 text-center">
           <hr className="border-white opacity-50" />
           <div className='d-flex justify-content-between'>  
-          <p>© 2024 Green House.</p>
+          <p>© 2025 Green House.</p>
           <p>All Rights Reserved.</p>
           </div>
         </div>

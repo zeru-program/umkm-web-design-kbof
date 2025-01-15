@@ -21,9 +21,13 @@ html {
   --font-color: #34495E;
 }
 button:hover {
-    background: var(--primary) !important;
+    /* background: var(--primary) !important; */
+  }
+  .btn.bg-transparent:hover {
+  background: var(--primary) !important;
 }
 .btn.border-primary:hover {
+  background: var(--primary) !important;
   color: var(--light) !important;
 }
 .btn.bg-primary:hover,
@@ -39,6 +43,10 @@ body {
   font-size: 18px;
   font-family: var(--satoshi);
   background: var(--light);
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* init font */
@@ -512,7 +520,7 @@ button {
 .accordion-button:hover,
 .accordion-button:focus,
 .accordion-button:active {
-  background: var(--light);
+  background: var(--primary);
   box-shadow: 0 0 0;
   color: var(--light);
 }
@@ -720,7 +728,7 @@ input[type="password"]::-ms-clear {
     80%{background-position:0%  50%, 50%  50%,100% 100%}
 }
 .info-box {
-  width: 350px;
+  width: 100%;
   height: 100px;
 }
 .info-box-icon {
@@ -755,13 +763,13 @@ input[type="checkbox"]:hover {
 .code-div {
   width: 35%;
 }
-.btn-close:hover {
-  color: var(--light) !important;
+.btn-close {
+  /* color: var(--primary) !important; */
+  /* background-color: red; */
 }
 .btn.btn-light:hover {
   background-color: rgba(249, 249, 250, .8) !important;
 }
-
 /* additional content */
 
 /* responsive */
@@ -1024,6 +1032,12 @@ input[type="checkbox"]:hover {
     width: 100%;
     padding-bottom: 50px;
   }
+  .contain-box {
+    flex-direction: column;
+  }
+  .list-unstyled li {
+    font-size: 14px !important;
+  }
 }
 
 /* size tablet */
@@ -1256,8 +1270,14 @@ input[type="checkbox"]:hover {
     margin-top: 50px;
     flex-direction: row;
   }
+  .wrapper-text-cta1 {
+    /* width: 50%; */
+    /* justify-content: space-between; */
+    /* align-items: space-beetwen; */
+  }
   .wrapper-text-cta1 div {
     width: 50%;
+    /* margin-left: -50px; */
   }
   .wrapper-img-cta1 {
     /* top: -150px; */
@@ -1296,7 +1316,7 @@ input[type="checkbox"]:hover {
     gap: 0;
   }
   .img-back-auth {
-    margin-bottom: 85px;
+    margin-bottom: 30px;
   }
   .align-left-desktop {
     text-align: left !important;

@@ -23,7 +23,7 @@ const SectionWelcoming = () => {
         <section className='w-100 d-flex flex-column align-items-center container section-aboutus'>
             <div className='contain-about-top container justify-content-center fa-centercode align-items-center w-100 my-5 pb-5'>
                 <div className="d-flex flex-column text-primary">
-                    <h1 className='text-primary' data-aos="fade-down">About Application</h1>
+                    <h2 className='text-primary' data-aos="fade-down">About Application</h2>
                     <p className="text-font-color" data-aos="fade-right" data-aos-delay="300">
                         Green House offers a seamless experience for buying, selling, and learning about ornamental plants. Here’s what makes us unique:
                     </p>
@@ -83,14 +83,14 @@ const AboutProfile = () => {
         <section className='w-100 py-3 container section-about-profile gap-2 align-items-center d-flex'>
             <div className='contain-about-profile d-flex gap-3 flex-wrap'>
                 <div className='card-profile' data-aos="zoom-in">
-                    <img src="/images/man3.jpg" className='img-card-profile' alt="" />
+                    <img src="/images/JUSTINE-TEAM.png" className='img-card-profile' alt="" />
                     <div className='position-absolute bottom-0 bg-primary py-3 w-100 text-center text-light'>
                         <h3>Justine</h3>
                         <span className='text-satoshi'>Student In SMKN 4 Bogor</span>
                     </div>
                 </div>
                 <div className='card-profile' data-aos="zoom-in" data-aos-delay="500">
-                    <img src="/images/man3.jpg" className='img-card-profile' alt="" />
+                    <img src="/images/FARHAN-TEAM.jpg" className='img-card-profile' alt="" />
                     <div className='position-absolute bottom-0 bg-primary py-3 w-100 text-center text-light'>
                         <h3>Farhan</h3>
                         <span className='text-satoshi'>Student In SMKN 4 Bogor</span>
@@ -98,7 +98,7 @@ const AboutProfile = () => {
                 </div>
             </div>
             <div className='contain-about-text pi30 d-flex flex-column'>
-                <h1 className='text-primary' data-aos="fade-left">About Us</h1>
+                <h2 className='text-primary' data-aos="fade-left">About Us</h2>
                 <p data-aos="fade-left" data-aos-delay="300">Founded with a passion for plants and technology, Green House empowers sellers and plant lovers through innovation.</p>
                 <div>
                     <button className='btn bg-primary text-light' data-aos="fade-left" data-aos-delay="500" onClick={() => window.location.href = "/contact-us"}>Go To Contact Us</button>
@@ -112,7 +112,7 @@ const Faq = () => {
     return (
         <section className='w-100 mt-5 pi30 section-faq d-flex flex-wrap align-items-center container section py-3'>
             <div className='d-flex flex-column justify-content-center'>
-                <h1 className='text-primary' data-aos="fade-right">Question & Answers</h1>
+                <h2 className='text-primary' data-aos="fade-right">Question & Answers</h2>
                 <p data-aos="fade-right" data-aos-delay="300">Your queries about Green House answered in one place for an easy start!</p>
                 <div data-aos="fade-right" data-aos-delay="500">
                     <button className='btn bg-primary text-light' onClick={() => window.location.href = '/contact-us'}>Go To Contact Us</button>

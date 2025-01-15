@@ -291,7 +291,7 @@ const CardCheckout = ({ find, findPromo }) => {
             </div>
           </div>
           <div className="mb-3 w-100">
-            <label>Payment</label>
+            <label className="fw-normal mt-2">Payment</label>
               <Select
                 options={paymentOpt}
                 className="w-auto"

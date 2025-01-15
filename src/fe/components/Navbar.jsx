@@ -168,7 +168,7 @@ const Navbar = ({ isHide }) => {
                 {/* <a href="/">
                   <span className="iconify text-primary icon-complementary" data-icon="mdi:bell"></span>
                 </a> */}
-                <div className="d-flex align-items-center gap-2">
+                <div className="d-flex align-items-center gap-3">
                     {/* <span className="iconify text-primary icon-complementary" data-icon="mdi:person"></span> */}
                     {isLoggedIn && isAdminOrDev ? (
                       <>
@@ -214,7 +214,7 @@ const Navbar = ({ isHide }) => {
                               <li><a className="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
                             </ul>
                           </div>
-                            ) : (<span className="text-nowrap">Sign</span>) 
+                            ) : (<span className="text-nowrap" onClick={() => window.location.href = "/auth/sign-in"} style={{cursor: "pointer"}}>Sign</span>) 
                           }
                         </>
                       )}

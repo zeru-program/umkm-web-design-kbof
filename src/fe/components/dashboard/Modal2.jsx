@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const Modal2 = ({modalName, modalLable, modalContent, modalTitle, modalConfirmClicked, cancelButton = true, confirmButton = true, isDisabled = false, modalConfirmText, customClass, handleSubmitForm}) => {
   return (
     <form className='' onSubmit={handleSubmitForm}>
-      <div className={`modal fade text-satoshi ${customClass}`} id={modalName} tabIndex={-1} aria-labelledby={modalLable} aria-hidden="true">
+      <div className={`modal fade text-satoshi h-auto ${customClass}`} id={modalName} tabIndex={-1} aria-labelledby={modalLable} aria-hidden="true">
       <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
           <div className="modal-header">

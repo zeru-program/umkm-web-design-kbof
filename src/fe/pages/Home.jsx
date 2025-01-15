@@ -97,7 +97,7 @@ const CtaSection1 = () => {
   return (
       <>
     <section className="section section-cta1 pi30 bg-primary">
-      <div className="d-flex flex-column wrapper-text-cta1 text-light container  position-relative">
+      <div className="d-flex flex-column wrapper-text-cta1 text-light container position-relative">
         <div className="" style={{paddingRight: "50px"}}>
           <h1 data-aos="fade-right" >Elevate Your Space with the Beauty of Stunning Plants!</h1>
           <p data-aos="fade-right" data-aos-delay="300">
@@ -125,7 +125,7 @@ const CtaSection2 = () => {
         <img src="/images/woman1.jpg" alt="" data-aos="zoom-in" data-aos-delay="500" />
       </div>
       <div className="text-center container-main w-100 d-flex flex-column mt-5 align-items-center">
-        <h1 data-aos="fade-up">Unlock the Secrets to Thriving Plants!</h1>
+        <h1 data-aos="fade-up" className="text-font-color">Unlock the Secrets to Thriving Plants!</h1>
         <p data-aos="fade-up" data-aos-delay="300">
           Learn the best care techniques and plant care hacks in our Education section. Elevate your skills and let your plants flourish like never before!
         </p>

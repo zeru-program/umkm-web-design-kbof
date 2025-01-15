@@ -11,7 +11,7 @@ const GetInTouch = () => {
       </div>
       <div className="d-flex flex-wrap align-items-center gap-3 contain-touch">
         <div className="d-flex flex-column">
-          <h2 className="text-primary" data-aos="fade-up" data-aos-delay="300">Get In Touch</h2>
+        <h2 className="text-primary" data-aos="fade-up" data-aos-delay="300">Get In Touch</h2>
           <p className="" data-aos="fade-up" data-aos-delay="500">
           Green House bridges ornamental plant sellers in Bogor with plant lovers across Indonesia, making buying and selling plants effortless and enjoyable
           </p>
@@ -53,9 +53,56 @@ const GetInTouch = () => {
           />
         </div>
       </div>
+      <SendUsMessage />
     </section>
   );
 };
+
+const SendUsMessage = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(e.target[0].value)
+    const text = `
+    Hi Justine, I'm ${e.target[0].value} My Email ${e.target[1].value}, I will contact you with the title is ${e.target[2].value}, My Message is ${e.target[3].value}
+    `;
+    const numberOwner = "6287774487198"
+    const apiWa = "https://wa.me/" + numberOwner + "?text=" + text
+    window.open(apiWa, "_blank")
+  }
+  return (
+    <section className="w-100 container mt-5">
+      <h2  className="text-font-color text-center" data-aos="fade-up">Send Us a Message</h2  >
+      <p className="text-font-color pb-4 text-center" data-aos="fade-up">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae quaerat laboriosam repellat dicta quis at?</p>
+      <form className="d-flex flex-column text-satoshi" data-aos="fade-up" onSubmit={(e) => handleSubmit(e)}>
+        <div className="row mb-3">
+          <div className="col-6">
+            <label>Name</label>
+            <input type="text" className="form-control bg-transparent border-primary text-satoshi" required placeholder="Enter full name.." />
+          </div>
+          <div className="col-6">
+            <label>Email</label>
+            <input type="email" className="form-control bg-transparent border-primary text-satoshi" required placeholder="Enter Your Email Address.." />
+          </div>
+        </div>
+        <div className="row mb-3">
+          <div className="col-12">
+            <label>Subject</label>
+            <input type="text" className="form-control bg-transparent border-primary text-satoshi" required placeholder="Enter the subject of your message.." />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <label>Message</label>
+            <textarea className="form-control bg-transparent border-primary text-satoshi" rows={5} required placeholder="Enter your message Here.." />
+          </div>
+        </div>
+        <div className="mt-4">
+          <button className="btn bg-primary text-light">Send Message</button>
+        </div>
+      </form>
+    </section>
+  )
+}
 
 const ContactUs = () => {
   useEffect(() => {

@@ -51,8 +51,7 @@ const SectionWelcoming = ({searchBlogs, setSearchBlogs, filter, setFilter}) => {
       <div className="d-flex w-title-products flex-column align-items-center">
         <h2 className="text-font-color" data-aos="zoom-in">Educations</h2>
         <p className="text-satoshi text-center" data-aos="zoom-in" data-aos-delay="300">
-          Discover our curated selection of aesthetic houseplants to transform
-          your home into a vibrant.
+        Explore our curated articles on aesthetic houseplants to transform your home into a vibrant and lively space
         </p>
         <div className="w-100 position-relative">
           <input

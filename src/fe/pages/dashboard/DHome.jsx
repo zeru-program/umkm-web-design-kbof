@@ -28,20 +28,23 @@ const Report = () => {
     <section>
       <BoxDash title={"Recap Data"} content={<>
         <div className="d-flex flex-wrap gap-2 mt-3">
-          <div className="info-box" onClick={() => window.location.href = "/dashboard/orders"} style={{cursor: "pointer"}}>
-            <span className="info-box-icon bg-primary"><i className="fas fa-shopping-cart" /></span>
-            <div className="info-box-content">
-              <span className="info-box-text">Recap Orders</span>
-              <span className="info-box-number">{dataOrders.length || 'loading..'}</span>
+          <div className="d-flex w-100 contain-box gap-3">
+            <div className="info-box" onClick={() => window.location.href = "/dashboard/orders"} style={{cursor: "pointer"}}>
+              <span className="info-box-icon bg-primary"><i className="fas fa-shopping-cart" /></span>
+              <div className="info-box-content">
+                <span className="info-box-text">Recap Orders</span>
+                <span className="info-box-number">{dataOrders.length || 'loading..'}</span>
+              </div>
+            </div>
+            <div className="info-box" onClick={() => window.location.href = "/dashboard/products"} style={{cursor: "pointer"}}>
+              <span className="info-box-icon bg-info"><i className="fas fa-box" /></span>
+              <div className="info-box-content">
+                <span className="info-box-text">Recap Products</span>
+                <span className="info-box-number">{dataProducts.length || "loading.."}</span>
+              </div>
             </div>
           </div>
-          <div className="info-box" onClick={() => window.location.href = "/dashboard/products"} style={{cursor: "pointer"}}>
-            <span className="info-box-icon bg-info"><i className="fas fa-box" /></span>
-            <div className="info-box-content">
-              <span className="info-box-text">Recap Products</span>
-              <span className="info-box-number">{dataProducts.length || "loading.."}</span>
-            </div>
-          </div>
+          <div className="d-flex w-100 contain-box gap-3">
           <div className="info-box" onClick={() => window.location.href = "/dashboard/products"} style={{cursor: "pointer"}}>
             <span className="info-box-icon bg-warning"><i className="fas fa-ticket text-light" /></span>
             <div className="info-box-content">
@@ -55,6 +58,7 @@ const Report = () => {
               <span className="info-box-text">Recap Blog</span>
               <span className="info-box-number">{dataBlogs.length}</span>
             </div>
+          </div>
           </div>
         </div>
         </>} />

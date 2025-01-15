@@ -27,7 +27,7 @@ const OrdersChart = () => {
   const { dataOrders } = OrdersGet();
   // sorting data by month
   const filteredData = dataOrders.filter(
-    (item) => dayjs(item.created_at).year() === 2024
+    (item) => dayjs(item.created_at).year() === 2025
   );
 
   // Hitung jumlah data per bulan
@@ -78,7 +78,7 @@ const OrdersChart = () => {
       },
       title: {
         display: true,
-        text: "Monthly Orders Data (2024)",
+        text: "Monthly Orders Data (2025)",
       },
     },
   };

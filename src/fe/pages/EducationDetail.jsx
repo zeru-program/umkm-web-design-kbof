@@ -26,9 +26,14 @@ const Detail = ({find, findAuthor}) => {
           <img src={findAuthor && findAuthor.img ? findAuthor.img : "/images/man1.jpg"} style={{objectFit: "cover"}} alt="" />
           <span>{findAuthor ? findAuthor.username : "Unknown"}</span>
         </div>
-        <div className="mt-4" data-aos="fade-right" data-aos-delay="500">
+        <div className="mt-4 text-satoshi" data-aos="fade-right" data-aos-delay="500">
            <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}>
             </div>
+        </div>
+        <div className="mt-4">
+          <button className="btn bg-primary text-light">
+            <i className="bi-share-fill px-2"></i>  Share Link
+          </button>
         </div>
       </div>
     </section>
@@ -45,7 +50,7 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
 
       // paginasi
       const [currentPage, setCurrentPage] = useState(1);
-      const itemsPerPage = 10;
+      const itemsPerPage = 3;
       const indexOfLastItem = currentPage * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
       const [currentItems, setCurrentItems] = useState([])
@@ -126,6 +131,42 @@ const Recomendation = ({dataBlogs, find, loadBlogs}) => {
             </>
         )}
       </div>
+      
+      <nav aria-label="Page navigation example" className="mt-5">
+        <p className="text-center">
+          Showing {totalPages} page of {totalDatas} Datas.
+        </p>
+
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <button className="page-link" onClick={handlePrevPage}>
+              Previous
+            </button>
+          </li>
+         {/* {Array.from({ length: totalPages }, (_, i) => (
+            <li
+              key={i}
+              className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))} */}
+          <li
+            className={`page-item ${
+              currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            <button className="page-link" onClick={handleNextPage}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </section>
   );
 };

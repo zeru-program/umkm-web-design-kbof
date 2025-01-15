@@ -29,7 +29,7 @@ const ProductsChart = () => {
   const { dataProducts } = ProductsGet();
   // sorting data by month
   const filteredData = dataProducts.filter(
-    (item) => dayjs(item.created_at).year() === 2025
+    (item) => dayjs(item.created_at).year() === 2024
   );
 
   // Hitung jumlah data per bulan

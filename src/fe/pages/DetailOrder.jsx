@@ -198,6 +198,14 @@ const OrderDetail = () => {
         });
         sessionStorage.removeItem("first_pay"); 
       }
+
+      if (sessionStorage.getItem('success')) {
+        Toast.fire({
+          icon: "success",
+          title: sessionStorage.getItem('success'),
+        });
+        sessionStorage.removeItem("success");
+    }
     }
   }, [dataOrders, dataProducts, idO]);
   
