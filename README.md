@@ -34,11 +34,13 @@ GreenHouse bertujuan untuk:
 
 ## **Teknologi yang Digunakan**
 - **Frontend:** React.js
-- **Backend:** Node.js dan Firebase
-- **Database:** Firestore
+- **Backend:** Node.js Dan Express.js
+- **Styling:** Bootstrap 5
+- **Database:** Firebase
 - **Integrasi AI:** Gemini
 
 ## **Cara Menggunakan Aplikasi**
+1. **Jelajahi Landing Pages:** Jelajahi applikasi kami mulai dari halaman Home, Plants, Education, About Us, Contact Us.
 1. **Daftar Akun:** Buat akun sebagai pembeli atau penjual.
 2. **Jelajahi:** Telusuri marketplace tanaman atau baca konten edukasi.
 3. **Belanja atau Jual:** Beli tanaman atau unggah produk Anda untuk dijual.
@@ -55,6 +57,8 @@ GreenHouse bertujuan untuk:
 Kunjungi [GreenHouse](https://greenhousez.web.app/) dan bergabunglah dengan komunitas pecinta tanaman yang terus berkembang. Baik Anda seorang pembeli, penjual, atau hanya pecinta tanaman, GreenHouse memiliki sesuatu untuk semua orang!
 
 ---
-**Author:** Justine dan Muhammad Farhan Abdullah
+## **Author**
+ - Justine - Student SMKN 4 BOGOR
+ - Muhammad Farhan Abdullah - Student SMKN 4 BOGOR
 
 
