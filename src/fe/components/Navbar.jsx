@@ -34,7 +34,7 @@ const searchStyles = {
 const isLoggedIn = sessionStorage.getItem('isLogin');
 const role = sessionStorage.getItem('role');
 const username = sessionStorage.getItem('username');
-const isAdminOrDev = role === 'admin' || role === 'developer';
+const isAdminOrDev = role === 'admin' || role === 'administrator' || role === 'developer';
 
 const DropdownIndicator = (props) => {
   return (
